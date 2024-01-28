@@ -528,6 +528,60 @@ export interface paths {
     /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
     options: operations["OPTIONSapi_PhoneNumbers_SetContext_id"];
   };
+  "/api/Categories": {
+    /** Queryable GET endpoint */
+    get: operations["GETapi_Categories"];
+    /** POST endpoint. Use this to add a record */
+    post: operations["POSTapi_Categories"];
+  };
+  "/api/Categories/{id}": {
+    /** GET endpoint to get a single record */
+    get: operations["GETapi_Categories_id"];
+    /** PUT endpoint. Use this to update a record */
+    put: operations["PUTapi_Categories_id"];
+    /** DELETE endpoint. To delete the record */
+    delete: operations["DELETEapi_Categories_id"];
+    /** PATCH endpoint. Use this to update a subset of the properties of the record */
+    patch: operations["PATCHapi_Categories_id"];
+  };
+  "/api/Categories/AttributeValue/{id}": {
+    /** POST an attribute value. Use this to set an attribute value for the record */
+    post: operations["POSTapi_Categories_AttributeValue_idattributeKeyattributeKeyattributeValueattributeValue"];
+    /** DELETE to delete the specified attribute value for the record */
+    delete: operations["DELETEapi_Categories_AttributeValue_idattributeKeyattributeKey"];
+  };
+  "/api/Categories/DataView/{id}": {
+    /** Gets a list of objects represented by the selected data view */
+    get: operations["GETapi_Categories_DataView_id"];
+  };
+  "/api/Categories/FollowedItems": {
+    get: operations["GETapi_Categories_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId"];
+  };
+  "/api/Categories/GetByAttributeValue": {
+    get: operations["GETapi_Categories_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive"];
+  };
+  "/api/Categories/GetChildren/{id}": {
+    /** Gets the children. */
+    get: operations["GETapi_Categories_GetChildren_idrootCategoryIdrootCategoryIdgetCategorizedItemsgetCategorizedItemsentityTypeIdentityTypeIdentityQualifierentityQualifierentityQualifierValueentityQualifierValueshowUnnamedEntityItemsshowUnnamedEntityItemsshowCategoriesThatHaveNoChildrenshowCategoriesThatHaveNoChildrenincludedCategoryIdsincludedCategoryIdsexcludedCategoryIdsexcludedCategoryIdsdefaultIconCssClassdefaultIconCssClassincludeInactiveItemsincludeInactiveItemsitemFilterPropertyNameitemFilterPropertyNameitemFilterPropertyValueitemFilterPropertyValuelazyLoadlazyLoad"];
+  };
+  "/api/Categories/GetMetricChildren/{id}": {
+    /** For use specifically with metrics.  Gets the children and substitutes the Metric.Id instead of the MetricCategory.Id. */
+    get: operations["GETapi_Categories_GetMetricChildren_idincludedCategoryIdsincludedCategoryIds"];
+  };
+  "/api/Categories/InDataView/{dataViewId}/{entityId}": {
+    /** Determines if the entity id is in the data view */
+    get: operations["GETapi_Categories_InDataView_dataViewId_entityId"];
+  };
+  "/api/Categories/LaunchWorkflow/{id}": {
+    /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
+    post: operations["POSTapi_Categories_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName"];
+  };
+  "/api/Categories/SetContext/{id}": {
+    /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+    put: operations["PUTapi_Categories_SetContext_id"];
+    /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+    options: operations["OPTIONSapi_Categories_SetContext_id"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -625,7 +679,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "fc78a35c-f2a0-4b1b-808e-7b4b0e6f4c6e"
+     *   "Guid": "3b79225e-88ae-4293-b2ff-cf321366ab94"
      * }
      */
     "Rock.Model.Attribute": {
@@ -699,7 +753,7 @@ export interface components {
      *   "AttributeId": 0,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "59c4e17c-5626-466e-8b37-ca43f5f35c92"
+     *   "Guid": "0a426d1e-fe59-4296-a889-52d07e8bf173"
      * }
      */
     "Rock.Model.AttributeQualifier": {
@@ -726,7 +780,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2f57febb-e7f0-4ae7-a68c-5044393be89c"
+     *   "Guid": "5ba72fc7-da04-48e5-bc5f-881817d22809"
      * }
      */
     "Rock.Model.BinaryFile": {
@@ -794,7 +848,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "47798e8f-5a01-45e5-a86d-e91da57fa6b8"
+     *   "Guid": "41b3cffd-e627-4c83-9100-11693ef0a3e3"
      * }
      */
     "Rock.Model.BinaryFileType": {
@@ -856,7 +910,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "0f5fe737-ed99-41cf-8329-87347156caa0"
+     *   "Guid": "827ec68f-c8a4-482c-a0a2-39d5f71c0a81"
      * }
      */
     "Rock.Model.Campus": {
@@ -922,7 +976,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e4957200-4f53-46d4-b8d1-20c6ef1c6784"
+     *   "Guid": "106173e7-3a77-43b0-8cbc-d472b1c23856"
      * }
      */
     "Rock.Model.CampusSchedule": {
@@ -969,7 +1023,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5a0cbf24-6002-4f7c-8442-fe023a2948eb"
+     *   "Guid": "04dc6fba-97a1-41bf-b41b-0c9f42db2623"
      * }
      */
     "Rock.Model.CampusTopic": {
@@ -1013,7 +1067,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "0870645f-6194-4426-92cf-11a34d516666"
+     *   "Guid": "00db0283-68e4-49ba-907f-c2c85c43ce81"
      * }
      */
     "Rock.Model.Category": {
@@ -1066,7 +1120,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "90ad17d8-69f8-40ca-8163-b9792688d7c2"
+     *   "Guid": "e4ac88fc-0a9a-4d72-9873-c81fbbde92a9"
      * }
      */
     "Rock.Model.DataView": {
@@ -1135,7 +1189,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a424eef5-c792-4d21-950c-b4bbb897485f"
+     *   "Guid": "607b9f1d-ad2e-4a01-8ff1-2092394be924"
      * }
      */
     "Rock.Model.DataViewFilter": {
@@ -1188,7 +1242,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "cbc97463-0a0b-423b-9731-50f7abc8b292"
+     *   "Guid": "7c163d30-079d-464b-968c-b2ba566e0d4b"
      * }
      */
     "Rock.Model.DefinedValue": {
@@ -1239,7 +1293,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "59279091-6a1f-4af8-8746-4be3e9f53bc8"
+     *   "Guid": "a2efc124-e33f-4fb9-99ab-b968c6c5c159"
      * }
      */
     "Rock.Model.Device": {
@@ -1297,7 +1351,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2227912b-8145-4d91-99f8-f2bf5ebf9072"
+     *   "Guid": "e8dcc71b-deed-4220-a102-da1bec390eda"
      * }
      */
     "Rock.Model.Document": {
@@ -1347,7 +1401,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ef6080fa-73ad-4ac0-a7d3-932f847646ae"
+     *   "Guid": "b8325ca8-8686-4c53-96d7-8f7aea52b82c"
      * }
      */
     "Rock.Model.DocumentType": {
@@ -1407,7 +1461,7 @@ export interface components {
      *   "AttributesSupportShowOnBulk": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "7eef8d00-b67a-4303-8e29-533547ffaf76"
+     *   "Guid": "3400678b-3c1b-4586-a90b-ee1e39beef44"
      * }
      */
     "Rock.Model.EntityType": {
@@ -1443,7 +1497,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2124fbd8-ccac-4200-ac16-b50cfc7f1323"
+     *   "Guid": "b95cb230-4919-47fc-bd35-1092209b0742"
      * }
      */
     "Rock.Model.FieldType": {
@@ -1499,7 +1553,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "90150266-a3f4-42f1-b124-29c8b4011c25"
+     *   "Guid": "853d815b-2b36-4c7a-a9fa-b40312d7f786"
      * }
      */
     "Rock.Model.Group": {
@@ -1611,7 +1665,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a1bfbd94-f161-4739-b95c-b79a06997f4b"
+     *   "Guid": "bc13b1b4-fe52-4698-adbd-ec195964fc7b"
      * }
      */
     "Rock.Model.GroupLocation": {
@@ -1690,7 +1744,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "f467f2f8-b09b-4cd7-9cda-914cd31cc860"
+     *   "Guid": "00834ec9-c970-4ee7-9c8e-7a16188f2615"
      * }
      */
     "Rock.Model.GroupMember": {
@@ -1766,7 +1820,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2b1c6485-ce98-4637-8451-00b94fa239e6"
+     *   "Guid": "a5ee6a53-ff6d-45df-b27e-406938e7a1d7"
      * }
      */
     "Rock.Model.GroupMemberAssignment": {
@@ -1815,7 +1869,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "bac296d5-0bda-4e27-a0b9-ca4a00274c75"
+     *   "Guid": "668e4c28-083f-4d00-af5b-10da4e395384"
      * }
      */
     "Rock.Model.GroupMemberRequirement": {
@@ -1879,7 +1933,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "303d1037-87f6-4926-8ec7-7f53609dd031"
+     *   "Guid": "28035e9a-3473-4dca-9128-1d42eb0bebc4"
      * }
      */
     "Rock.Model.GroupMemberScheduleTemplate": {
@@ -1925,7 +1979,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "8d7c89aa-45f2-497f-b632-a76081ff5627"
+     *   "Guid": "6f4306a8-8f3d-4e7f-ab69-300cd742663c"
      * }
      */
     "Rock.Model.GroupRequirement": {
@@ -1985,7 +2039,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "aee1e580-a6cd-406f-b7d8-c08e22c7110b"
+     *   "Guid": "febeb558-9829-4faf-a1b9-568e0cde37cc"
      * }
      */
     "Rock.Model.GroupRequirementType": {
@@ -2060,7 +2114,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "db416a60-337e-45f3-9c6f-a10db2f53feb"
+     *   "Guid": "5b9a3506-1e9e-4524-baea-642692fe3f32"
      * }
      */
     "Rock.Model.GroupSync": {
@@ -2160,7 +2214,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "29879cf4-8277-4ec6-8673-baff7abbba41"
+     *   "Guid": "e15ae4c0-f72e-408b-a6b9-23a55912498b"
      * }
      */
     "Rock.Model.GroupType": {
@@ -2292,7 +2346,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "439f099b-bf93-4dbe-9aad-b95425a33ef5"
+     *   "Guid": "c8fa1d16-1593-4229-baab-032c0b8b3210"
      * }
      */
     "Rock.Model.GroupTypeRole": {
@@ -2347,7 +2401,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ab7b12cd-6816-4212-8dc2-e2ab9126dd8c"
+     *   "Guid": "96b2f25c-2ff5-4b9d-b05a-a6475bdb90d0"
      * }
      */
     "Rock.Model.Location": {
@@ -2467,7 +2521,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "33aa2203-6052-40f5-8d76-d9b077858863"
+     *   "Guid": "038be260-333c-42be-8702-5eb91a7fb332"
      * }
      */
     "Rock.Model.Person": {
@@ -2621,7 +2675,7 @@ export interface components {
      *   "PersonId": 0,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "64720d67-5393-4b40-bf33-ca72617a43a9"
+     *   "Guid": "29fb5b79-c295-4d1d-9b0f-c553f304dd78"
      * }
      */
     "Rock.Model.PersonAlias": {
@@ -2655,7 +2709,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "1393c7ce-c6e8-4000-9d24-281f0fe60e8b"
+     *   "Guid": "38382e37-0dfd-40d3-9237-c46a4734ab57"
      * }
      */
     "Rock.Model.PhoneNumber": {
@@ -2711,7 +2765,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a95caaf6-fa54-40dd-9487-c1defadb113e"
+     *   "Guid": "e6660d76-ef17-407a-b4fb-3eb5f0007ab3"
      * }
      */
     "Rock.Model.Schedule": {
@@ -2772,7 +2826,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "6b6c82da-0937-4dc8-b6f1-ced92f11d9f0"
+     *   "Guid": "3c7251fe-d30f-43dc-8650-3bf10deda222"
      * }
      */
     "Rock.Model.SignatureDocumentTemplate": {
@@ -2831,7 +2885,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "73e6f3f2-1536-4d87-b463-4a581f007cb1"
+     *   "Guid": "7f6c9f6f-c2b9-4748-b296-b3cc55894767"
      * }
      */
     "Rock.Model.SystemCommunication": {
@@ -2897,7 +2951,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "dd4cb34d-6e05-441d-a129-7db1cf41b081"
+     *   "Guid": "cbaa485c-493d-4549-a4b6-85743ba6c88c"
      * }
      */
     "Rock.Model.UserLogin": {
@@ -2974,7 +3028,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "51af12b7-35b3-4220-9cf5-7f9eca52ec18"
+     *   "Guid": "1b33ec07-d110-4424-b411-bbbcedfb30f3"
      * }
      */
     "Rock.Model.WorkflowActionForm": {
@@ -3079,7 +3133,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "02e09f10-e656-48b7-a05a-898f6b9379a2"
+     *   "Guid": "f42132d5-e7b8-4aeb-aa62-600ea8940a2b"
      * }
      */
     "Rock.Model.WorkflowActionFormAttribute": {
@@ -3135,7 +3189,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e9ab89af-90d5-4279-bdc8-056a0b137d8c"
+     *   "Guid": "9be381f3-1d72-4dea-b53d-7fd69e0d0aac"
      * }
      */
     "Rock.Model.WorkflowActionFormSection": {
@@ -3187,7 +3241,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "6ca201e2-17d6-47ed-9f00-8eb4dd785b14"
+     *   "Guid": "906a8c41-4a0e-40e7-8f47-0dfe3d49283e"
      * }
      */
     "Rock.Model.WorkflowActionType": {
@@ -3244,7 +3298,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "50965b3b-f29b-4ab8-8361-100163e710fe"
+     *   "Guid": "2c36754f-f1e4-4c15-b6fe-758f670a5a84"
      * }
      */
     "Rock.Model.WorkflowActivityType": {
@@ -3291,7 +3345,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "02c9c5db-7ce5-4c80-b3a4-afea26ada3c2"
+     *   "Guid": "e4fd86b4-659b-4240-8997-078de8143681"
      * }
      */
     "Rock.Model.WorkflowFormBuilderTemplate": {
@@ -3344,7 +3398,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e3b40b62-fe06-4bfc-aaa5-f64efcf3def8"
+     *   "Guid": "51147317-92f2-41e9-9bf4-1e91293c7de7"
      * }
      */
     "Rock.Model.WorkflowType": {
@@ -3923,7 +3977,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "45f5e9fe-bca8-414b-aa55-9f36f6ea2190"
+     *   "Guid": "58d1907f-1b75-46a2-988f-ec1c5eb72fc9"
      * }
      */
     "Rock.Model.DefinedType": {
@@ -3968,6 +4022,19 @@ export interface components {
       /** Format: uuid */
       ForeignGuid?: string;
       ForeignKey?: string;
+    };
+    "Rock.Rest.Controllers.CategoryItem": {
+      /** @description Gets or sets a value indicating whether this instance is category. */
+      IsCategory?: boolean;
+      Id?: string;
+      Name?: string;
+      HasChildren?: boolean;
+      IconCssClass?: string;
+      IconSmallUrl?: string;
+      IsActive?: boolean;
+      /** Format: int32 */
+      CountInfo?: number;
+      Children?: components["schemas"]["Rock.Web.UI.Controls.TreeViewItem"][];
     };
   };
   responses: never;
@@ -7650,6 +7717,456 @@ export interface operations {
   };
   /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
   OPTIONSapi_PhoneNumbers_SetContext_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Queryable GET endpoint */
+  GETapi_Categories: {
+    parameters: {
+      query?: {
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Category"][];
+        };
+      };
+    };
+  };
+  /** POST endpoint. Use this to add a record */
+  POSTapi_Categories: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.Category"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** GET endpoint to get a single record */
+  GETapi_Categories_id: {
+    parameters: {
+      query?: {
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+      path: {
+        /** @description The Id of the record */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Category"];
+        };
+      };
+    };
+  };
+  /** PUT endpoint. Use this to update a record */
+  PUTapi_Categories_id: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.Category"];
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** DELETE endpoint. To delete the record */
+  DELETEapi_Categories_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** PATCH endpoint. Use this to update a subset of the properties of the record */
+  PATCHapi_Categories_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    /** @description The values. */
+    requestBody: {
+      content: {
+        "application/json": {
+          [key: string]: Record<string, never>;
+        };
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** POST an attribute value. Use this to set an attribute value for the record */
+  POSTapi_Categories_AttributeValue_idattributeKeyattributeKeyattributeValueattributeValue: {
+    parameters: {
+      query: {
+        /** @description The attribute key. */
+        attributeKey: string;
+        /** @description The attribute value. */
+        attributeValue: string;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** DELETE to delete the specified attribute value for the record */
+  DELETEapi_Categories_AttributeValue_idattributeKeyattributeKey: {
+    parameters: {
+      query: {
+        /** @description The attribute key. */
+        attributeKey: string;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Gets a list of objects represented by the selected data view */
+  GETapi_Categories_DataView_id: {
+    parameters: {
+      query?: {
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+      path: {
+        /** @description The id. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Category"][];
+        };
+      };
+    };
+  };
+  GETapi_Categories_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId: {
+    parameters: {
+      query?: {
+        personId?: number;
+        personAliasId?: number;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Category"][];
+        };
+      };
+    };
+  };
+  GETapi_Categories_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive: {
+    parameters: {
+      query?: {
+        attributeId?: number;
+        attributeKey?: string;
+        value?: string;
+        caseSensitive?: boolean;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Category"][];
+        };
+      };
+    };
+  };
+  /** Gets the children. */
+  GETapi_Categories_GetChildren_idrootCategoryIdrootCategoryIdgetCategorizedItemsgetCategorizedItemsentityTypeIdentityTypeIdentityQualifierentityQualifierentityQualifierValueentityQualifierValueshowUnnamedEntityItemsshowUnnamedEntityItemsshowCategoriesThatHaveNoChildrenshowCategoriesThatHaveNoChildrenincludedCategoryIdsincludedCategoryIdsexcludedCategoryIdsexcludedCategoryIdsdefaultIconCssClassdefaultIconCssClassincludeInactiveItemsincludeInactiveItemsitemFilterPropertyNameitemFilterPropertyNameitemFilterPropertyValueitemFilterPropertyValuelazyLoadlazyLoad: {
+    parameters: {
+      query?: {
+        /** @description The root category identifier. */
+        rootCategoryId?: number;
+        /** @description if set to true [get categorized items]. */
+        getCategorizedItems?: boolean;
+        /** @description The entity type for the Categorys */
+        entityTypeId?: number;
+        /** @description The entity qualifier. */
+        entityQualifier?: string;
+        /** @description The entity qualifier value. */
+        entityQualifierValue?: string;
+        /** @description if set to true [show unnamed entity items]. */
+        showUnnamedEntityItems?: boolean;
+        /** @description if set to true [show categories that have no children]. */
+        showCategoriesThatHaveNoChildren?: boolean;
+        /** @description The included category ids. */
+        includedCategoryIds?: string;
+        /** @description The excluded category ids. */
+        excludedCategoryIds?: string;
+        /** @description The default icon CSS class. */
+        defaultIconCssClass?: string;
+        /** @description if set to true [include inactive items]. */
+        includeInactiveItems?: boolean;
+        /** @description (Advanced) Property to FilterBy on the Item Query */
+        itemFilterPropertyName?: string;
+        /** @description (Advanced) Property Value to FilterBy on the Item Query */
+        itemFilterPropertyValue?: string;
+        /** @description If true then get the data for each tree node as it is selected, otherwise get the entire tree. */
+        lazyLoad?: boolean;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Rest.Controllers.CategoryItem"][];
+        };
+      };
+    };
+  };
+  /** For use specifically with metrics.  Gets the children and substitutes the Metric.Id instead of the MetricCategory.Id. */
+  GETapi_Categories_GetMetricChildren_idincludedCategoryIdsincludedCategoryIds: {
+    parameters: {
+      query?: {
+        /** @description The included category ids. */
+        includedCategoryIds?: string;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Rest.Controllers.CategoryItem"][];
+        };
+      };
+    };
+  };
+  /** Determines if the entity id is in the data view */
+  GETapi_Categories_InDataView_dataViewId_entityId: {
+    parameters: {
+      path: {
+        /** @description The data view identifier. */
+        dataViewId: number;
+        /** @description The entity identifier. */
+        entityId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": boolean;
+        };
+      };
+    };
+  };
+  /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
+  POSTapi_Categories_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName: {
+    parameters: {
+      query: {
+        /** @description The workflow type identifier. */
+        workflowTypeId: number;
+        /** @description Name of the workflow. */
+        workflowName: string;
+      };
+      path: {
+        /** @description The Id of the entity to pass to workflow, if entity cannot be loaded workflow will still be launched but without passing an entity */
+        id: number;
+      };
+    };
+    /** @description Optional list of workflow values to set. */
+    requestBody: {
+      content: {
+        "application/json": {
+          [key: string]: string;
+        };
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+  PUTapi_Categories_SetContext_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+  OPTIONSapi_Categories_SetContext_id: {
     parameters: {
       path: {
         /** @description The identifier. */
