@@ -18,6 +18,7 @@ interface ExtractFromFluroOptions {
   }
   multipleBody?: {
     appendAssignments?: boolean
+    appendContactDetail?: boolean
   }
 }
 
