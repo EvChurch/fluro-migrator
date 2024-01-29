@@ -18,7 +18,8 @@ async function downloadSchema(): Promise<void> {
     'DefinedTypes',
     'DefinedValues',
     'PhoneNumbers',
-    'Categories'
+    'Categories',
+    'EntityTypes'
   ]
   // const REST_CONTROLLER_NAMES = (await client.get(
   //   '/RestControllers/RestControllerNames?includeObsolete=false'
