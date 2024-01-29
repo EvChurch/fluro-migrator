@@ -5,7 +5,7 @@ import path from 'path'
 
 import colors from 'ansi-colors'
 import { SingleBar } from 'cli-progress'
-import { chunk, map, values } from 'lodash'
+import { chunk, map } from 'lodash'
 import { parse } from 'ts-command-line-args'
 
 import type { Cache, CacheObject } from './load/types'
