@@ -14,6 +14,21 @@ export function transform(
   _cache: Cache,
   value: FluroDefinitionTeam
 ): RockDefinitionTeam {
+  const GroupTypeRoles: RockDefinitionTeam['GroupTypeRoles'] =
+    value.data?.defaultPositions?.map((position) => ({
+      IsSystem: false,
+      Name: position.title,
+      IsLeader: position.reporter
+    })) ?? []
+
+  if (GroupTypeRoles.find(({ Name }) => Name == 'Member') == null) {
+    GroupTypeRoles.push({
+      IsSystem: false,
+      Name: 'Member',
+      IsLeader: false
+    })
+  }
+
   return {
     IsSystem: false,
     ForeignKey: value._id,
@@ -28,6 +43,7 @@ export function transform(
     Order: 0,
     cache: {
       definitionName: value.definitionName
-    }
+    },
+    GroupTypeRoles
   }
 }

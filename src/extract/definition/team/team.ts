@@ -1,7 +1,17 @@
 import { extractFromFluro } from '../../lib'
 import type { FluroDefinition } from '../types'
 
-export type FluroDefinitionTeam = FluroDefinition
+export interface FluroPosition {
+  expanded?: boolean
+  reporter?: boolean
+  shareDetails?: boolean
+  title: string
+  visible?: boolean
+}
+
+export type FluroDefinitionTeam = FluroDefinition<{
+  defaultPositions?: FluroPosition[]
+}>
 
 export const extract = extractFromFluro<FluroDefinitionTeam>({
   contentType: 'definition',

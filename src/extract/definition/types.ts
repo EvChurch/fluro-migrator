@@ -1,4 +1,4 @@
-export interface FluroDefinition {
+export interface FluroDefinition<TData = unknown> {
   _id: string
   title: string
   plural?: string
@@ -14,6 +14,7 @@ export interface FluroDefinition {
   created?: string
   updated?: string
   firstLine?: string
+  data?: TData
 }
 
 interface Realm {
