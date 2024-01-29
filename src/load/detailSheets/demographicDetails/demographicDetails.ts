@@ -57,7 +57,7 @@ export async function load(
     return {
       rockId: data[0].Id,
       data: {
-        log: `${value.Name} already exsits, updated entry`
+        log: `${value.ForeignKey} already exsits, updated entry`
       }
     }
   } else {
