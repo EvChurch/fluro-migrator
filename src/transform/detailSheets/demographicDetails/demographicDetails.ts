@@ -13,8 +13,6 @@ export function transform(
     Description: value.firstLine,
     CreatedDateTime: value.created,
     ModifiedDateTime: value.updated,
-    CreatedByPersonAliasId: 10,
-    ModifiedByPersonAliasId: 10,
     ModifiedAuditValuesAlreadyUpdated: false,
     ForeignKey: value._id
   }

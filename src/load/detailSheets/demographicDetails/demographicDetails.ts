@@ -5,7 +5,8 @@ import type { components } from '../../client'
 import { GET, POST, PUT, RockApiError } from '../../client'
 import type { CacheObject } from '../../types'
 
-let EntityTypeId: number
+let EntityTypeIdAttribute: number
+let EntityTypeIdPerson: number
 export type RockDemographicDetails = Omit<
   components['schemas']['Rock.Model.Category'],
   'EntityTypeId'
@@ -13,7 +14,7 @@ export type RockDemographicDetails = Omit<
 export async function load(
   value: RockDemographicDetails
 ): Promise<CacheObject> {
-  if (EntityTypeId === undefined) {
+  if (EntityTypeIdAttribute === undefined) {
     const { data, error } = await GET('/api/EntityTypes', {
       params: {
         query: {
@@ -26,10 +27,10 @@ export async function load(
 
     if (data[0].Id == null)
       throw new Error(
-        "Couldn't find EntityTypeId for Demographic Details Sheet"
+        "Couldn't find EntityTypeId for Rock.Model.Attribute in Demographic Details Sheet"
       )
 
-    EntityTypeId = data?.[0].Id
+    EntityTypeIdAttribute = data?.[0].Id
   }
 
   const { data, error } = await GET('/api/Categories', {
@@ -42,13 +43,17 @@ export async function load(
   })
   if (error != null) throw new RockApiError(error)
   if (data != null && data.length > 0 && data[0].Id != null) {
+    // update the record
     const { error } = await PUT('/api/Categories/{id}', {
       params: {
         path: {
           id: data[0].Id
         }
       },
-      body: omit({ ...value, Id: data[0].Id, EntityTypeId }, 'cache')
+      body: omit(
+        { ...value, Id: data[0].Id, EntityTypeId: EntityTypeIdAttribute },
+        'cache'
+      )
     })
     if (error != null)
       throw new Error(
@@ -61,8 +66,37 @@ export async function load(
       }
     }
   } else {
+    // get id for entity type person
+    if (EntityTypeIdPerson === undefined) {
+      const { data, error } = await GET('/api/EntityTypes', {
+        params: {
+          query: {
+            $filter: f().eq('Name', 'Rock.Model.Person').toString(),
+            $select: 'Id'
+          }
+        }
+      })
+      if (error != null) throw new RockApiError(error)
+
+      if (data[0].Id == null)
+        throw new Error(
+          "Couldn't find EntityTypeId for Rock.Model.Person in Demographic Details Sheet"
+        )
+
+      EntityTypeIdPerson = data?.[0].Id
+    }
+
+    // create a new record
     const { data, error } = await POST('/api/Categories', {
-      body: omit({ ...value, EntityTypeId }, 'cache')
+      body: omit(
+        {
+          ...value,
+          EntityTypeId: EntityTypeIdAttribute,
+          EntityTypeQualifierColumn: 'EntityTypeId',
+          EntityTypeQualifierValue: EntityTypeIdPerson.toString()
+        },
+        'cache'
+      )
     })
     if (error != null) throw new RockApiError(error)
 
