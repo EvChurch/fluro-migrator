@@ -42,6 +42,7 @@ export async function load(
     }
   })
   if (error != null) throw new RockApiError(error)
+  // check if records exists, if it exsits = update, else = add the record
   if (data != null && data.length > 0 && data[0].Id != null) {
     // update the record
     const { error } = await PUT('/api/Categories/{id}', {
@@ -86,7 +87,7 @@ export async function load(
       EntityTypeIdPerson = data?.[0].Id
     }
 
-    // create a new record
+    // create a new record for categories
     const { data, error } = await POST('/api/Categories', {
       body: omit(
         {
