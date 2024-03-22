@@ -4,7 +4,7 @@ import type { DemographicsDetails } from '../types'
 export type FluroDemographicDetails = DemographicsDetails
 
 export const extract = extractFromFluro<FluroDemographicDetails>({
-  contentType: 'demographicsDetails',
+  contentType: 'definition',
   filterBody: {
     allDefinitions: true,
     includeArchived: true,
