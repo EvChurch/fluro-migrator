@@ -178,8 +178,6 @@ export async function load(
       })
     }
 
-    // console.log(FieldTypeId)
-
     return {
       rockId: data as unknown as number,
       data: {
