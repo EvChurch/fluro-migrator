@@ -4,15 +4,21 @@ import f from 'odata-filter-builder'
 import type { Field } from '../../../extract/detailSheets/types'
 import type { components } from '../../client'
 import { GET, POST, PUT, RockApiError } from '../../client'
-import type { CacheObject } from '../../types'
+import type {
+  AttributeQualifierApiInput,
+  CacheObject,
+  CategoriesApiInput
+} from '../../types'
 
 let EntityTypeIdAttribute: number
 let EntityTypeIdPerson: number
 let FieldTypeId: number
+
 export type RockDemographicDetails = Omit<
   components['schemas']['Rock.Model.Category'],
   'EntityTypeId'
 > & { Fields: Field[] }
+
 export async function load(
   value: RockDemographicDetails
 ): Promise<CacheObject> {
@@ -122,12 +128,63 @@ export async function load(
         "Couldn't find FieldTypeId for Rock.Model.Attribute in Demographic Details Sheet"
       )
 
-    console.log(FieldTypeId)
+    const attributesResData = []
+    for (const field of value.Fields) {
+      const attributeQualifierValues = {
+        Key: 'values',
+        Values: ''
+      }
+      field.options.forEach((option, index) => {
+        attributeQualifierValues.Values =
+          index === 0
+            ? option.title
+            : attributeQualifierValues.Values + ',' + option.title
+      })
+      const { data: resData, error } = await POST('/api/Attributes', {
+        body: {
+          IsSystem: false,
+          FieldTypeId,
+          EntityTypeId: EntityTypeIdPerson,
+          Key: field.key,
+          Name: field.title,
+          IsActive: true,
+          Order: 0,
+          IsGridColumn: false,
+          IsMultiValue: field.maximum > 1,
+          IsRequired: false,
+          AllowSearch: false,
+          AttributeQualifiers: [
+            // fieldType needs to be set
+            {
+              Key: 'fieldtype',
+              Value: 'rb'
+            },
+            attributeQualifierValues
+          ] as AttributeQualifierApiInput[],
+          Categories: [
+            {
+              Id: data as unknown as number,
+              Name: value.Name
+            }
+          ] as CategoriesApiInput[]
+        }
+      })
+      if (error != null) throw new RockApiError(error)
+
+      attributesResData.push({
+        detailSheet: value.Name,
+        rockAttributeId: resData as unknown as number,
+        fieldName: field.title
+      })
+    }
+
+    // console.log(FieldTypeId)
 
     return {
       rockId: data as unknown as number,
       data: {
-        log: `${value.Name} created,`
+        log: `${value.Name} created,`,
+        detailSheetAttributeData: attributesResData
       }
     }
   }
