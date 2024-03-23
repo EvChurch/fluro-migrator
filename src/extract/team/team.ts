@@ -1,6 +1,6 @@
 import { extractFromFluro } from '../lib'
 
-import type { FluroTeam } from './types'
+import type { FluroTeam } from '.'
 
 export const extract = extractFromFluro<FluroTeam>({
   contentType: 'team',

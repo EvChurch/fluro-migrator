@@ -1,2 +1,2 @@
-export type { FluroTeam } from './types'
 export { extract } from './team'
+export type { FluroTeam } from './types'

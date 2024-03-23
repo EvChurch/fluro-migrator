@@ -4,28 +4,10 @@ import type { components } from '../../client'
 import { GET, POST, PUT, RockApiError } from '../../client'
 import type { CacheObject } from '../../types'
 
-let GroupTypeId: number | undefined
 export type RockTeamMember = components['schemas']['Rock.Model.GroupMember']
 
 export async function load(value: RockTeamMember): Promise<CacheObject> {
-  if (GroupTypeId === undefined) {
-    const { data, error } = await GET('/api/GroupTypes', {
-      params: {
-        query: {
-          $filter: f().eq('Name', 'General Group').toString(),
-          $select: 'Id'
-        }
-      }
-    })
-    if (error != null) throw new RockApiError(error)
-
-    if (data?.[0].Id == null)
-      throw new Error("Couldn't find General Group GroupType")
-
-    GroupTypeId = data?.[0].Id
-  }
-
-  const { data, error } = await GET('/api/Groups', {
+  const { data, error } = await GET('/api/GroupMembers', {
     params: {
       query: {
         $filter: f().eq('ForeignKey', value.ForeignKey).toString(),
@@ -36,7 +18,7 @@ export async function load(value: RockTeamMember): Promise<CacheObject> {
   if (error != null) throw new RockApiError(error)
 
   if (data != null && data.length > 0 && data[0].Id != null) {
-    const { error } = await PUT('/api/Groups/{id}', {
+    const { error } = await PUT('/api/GroupMembers/{id}', {
       params: {
         path: {
           id: data[0].Id
@@ -44,7 +26,6 @@ export async function load(value: RockTeamMember): Promise<CacheObject> {
       },
       body: {
         ...value,
-        GroupTypeId: value.GroupTypeId ?? GroupTypeId,
         Id: data[0].Id
       }
     })
@@ -54,14 +35,13 @@ export async function load(value: RockTeamMember): Promise<CacheObject> {
     return {
       rockId: data[0].Id,
       data: {
-        log: 'group exists'
+        log: 'group member exists'
       }
     }
   } else {
-    const { data, error } = await POST('/api/Groups', {
+    const { data, error } = await POST('/api/GroupMembers', {
       body: {
-        ...value,
-        GroupTypeId: value.GroupTypeId ?? GroupTypeId
+        ...value
       }
     })
     if (error != null) {
@@ -70,7 +50,7 @@ export async function load(value: RockTeamMember): Promise<CacheObject> {
     return {
       rockId: data as unknown as number,
       data: {
-        log: 'group does not exist'
+        log: 'group member does not exist'
       }
     }
   }
