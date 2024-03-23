@@ -1,16 +1,18 @@
 import { omit } from 'lodash'
 import f from 'odata-filter-builder'
 
+import type { Field } from '../../../extract/detailSheets/types'
 import type { components } from '../../client'
 import { GET, POST, PUT, RockApiError } from '../../client'
 import type { CacheObject } from '../../types'
 
 let EntityTypeIdAttribute: number
 let EntityTypeIdPerson: number
+let FieldTypeId: number
 export type RockDemographicDetails = Omit<
   components['schemas']['Rock.Model.Category'],
   'EntityTypeId'
->
+> & { Fields: Field[] }
 export async function load(
   value: RockDemographicDetails
 ): Promise<CacheObject> {
@@ -53,7 +55,8 @@ export async function load(
       },
       body: omit(
         { ...value, Id: data[0].Id, EntityTypeId: EntityTypeIdAttribute },
-        'cache'
+        'cache',
+        'Fields'
       )
     })
     if (error != null)
@@ -96,10 +99,30 @@ export async function load(
           EntityTypeQualifierColumn: 'EntityTypeId',
           EntityTypeQualifierValue: EntityTypeIdPerson.toString()
         },
-        'cache'
+        'cache',
+        'Fields'
       )
     })
     if (error != null) throw new RockApiError(error)
+
+    const { data: fieldTypesRes, error: fieldTypesError } = await GET(
+      '/api/FieldTypes',
+      {
+        params: {
+          query: {
+            $filter: f().eq('Name', 'Single-Select').toString(),
+            $select: 'Id'
+          }
+        }
+      }
+    )
+    if (fieldTypesError != null) throw new RockApiError(fieldTypesError)
+    if (fieldTypesRes[0].Id == null)
+      throw new Error(
+        "Couldn't find FieldTypeId for Rock.Model.Attribute in Demographic Details Sheet"
+      )
+
+    console.log(FieldTypeId)
 
     return {
       rockId: data as unknown as number,

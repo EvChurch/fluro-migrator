@@ -14,6 +14,7 @@ export function transform(
     CreatedDateTime: value.created,
     ModifiedDateTime: value.updated,
     ModifiedAuditValuesAlreadyUpdated: false,
-    ForeignKey: value._id
+    ForeignKey: value._id,
+    Fields: [...value.fields]
   }
 }

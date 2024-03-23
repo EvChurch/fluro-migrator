@@ -1,6 +1,6 @@
 import type { ManagedOwner, Option, Owner, Realm } from '../types'
 
-interface Field {
+export interface Field {
   defaultValues: string[]
   options: Option[]
   allowedValues: unknown[]
