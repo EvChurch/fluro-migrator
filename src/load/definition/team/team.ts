@@ -1,3 +1,4 @@
+import { omit } from 'lodash'
 import f from 'odata-filter-builder'
 
 import type { components } from '../../client'
@@ -7,6 +8,7 @@ import type { CacheObject } from '../../types'
 export type RockDefinitionTeam =
   components['schemas']['Rock.Model.GroupType'] & {
     cache: CacheObject['data']
+    GroupTypeRoles: components['schemas']['Rock.Model.GroupTypeRole'][]
   }
 
 export async function load(value: RockDefinitionTeam): Promise<CacheObject> {
@@ -27,6 +29,7 @@ export async function load(value: RockDefinitionTeam): Promise<CacheObject> {
   })
   if (error != null) throw new RockApiError(error)
 
+  let rockId: number
   if (data != null && data.length > 0 && data[0].Id != null) {
     await PUT('/api/GroupTypes/{id}', {
       params: {
@@ -34,15 +37,17 @@ export async function load(value: RockDefinitionTeam): Promise<CacheObject> {
           id: data[0].Id
         }
       },
-      body: value
+      body: omit(value, ['cache', 'GroupTypeRoles'])
     })
-    return { rockId: data[0].Id, data: value.cache }
+    rockId = data[0].Id
   } else {
     const { data, error } = await POST('/api/GroupTypes', {
-      body: value
+      body: omit(value, ['cache', 'GroupTypeRoles'])
     })
     if (error != null) throw new RockApiError(error)
 
-    return { rockId: data as unknown as number, data: value.cache }
+    rockId = data as unknown as number
   }
+
+  return { rockId, data: value.cache }
 }

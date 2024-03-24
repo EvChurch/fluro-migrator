@@ -14,6 +14,7 @@ async function downloadSchema(): Promise<void> {
     'Groups',
     'GroupTypes',
     'GroupTypeRoles',
+    'GroupMembers',
     'People',
     'DefinedTypes',
     'DefinedValues',

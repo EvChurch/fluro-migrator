@@ -5,6 +5,7 @@ import path from 'path'
 
 import colors from 'ansi-colors'
 import { SingleBar } from 'cli-progress'
+import { chunk, map } from 'lodash'
 import { parse } from 'ts-command-line-args'
 
 import type { Cache, CacheObject } from './load/types'
@@ -14,6 +15,7 @@ interface CommandLineArguments {
   exclude?: string[]
   include?: string[]
   help?: boolean
+  cleanup?: boolean
 }
 
 const args = parse<CommandLineArguments>(
@@ -31,6 +33,12 @@ const args = parse<CommandLineArguments>(
       multiple: true,
       alias: 'i',
       description: 'runs only the named ETL process'
+    },
+    cleanup: {
+      type: Boolean,
+      optional: true,
+      alias: 'c',
+      description: 'Remove created Fluro records from Rock'
     },
     help: {
       type: Boolean,
@@ -56,19 +64,13 @@ const args = parse<CommandLineArguments>(
 async function main(): Promise<void> {
   const cache: Cache = await loadCache()
 
-  for (const [name, extract, transform, load] of tuples) {
+  for (const [name, extract, transform, load, cleanup] of tuples) {
     if (cache[name] == null) cache[name] = {}
     // skip if excluded
     if (args.exclude?.includes(name)) continue
 
     // skip if not included
     if (args.include?.includes(name) === false) continue
-
-    // create extract iterator
-    const iterator = await extract()
-
-    // transform and load data
-    let result = await iterator.next()
 
     const progress = new SingleBar({
       format: `${colors.cyan(
@@ -78,6 +80,38 @@ async function main(): Promise<void> {
       barIncompleteChar: '\u2591',
       hideCursor: true
     })
+
+    // cleanup if requested
+    if (args.cleanup) {
+      // cleanup cache in chunks of 50
+      const cacheObjects: [string, CacheObject][] = Object.keys(
+        cache[name]
+      ).map((key) => [key, cache[name][key]])
+      const cacheObjectsInChunks = chunk(cacheObjects, 50)
+      progress.start(cacheObjects.length, 0)
+
+      for (const cacheObjects of cacheObjectsInChunks) {
+        await Promise.all(
+          map(cacheObjects, async ([key, cacheObject]) => {
+            await cleanup?.(cacheObject)
+            delete cache[name][key]
+            progress.increment()
+          })
+        )
+      }
+
+      progress.stop()
+
+      await saveCache(name, JSON.stringify(cache[name], null, 2))
+
+      continue
+    }
+
+    // create extract iterator
+    const iterator = await extract()
+
+    // transform and load data
+    let result = await iterator.next()
 
     progress.start((result.value as { max: number }).max, 0)
 

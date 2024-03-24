@@ -10,6 +10,8 @@ export interface Realm {
   color?: string
   slug?: string
   definition?: string
+  _discriminator?: string
+  _discriminatorType?: string
 }
 
 export interface ExtractIterator<T> {
