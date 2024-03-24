@@ -1,3 +1,5 @@
+import type { Realm } from '../types'
+
 export interface FluroDefinition {
   _id: string
   title: string
@@ -14,14 +16,4 @@ export interface FluroDefinition {
   created?: string
   updated?: string
   firstLine?: string
-}
-
-interface Realm {
-  _id: string
-  title: string
-  _type: string
-  bgColor: string
-  color: string
-  slug: string
-  definition: string
 }

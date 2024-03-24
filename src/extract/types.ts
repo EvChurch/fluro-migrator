@@ -12,6 +12,28 @@ export interface Realm {
   definition?: string
 }
 
+export interface ManagedOwner {
+  _id: string
+  _type: string
+  firstName: string
+  lastName: string
+  title: string
+}
+
+export interface Owner {
+  _id: string
+  firstName: string
+  lastName: string
+  name: string
+  _type: string
+}
+
+export interface Option {
+  name: string
+  value: string
+  title: string
+}
+
 export interface ExtractIterator<T> {
   collection: T[]
   max: number

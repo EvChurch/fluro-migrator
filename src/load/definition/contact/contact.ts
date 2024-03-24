@@ -25,7 +25,8 @@ export async function load(value: RockDefinitionContact): Promise<CacheObject> {
     })
     if (error != null) throw new RockApiError(error)
 
-    if (data?.[0].Id == null) throw new Error("Couldn't find Family GroupType")
+    if (data?.[0].Id == null)
+      throw new Error("Couldn't find DefinedTypeId for Contact Definition")
 
     DefinedTypeId = data?.[0].Id
   }
