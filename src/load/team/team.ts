@@ -59,6 +59,7 @@ export async function load(value: RockTeam): Promise<CacheObject> {
     return {
       rockId: data[0].Id,
       data: {
+        GroupTypeId: value.GroupTypeId ?? GroupTypeId,
         log: 'group exists'
       }
     }
@@ -75,6 +76,7 @@ export async function load(value: RockTeam): Promise<CacheObject> {
     return {
       rockId: data as unknown as number,
       data: {
+        GroupTypeId: value.GroupTypeId ?? GroupTypeId,
         log: 'group does not exist'
       }
     }
