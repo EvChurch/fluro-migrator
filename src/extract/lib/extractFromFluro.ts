@@ -2,7 +2,7 @@ import { client } from '../client'
 import type { ExtractIterator } from '../types'
 import { PAGE_SIZE } from '../types'
 
-interface ExtractFromFluroOptions {
+interface ExtractFromFluroOptions<T, R> {
   contentType: string
   filterBody?: {
     allDefinitions?: boolean
@@ -18,14 +18,19 @@ interface ExtractFromFluroOptions {
   }
   multipleBody?: {
     appendAssignments?: boolean
+    appendContactDetail?: boolean
   }
+  postProcessor?: (data: R[]) => T[]
 }
 
-export function extractFromFluro<T>({
+export function extractFromFluro<T, Response = T>({
   contentType,
   filterBody = {},
-  multipleBody = {}
-}: ExtractFromFluroOptions): () => Promise<AsyncIterator<ExtractIterator<T>>> {
+  multipleBody = {},
+  postProcessor = (data: Response[]): T[] => data as unknown as T[]
+}: ExtractFromFluroOptions<T, Response>): () => Promise<
+  AsyncIterator<ExtractIterator<T>>
+> {
   return async function extract(): Promise<AsyncIterator<ExtractIterator<T>>> {
     const filterReq = await client.post<{ _id: string }[]>(
       `/content/${contentType}/filter`,
@@ -42,15 +47,21 @@ export function extractFromFluro<T>({
         done: boolean
       }> => {
         const ids = allIds.splice(0, PAGE_SIZE)
-        const req = await client.post<T[]>(`/content/${contentType}/multiple`, {
-          ...multipleBody,
-          ids,
-          limit: PAGE_SIZE
-        })
+        const req = await client.post<Response[]>(
+          `/content/${contentType}/multiple`,
+          {
+            ...multipleBody,
+            ids,
+            limit: PAGE_SIZE
+          }
+        )
         if (req.data.length === 0) {
           return { value: { collection: [], max }, done: true }
         } else {
-          return { value: { collection: req.data, max }, done: false }
+          return {
+            value: { collection: postProcessor(req.data), max },
+            done: false
+          }
         }
       }
     }
