@@ -1,3 +1,5 @@
+import type { components } from './client'
+
 export interface CacheObject {
   rockId: number
   data?: {
@@ -12,3 +14,13 @@ export interface Cache {
 export interface LoadFn<T> {
   (value: T): Promise<CacheObject>
 }
+
+export type AttributeQualifierApiInput = Pick<
+  components['schemas']['Rock.Model.AttributeQualifier'],
+  'Key' | 'Value' | 'IsSystem' | 'AttributeId'
+>
+
+export type CategoriesApiInput = Pick<
+  components['schemas']['Rock.Model.Category'],
+  'Id' | 'Name' | 'IsSystem' | 'EntityTypeId' | 'Order'
+>
