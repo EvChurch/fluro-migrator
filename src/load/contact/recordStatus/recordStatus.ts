@@ -43,7 +43,7 @@ export async function getRecordStatus(
     params: {
       query: {
         $filter: f()
-          .eq('DefinedTypeId', `${DefinedTypeId}`)
+          .eq('DefinedTypeId', DefinedTypeId)
           .and(f().eq('Value', transformStatus(fluroRecordStatus)))
           .toString(),
         $select: 'Id'
