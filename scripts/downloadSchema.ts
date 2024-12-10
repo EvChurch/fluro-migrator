@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import axios from 'axios'
 
 const client = axios.create({
-  baseURL: 'https://rock.aucklandev.co.nz/api',
+  baseURL: 'https://rock.ev.church/api',
   timeout: 60000,
   headers: { 'Authorization-Token': `${process.env.ROCK_API_TOKEN}` }
 })
@@ -53,7 +53,7 @@ async function downloadSchema(): Promise<void> {
       version: 'v1',
       title: 'Rock Rest API v1'
     },
-    host: 'rock.aucklandev.co.nz',
+    host: 'rock.ev.church',
     schemes: ['https'],
     ...definitionsAndPaths
   }

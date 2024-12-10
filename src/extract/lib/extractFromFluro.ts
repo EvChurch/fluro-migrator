@@ -13,6 +13,7 @@ interface ExtractFromFluroOptions {
         comparator?: string
         key?: string
         value?: string
+        values?: string[]
       }[]
     }
   }

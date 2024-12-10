@@ -5,7 +5,7 @@ import { familyEtl } from './family/family'
 
 export const tuples = [
   definitionContactEtl,
-  definitionTeamEtl,
+  // definitionTeamEtl,
   familyEtl,
   contactEtl
 ]

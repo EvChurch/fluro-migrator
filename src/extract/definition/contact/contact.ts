@@ -15,6 +15,11 @@ export const extract = extractFromFluro<FluroDefinitionContact>({
           comparator: '==',
           key: 'parentType',
           value: 'contact'
+        },
+        {
+          comparator: 'notin',
+          key: 'definitionName',
+          values: ['leader', 'leaderOfLeaders']
         }
       ]
     }

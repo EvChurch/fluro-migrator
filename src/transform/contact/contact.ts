@@ -20,13 +20,21 @@ function transformGender(gender: string): 'Unknown' | 'Male' | 'Female' {
  * transforms a fluro api contact object to a rock contact object
  */
 export function transform(cache: Cache, value: FluroContact): RockContact {
-  const ConnectionStatusValueId = find(cache['definition/contact'], (val) => {
-    if (value.definition == null || value.definition === '') {
-      return val.data?.definitionName === 'visitor'
-    } else {
-      return val.data?.definitionName === value.definition
+  const ConnectionStatusValueId = find(
+    cache['definition/contact'],
+    (cachedDefintion) => {
+      switch (value.definition) {
+        case 'leaderOfLeaders':
+        case 'leader':
+          return cachedDefintion.data?.definitionName === 'committed'
+        case null:
+        case '':
+          return cachedDefintion.data?.definitionName === 'visitor'
+        default:
+          return cachedDefintion.data?.definitionName === value.definition
+      }
     }
-  })?.rockId
+  )?.rockId
 
   if (ConnectionStatusValueId == null)
     throw new Error(
