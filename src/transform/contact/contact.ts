@@ -28,7 +28,9 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
         case 'leader':
           return cachedDefintion.data?.definitionName === 'committed'
         case null:
+        case undefined:
         case '':
+        case 'inactive':
           return cachedDefintion.data?.definitionName === 'visitor'
         default:
           return cachedDefintion.data?.definitionName === value.definition

@@ -54,57 +54,62 @@ const args = parse<CommandLineArguments>(
 )
 
 async function main(): Promise<void> {
-  const cache: Cache = await loadCache()
+  try {
+    const cache: Cache = await loadCache()
 
-  for (const [name, extract, transform, load] of tuples) {
-    if (cache[name] == null) cache[name] = {}
-    // skip if excluded
-    if (args.exclude?.includes(name)) continue
+    for (const [name, extract, transform, load] of tuples) {
+      if (cache[name] == null) cache[name] = {}
+      // skip if excluded
+      if (args.exclude?.includes(name)) continue
 
-    // skip if not included
-    if (args.include?.includes(name) === false) continue
+      // skip if not included
+      if (args.include?.includes(name) === false) continue
 
-    // create extract iterator
-    const iterator = await extract()
+      // create extract iterator
+      const iterator = await extract()
 
-    // transform and load data
-    let result = await iterator.next()
+      // transform and load data
+      let result = await iterator.next()
 
-    const progress = new SingleBar({
-      format: `${colors.cyan(
-        '{bar}'
-      )} ${name} | {percentage}% | {value}/{total} | duration: {duration_formatted}`,
-      barCompleteChar: '\u2588',
-      barIncompleteChar: '\u2591',
-      hideCursor: true
-    })
+      const progress = new SingleBar({
+        format: `${colors.cyan(
+          '{bar}'
+        )} ${name} | {percentage}% | {value}/{total} | duration: {duration_formatted}`,
+        barCompleteChar: '\u2588',
+        barIncompleteChar: '\u2591',
+        hideCursor: true
+      })
 
-    progress.start((result.value as { max: number }).max, 0)
+      progress.start((result.value as { max: number }).max, 0)
 
-    while (!result.done) {
-      const tmpCache = await Promise.all(
-        result.value.collection.map(async (value) => {
-          if (cache[name][value._id] != null) {
-            progress.increment()
-            return { [value._id]: cache[name][value._id] }
-          } else {
-            const cacheObject = await load(
-              transform(cache, value as never) as never
-            )
-            progress.increment()
-            return { [value._id]: cacheObject }
-          }
-        })
-      )
+      while (!result.done) {
+        const tmpCache = await Promise.all(
+          result.value.collection.map(async (value) => {
+            if (cache[name][value._id] != null) {
+              progress.increment()
+              return { [value._id]: cache[name][value._id] }
+            } else {
+              const cacheObject = await load(
+                transform(cache, value as never) as never
+              )
+              progress.increment()
+              return { [value._id]: cacheObject }
+            }
+          })
+        )
 
-      cache[name] = Object.assign(cache[name], ...tmpCache) as {
-        [fluroId: string]: CacheObject
+        cache[name] = Object.assign(cache[name], ...tmpCache) as {
+          [fluroId: string]: CacheObject
+        }
+
+        await saveCache(name, JSON.stringify(cache[name], null, 2))
+        result = await iterator.next()
       }
-
-      await saveCache(name, JSON.stringify(cache[name], null, 2))
-      result = await iterator.next()
+      progress.stop()
     }
-    progress.stop()
+  } catch (error) {
+    console.error(error)
+    throw error
   }
 }
 
@@ -138,6 +143,8 @@ async function loadCache(): Promise<Cache> {
   const files = await walk(basePath)
 
   for (const file of files) {
+    if (file.endsWith('.jpg') || file.endsWith('.DS_Store')) continue
+
     const cacheFile = await fsPromise.readFile(
       path.join(__dirname, '..', 'tmp', 'cache', `${file}.json`),
       'utf8'

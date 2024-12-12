@@ -22,7 +22,7 @@
     "typescript": "^5.3.2"
   },
   "name": "fluro-migrator",
-  "description": "A script to help us migrate our data from fluro to rockRMS",
+  "description": "A script to help us migrate our data from Fluro to Rock RMS",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {

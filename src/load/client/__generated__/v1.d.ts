@@ -261,14 +261,6 @@ export interface paths {
   "/api/People/FollowedItems": {
     get: operations["GETapi_People_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId"];
   };
-  "/api/People/GetBlockUserPreference": {
-    /** Gets the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference for the specified block */
-    get: operations["GETapi_People_GetBlockUserPreferenceblockIdblockIduserPreferenceKeyuserPreferenceKey"];
-  };
-  "/api/People/GetBlockUserPreference/{blockGuid}": {
-    /** Gets the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference for the specified block */
-    get: operations["GETapi_People_GetBlockUserPreference_blockGuiduserPreferenceKeyuserPreferenceKey"];
-  };
   "/api/People/GetByAttributeValue": {
     get: operations["GETapi_People_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive"];
   };
@@ -334,13 +326,6 @@ export interface paths {
     /** Gets the search details (for the person picker) */
     get: operations["GETapi_People_GetSearchDetailsidid"];
   };
-  "/api/People/GetUserPreference": {
-    /**
-     * Gets the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference.
-     * Note: If the user preference is for a specific block, use ~/api/People/GetBlockUserPreference instead.
-     */
-    get: operations["GETapi_People_GetUserPreferenceuserPreferenceKeyuserPreferenceKey"];
-  };
   "/api/People/InDataView/{dataViewId}/{entityId}": {
     /** Determines if the entity id is in the data view */
     get: operations["GETapi_People_InDataView_dataViewId_entityId"];
@@ -348,6 +333,21 @@ export interface paths {
   "/api/People/LaunchWorkflow/{id}": {
     /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
     post: operations["POSTapi_People_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName"];
+  };
+  "/api/People/OneClickUnsubscribe/{personActionIdentifier}": {
+    /**
+     * Unsubscribes a person from all email communications or a specific communication list if one is provided.
+     * @description <para>This endpoint is for email client one-click unsubscribe functionality (<a href="https://datatracker.ietf.org/doc/html/rfc8058">RFC8058</a>).</para>
+     * <para>As of 12/13/2023, <a href="https://datatracker.ietf.org/doc/html/rfc8058#section-3.1">RFC8058 Section 3.1</a> states:</para>
+     * <para>
+     *             The POST request MUST NOT include cookies, HTTP authorization, or any
+     *             other context information. The unsubscribe operation is logically
+     *             unrelated to any previous web activity, and context information could
+     *             inappropriately link the unsubscribe to previous activity.
+     *             </para>
+     * <para>For this reason, this endpoint does not and must not require authentication or authorization other than the encrypted person action identifier.</para>
+     */
+    post: operations["POSTapi_People_OneClickUnsubscribe_personActionIdentifiercommunicationListIdKeycommunicationListIdKey"];
   };
   "/api/People/PopupHtml/{personId}": {
     /** Gets the popup html for the selected person */
@@ -361,26 +361,15 @@ export interface paths {
     /** Returns results to the Person Picker */
     get: operations["GETapi_People_SearchnamenameincludeDetailsincludeDetailsincludeBusinessesincludeBusinessesincludeDeceasedincludeDeceasedaddressaddressphonephoneemailemail"];
   };
-  "/api/People/SetBlockUserPreference": {
-    /** Saves the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference for the specified block */
-    post: operations["POSTapi_People_SetBlockUserPreferenceblockIdblockIduserPreferenceKeyuserPreferenceKeyvaluevalue"];
-  };
-  "/api/People/SetBlockUserPreference/{blockGuid}": {
-    /** Saves the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference for the specified block */
-    post: operations["POSTapi_People_SetBlockUserPreference_blockGuiduserPreferenceKeyuserPreferenceKeyvaluevalue"];
-  };
   "/api/People/SetContext/{id}": {
     /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
     put: operations["PUTapi_People_SetContext_id"];
     /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
     options: operations["OPTIONSapi_People_SetContext_id"];
   };
-  "/api/People/SetUserPreference": {
-    /**
-     * Saves the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference.
-     * Note: If the user preference is for a specific block, use ~/api/People/SetBlockUserPreference instead.
-     */
-    post: operations["POSTapi_People_SetUserPreferenceuserPreferenceKeyuserPreferenceKeyvaluevalue"];
+  "/api/People/UpdatePersonProfilePhoto": {
+    /** Updates the person profile photo. */
+    post: operations["POSTapi_People_UpdatePersonProfilePhotopersonGuidpersonGuidfilenamefilename"];
   };
   "/api/People/UpdateProfilePhoto": {
     /** Updates the profile photo of the logged in person. */
@@ -625,7 +614,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "fc78a35c-f2a0-4b1b-808e-7b4b0e6f4c6e"
+     *   "Guid": "74d8e546-681f-4212-8dca-f294d696f66d"
      * }
      */
     "Rock.Model.Attribute": {
@@ -699,7 +688,7 @@ export interface components {
      *   "AttributeId": 0,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "59c4e17c-5626-466e-8b37-ca43f5f35c92"
+     *   "Guid": "2595af6f-1167-4dd7-a185-47297bdaad9e"
      * }
      */
     "Rock.Model.AttributeQualifier": {
@@ -726,7 +715,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2f57febb-e7f0-4ae7-a68c-5044393be89c"
+     *   "Guid": "b5c010c1-12b2-4109-849d-59bc8f90229c"
      * }
      */
     "Rock.Model.BinaryFile": {
@@ -794,7 +783,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "47798e8f-5a01-45e5-a86d-e91da57fa6b8"
+     *   "Guid": "3ab27442-05d3-4981-97f7-f42963047d32"
      * }
      */
     "Rock.Model.BinaryFileType": {
@@ -849,6 +838,110 @@ export interface components {
     };
     /**
      * @example {
+     *   "BlockLocation": 3,
+     *   "IsSystem": false,
+     *   "BlockTypeId": 0,
+     *   "Order": 0,
+     *   "OutputCacheDuration": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "7d5f1da0-8006-4e6f-a575-56d4bb383a9b"
+     * }
+     */
+    "Rock.Model.Block": {
+      /** @enum {string} */
+      BlockLocation?: "Layout" | "Page" | "Site" | "None";
+      IsSystem: boolean;
+      /** Format: int32 */
+      PageId?: number;
+      /** Format: int32 */
+      LayoutId?: number;
+      /** Format: int32 */
+      SiteId?: number;
+      /** Format: int32 */
+      BlockTypeId: number;
+      Zone: string;
+      /** Format: int32 */
+      Order: number;
+      Name: string;
+      CssClass?: string;
+      PreHtml?: string;
+      PostHtml?: string;
+      /** Format: int32 */
+      OutputCacheDuration: number;
+      AdditionalSettings?: string;
+      BlockType?: components["schemas"]["Rock.Model.BlockType"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsSystem": false,
+     *   "IsCommon": false,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "d694cd3c-b05b-44c3-a1a6-036a8f77d3d6"
+     * }
+     */
+    "Rock.Model.BlockType": {
+      IsSystem: boolean;
+      IsCommon: boolean;
+      Name: string;
+      Category?: string;
+      Description?: string;
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
      *   "IsSystem": false,
      *   "Order": 0,
      *   "CampusSchedules": [],
@@ -856,7 +949,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "0f5fe737-ed99-41cf-8329-87347156caa0"
+     *   "Guid": "6151722f-bddd-4aa4-8615-0b6928ca17a0"
      * }
      */
     "Rock.Model.Campus": {
@@ -881,6 +974,12 @@ export interface components {
       CampusTypeValueId?: number;
       /** Format: int32 */
       TeamGroupId?: number;
+      /** Format: date-time */
+      OpenedDate?: string;
+      /** Format: date-time */
+      ClosedDate?: string;
+      /** Format: double */
+      TitheMetric?: number;
       Location?: components["schemas"]["Rock.Model.Location"];
       LeaderPersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
       CampusStatusValue?: components["schemas"]["Rock.Model.DefinedValue"];
@@ -922,7 +1021,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e4957200-4f53-46d4-b8d1-20c6ef1c6784"
+     *   "Guid": "8e244d57-e8e0-4e9a-b28a-91d236aa1390"
      * }
      */
     "Rock.Model.CampusSchedule": {
@@ -969,7 +1068,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5a0cbf24-6002-4f7c-8442-fe023a2948eb"
+     *   "Guid": "a25395d6-cb38-411b-acab-65e178b04715"
      * }
      */
     "Rock.Model.CampusTopic": {
@@ -1013,7 +1112,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "0870645f-6194-4426-92cf-11a34d516666"
+     *   "Guid": "c1f137c9-dc5a-451a-8825-883b89c56cdb"
      * }
      */
     "Rock.Model.Category": {
@@ -1066,7 +1165,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "90ad17d8-69f8-40ca-8163-b9792688d7c2"
+     *   "Guid": "3270962d-7dcb-4518-a0a5-4180c8dde24a"
      * }
      */
     "Rock.Model.DataView": {
@@ -1097,10 +1196,15 @@ export interface components {
       /** Format: date-time */
       RunCountLastRefreshDateTime?: string;
       DisableUseOfReadOnlyContext?: boolean;
+      /** Format: int32 */
+      PersistedScheduleId?: number;
+      IconCssClass?: string;
+      HighlightColor?: string;
       Category?: components["schemas"]["Rock.Model.Category"];
       EntityType?: components["schemas"]["Rock.Model.EntityType"];
       DataViewFilter?: components["schemas"]["Rock.Model.DataViewFilter"];
       TransformEntityType?: components["schemas"]["Rock.Model.EntityType"];
+      PersistedSchedule?: components["schemas"]["Rock.Model.Schedule"];
       /** Format: date-time */
       CreatedDateTime?: string;
       /** Format: date-time */
@@ -1135,7 +1239,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a424eef5-c792-4d21-950c-b4bbb897485f"
+     *   "Guid": "0cf060ff-17fe-4e4c-853d-ae336ccaac7f"
      * }
      */
     "Rock.Model.DataViewFilter": {
@@ -1185,10 +1289,11 @@ export interface components {
      *   "DefinedTypeId": 0,
      *   "Order": 0,
      *   "IsActive": true,
+     *   "CategoryName": "",
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "cbc97463-0a0b-423b-9731-50f7abc8b292"
+     *   "Guid": "b05d0b67-dd3c-4270-b9ad-2b5b89f1729e"
      * }
      */
     "Rock.Model.DefinedValue": {
@@ -1202,6 +1307,7 @@ export interface components {
       IsActive: boolean;
       /** Format: int32 */
       CategoryId?: number;
+      CategoryName?: string;
       Category?: components["schemas"]["Rock.Model.Category"];
       /** Format: date-time */
       CreatedDateTime?: string;
@@ -1239,7 +1345,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "59279091-6a1f-4af8-8746-4be3e9f53bc8"
+     *   "Guid": "77d607c1-64e9-4ca2-8bf3-2475c259d11f"
      * }
      */
     "Rock.Model.Device": {
@@ -1252,6 +1358,8 @@ export interface components {
       IPAddress?: string;
       /** Format: int32 */
       PrinterDeviceId?: number;
+      /** Format: int32 */
+      ProxyDeviceId?: number;
       /** @enum {string} */
       PrintFrom?: "Client" | "Server";
       /** @enum {string} */
@@ -1297,7 +1405,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2227912b-8145-4d91-99f8-f2bf5ebf9072"
+     *   "Guid": "42e5ace2-7522-4a10-83ad-92b627c16768"
      * }
      */
     "Rock.Model.Document": {
@@ -1347,7 +1455,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ef6080fa-73ad-4ac0-a7d3-932f847646ae"
+     *   "Guid": "5f00a3b5-c8b3-497f-8dd6-158b28947093"
      * }
      */
     "Rock.Model.DocumentType": {
@@ -1407,7 +1515,7 @@ export interface components {
      *   "AttributesSupportShowOnBulk": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "7eef8d00-b67a-4303-8e29-533547ffaf76"
+     *   "Guid": "8e2a4f36-6484-447f-bf44-dd593db40c72"
      * }
      */
     "Rock.Model.EntityType": {
@@ -1443,7 +1551,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2124fbd8-ccac-4200-ac16-b50cfc7f1323"
+     *   "Guid": "1b2703f1-561f-4311-8434-8941e8e79fdd"
      * }
      */
     "Rock.Model.FieldType": {
@@ -1499,7 +1607,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "90150266-a3f4-42f1-b124-29c8b4011c25"
+     *   "Guid": "85ba3d90-32ca-44a9-80ef-f26596f3a37b"
      * }
      */
     "Rock.Model.Group": {
@@ -1561,6 +1669,17 @@ export interface components {
       ReminderAdditionalDetails?: string;
       /** @enum {string} */
       ScheduleConfirmationLogic?: "Ask" | "AutoAccept";
+      RelationshipGrowthEnabledOverride?: boolean;
+      /** Format: int32 */
+      RelationshipStrengthOverride?: number;
+      /** Format: double */
+      LeaderToLeaderRelationshipMultiplierOverride?: number;
+      /** Format: double */
+      LeaderToNonLeaderRelationshipMultiplierOverride?: number;
+      /** Format: double */
+      NonLeaderToNonLeaderRelationshipMultiplierOverride?: number;
+      /** Format: double */
+      NonLeaderToLeaderRelationshipMultiplierOverride?: number;
       RSVPReminderSystemCommunication?: components["schemas"]["Rock.Model.SystemCommunication"];
       GroupType?: components["schemas"]["Rock.Model.GroupType"];
       Campus?: components["schemas"]["Rock.Model.Campus"];
@@ -1605,13 +1724,14 @@ export interface components {
      *   "LocationId": 0,
      *   "IsMailingLocation": false,
      *   "IsMappedLocation": false,
+     *   "IsOverflowLocation": false,
      *   "Order": 0,
      *   "Schedules": [],
      *   "GroupLocationScheduleConfigs": [],
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a1bfbd94-f161-4739-b95c-b79a06997f4b"
+     *   "Guid": "ff42b3b3-0d21-4900-a566-e5df94302afe"
      * }
      */
     "Rock.Model.GroupLocation": {
@@ -1623,6 +1743,7 @@ export interface components {
       GroupLocationTypeValueId?: number;
       IsMailingLocation?: boolean;
       IsMappedLocation?: boolean;
+      IsOverflowLocation?: boolean;
       /** Format: int32 */
       GroupMemberPersonAliasId?: number;
       /** Format: int32 */
@@ -1690,7 +1811,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "f467f2f8-b09b-4cd7-9cda-914cd31cc860"
+     *   "Guid": "e73755cf-b611-4181-b286-33c9e1c4957c"
      * }
      */
     "Rock.Model.GroupMember": {
@@ -1762,14 +1883,17 @@ export interface components {
     };
     /**
      * @example {
+     *   "GroupId": 0,
      *   "GroupMemberId": 0,
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2b1c6485-ce98-4637-8451-00b94fa239e6"
+     *   "Guid": "ef1fc8a0-81ea-4942-abe2-554bef464d6a"
      * }
      */
     "Rock.Model.GroupMemberAssignment": {
+      /** Format: int32 */
+      GroupId: number;
       /** Format: int32 */
       GroupMemberId?: number;
       /** Format: int32 */
@@ -1815,7 +1939,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "bac296d5-0bda-4e27-a0b9-ca4a00274c75"
+     *   "Guid": "374a03b6-d619-4350-9422-98a4bd050c8c"
      * }
      */
     "Rock.Model.GroupMemberRequirement": {
@@ -1879,7 +2003,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "303d1037-87f6-4926-8ec7-7f53609dd031"
+     *   "Guid": "1f3b200f-7932-4c35-962a-68dbd4bd7a69"
      * }
      */
     "Rock.Model.GroupMemberScheduleTemplate": {
@@ -1925,7 +2049,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "8d7c89aa-45f2-497f-b632-a76081ff5627"
+     *   "Guid": "b0daa3d3-476f-4232-b859-efdd8db223f7"
      * }
      */
     "Rock.Model.GroupRequirement": {
@@ -1985,7 +2109,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "aee1e580-a6cd-406f-b7d8-c08e22c7110b"
+     *   "Guid": "90e3791e-0384-40c9-8013-8c3b211d4eda"
      * }
      */
     "Rock.Model.GroupRequirementType": {
@@ -2060,7 +2184,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "db416a60-337e-45f3-9c6f-a10db2f53feb"
+     *   "Guid": "396ccece-833e-4248-9e4b-6b5b7477c51d"
      * }
      */
     "Rock.Model.GroupSync": {
@@ -2147,6 +2271,13 @@ export interface components {
      *   "AllowAnyChildGroupType": false,
      *   "IsCapacityRequired": false,
      *   "ScheduleConfirmationLogic": 0,
+     *   "IsPeerNetworkEnabled": false,
+     *   "RelationshipGrowthEnabled": false,
+     *   "RelationshipStrength": 0,
+     *   "LeaderToLeaderRelationshipMultiplier": 0,
+     *   "LeaderToNonLeaderRelationshipMultiplier": 0,
+     *   "NonLeaderToNonLeaderRelationshipMultiplier": 0,
+     *   "NonLeaderToLeaderRelationshipMultiplier": 0,
      *   "IsSchedulingEnabled": false,
      *   "ScheduleConfirmationEmailOffsetDays": 4,
      *   "ScheduleReminderEmailOffsetDays": 2,
@@ -2160,7 +2291,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "29879cf4-8277-4ec6-8673-baff7abbba41"
+     *   "Guid": "da54454c-9e81-4b69-84fd-9557c052197e"
      * }
      */
     "Rock.Model.GroupType": {
@@ -2219,6 +2350,23 @@ export interface components {
       IsCapacityRequired: boolean;
       /** @enum {string} */
       ScheduleConfirmationLogic?: "Ask" | "AutoAccept";
+      /** Format: int32 */
+      AttendanceReminderSystemCommunicationId?: number;
+      /** Format: int32 */
+      AttendanceReminderSendStartOffsetMinutes?: number;
+      AttendanceReminderFollowupDays?: string;
+      IsPeerNetworkEnabled?: boolean;
+      RelationshipGrowthEnabled?: boolean;
+      /** Format: int32 */
+      RelationshipStrength?: number;
+      /** Format: double */
+      LeaderToLeaderRelationshipMultiplier?: number;
+      /** Format: double */
+      LeaderToNonLeaderRelationshipMultiplier?: number;
+      /** Format: double */
+      NonLeaderToNonLeaderRelationshipMultiplier?: number;
+      /** Format: double */
+      NonLeaderToLeaderRelationshipMultiplier?: number;
       IsSchedulingEnabled?: boolean;
       /** Format: int32 */
       ScheduleConfirmationSystemCommunicationId?: number;
@@ -2246,6 +2394,7 @@ export interface components {
       ScheduleReminderSystemCommunication?: components["schemas"]["Rock.Model.SystemCommunication"];
       ScheduleCancellationWorkflowType?: components["schemas"]["Rock.Model.WorkflowType"];
       GroupRequirements?: components["schemas"]["Rock.Model.GroupRequirement"][];
+      AttendanceReminderSystemCommunication?: components["schemas"]["Rock.Model.SystemCommunication"];
       /** Format: date-time */
       CreatedDateTime?: string;
       /** Format: date-time */
@@ -2289,10 +2438,11 @@ export interface components {
      *   "CanView": false,
      *   "CanEdit": false,
      *   "CanManageMembers": false,
+     *   "IsExcludedFromPeerNetwork": false,
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "439f099b-bf93-4dbe-9aad-b95425a33ef5"
+     *   "Guid": "0aceb104-5c47-498d-a6f7-2099bd15f843"
      * }
      */
     "Rock.Model.GroupTypeRole": {
@@ -2312,6 +2462,54 @@ export interface components {
       CanView?: boolean;
       CanEdit?: boolean;
       CanManageMembers?: boolean;
+      IsExcludedFromPeerNetwork?: boolean;
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsSystem": false,
+     *   "SiteId": 0,
+     *   "Blocks": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "d6a7fb15-a218-46f2-ac00-fc60155c80b0"
+     * }
+     */
+    "Rock.Model.Layout": {
+      IsSystem: boolean;
+      /** Format: int32 */
+      SiteId?: number;
+      FileName: string;
+      Name: string;
+      LayoutMobilePhone?: string;
+      LayoutMobileTablet?: string;
+      Description?: string;
+      Blocks?: components["schemas"]["Rock.Model.Block"][];
       /** Format: date-time */
       CreatedDateTime?: string;
       /** Format: date-time */
@@ -2347,7 +2545,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ab7b12cd-6816-4212-8dc2-e2ab9126dd8c"
+     *   "Guid": "bca41c96-b9e1-4ccf-a391-0d45dd2df250"
      * }
      */
     "Rock.Model.Location": {
@@ -2446,6 +2644,197 @@ export interface components {
     };
     /**
      * @example {
+     *   "BotGuardianLevel": -1,
+     *   "IsSystem": false,
+     *   "LayoutId": 0,
+     *   "RequiresEncryption": false,
+     *   "EnableViewState": true,
+     *   "PageDisplayTitle": true,
+     *   "PageDisplayBreadCrumb": true,
+     *   "PageDisplayIcon": true,
+     *   "PageDisplayDescription": true,
+     *   "DisplayInNavWhen": 0,
+     *   "MenuDisplayDescription": false,
+     *   "MenuDisplayIcon": false,
+     *   "MenuDisplayChildPages": true,
+     *   "BreadCrumbDisplayName": true,
+     *   "BreadCrumbDisplayIcon": false,
+     *   "Order": 0,
+     *   "OutputCacheDuration": 0,
+     *   "AllowIndexing": true,
+     *   "IncludeAdminFooter": true,
+     *   "IsRateLimited": false,
+     *   "Blocks": [],
+     *   "Pages": [],
+     *   "PageRoutes": [],
+     *   "PageContexts": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "323a5930-7763-42fd-8098-21521c8f7450"
+     * }
+     */
+    "Rock.Model.Page": {
+      InternalName: string;
+      PageTitle?: string;
+      /** @enum {string} */
+      BotGuardianLevel?: "Inherit" | "Disable" | "Enable";
+      BrowserTitle?: string;
+      /** Format: int32 */
+      ParentPageId?: number;
+      IsSystem?: boolean;
+      /** Format: int32 */
+      LayoutId?: number;
+      RequiresEncryption?: boolean;
+      EnableViewState?: boolean;
+      PageDisplayTitle?: boolean;
+      PageDisplayBreadCrumb?: boolean;
+      PageDisplayIcon?: boolean;
+      PageDisplayDescription?: boolean;
+      /** @enum {string} */
+      DisplayInNavWhen: "WhenAllowed" | "Always" | "Never";
+      MenuDisplayDescription: boolean;
+      MenuDisplayIcon: boolean;
+      MenuDisplayChildPages: boolean;
+      BreadCrumbDisplayName?: boolean;
+      BreadCrumbDisplayIcon?: boolean;
+      /** Format: int32 */
+      Order: number;
+      Description?: string;
+      KeyWords?: string;
+      HeaderContent?: string;
+      AllowIndexing?: boolean;
+      IconCssClass?: string;
+      IncludeAdminFooter: boolean;
+      BodyCssClass?: string;
+      /** Format: int32 */
+      IconBinaryFileId?: number;
+      AdditionalSettingsJson?: string;
+      /** Format: double */
+      MedianPageLoadTimeDurationSeconds?: number;
+      CacheControlHeaderSettings?: string;
+      /** Format: int32 */
+      RateLimitRequestPerPeriod?: number;
+      /** Format: int32 */
+      RateLimitPeriod?: number;
+      IsRateLimited?: boolean;
+      Blocks?: components["schemas"]["Rock.Model.Block"][];
+      Pages?: components["schemas"]["Rock.Model.Page"][];
+      PageRoutes?: components["schemas"]["Rock.Model.PageRoute"][];
+      PageContexts?: components["schemas"]["Rock.Model.PageContext"][];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsSystem": false,
+     *   "PageId": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "0df5eeb7-2db9-4b7d-9484-ce2024f73639"
+     * }
+     */
+    "Rock.Model.PageContext": {
+      IsSystem: boolean;
+      /** Format: int32 */
+      PageId: number;
+      Entity: string;
+      IdParameter: string;
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsSystem": false,
+     *   "PageId": 0,
+     *   "IsGlobal": false,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "daeb8605-5a5f-457a-a90d-f18ac99cad78"
+     * }
+     */
+    "Rock.Model.PageRoute": {
+      IsSystem: boolean;
+      /** Format: int32 */
+      PageId: number;
+      Route: string;
+      IsGlobal?: boolean;
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
      *   "IsSystem": false,
      *   "IsDeceased": false,
      *   "Gender": 0,
@@ -2456,9 +2845,11 @@ export interface components {
      *   "AgeClassification": 0,
      *   "IsLockedAsChild": false,
      *   "AccountProtectionProfile": 0,
+     *   "AgeBracket": 0,
      *   "Users": [],
      *   "PhoneNumbers": [],
      *   "FullName": " ",
+     *   "Initials": "",
      *   "BirthdayDayOfWeek": "",
      *   "BirthdayDayOfWeekShort": "",
      *   "DaysToBirthday": 2147483647,
@@ -2467,7 +2858,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "33aa2203-6052-40f5-8d76-d9b077858863"
+     *   "Guid": "b223d788-a795-493c-bd7e-aba84c0f5b14"
      * }
      */
     "Rock.Model.Person": {
@@ -2501,6 +2892,8 @@ export interface components {
       BirthMonth?: number;
       /** Format: int32 */
       BirthYear?: number;
+      /** Format: int32 */
+      Age?: number;
       /** @enum {string} */
       Gender: "Unknown" | "Male" | "Female";
       /** Format: int32 */
@@ -2549,6 +2942,16 @@ export interface components {
       RaceValueId?: number;
       /** Format: int32 */
       EthnicityValueId?: number;
+      /** Format: int32 */
+      BirthDateKey?: number;
+      /** @enum {string} */
+      AgeBracket?: "Unknown" | "ZeroToFive" | "SixToTwelve" | "ThirteenToSeventeen" | "EighteenToTwentyFour" | "TwentyFiveToThirtyFour" | "ThirtyFiveToFortyFour" | "FortyFiveToFiftyFour" | "FiftyFiveToSixtyFour" | "SixtyFiveOrOlder";
+      FirstNamePronunciationOverride?: string;
+      NickNamePronunciationOverride?: string;
+      LastNamePronunciationOverride?: string;
+      PronunciationNote?: string;
+      /** Format: int32 */
+      PrimaryAliasId?: number;
       Users?: components["schemas"]["Rock.Model.UserLogin"][];
       PhoneNumbers?: components["schemas"]["Rock.Model.PhoneNumber"][];
       MaritalStatusValue?: components["schemas"]["Rock.Model.DefinedValue"];
@@ -2567,15 +2970,12 @@ export interface components {
       EthnicityValue?: components["schemas"]["Rock.Model.DefinedValue"];
       /** Format: int32 */
       GivingGroupId?: number;
-      /** Format: int32 */
-      PrimaryAliasId?: number;
       FullName?: string;
+      Initials?: string;
       BirthdayDayOfWeek?: string;
       BirthdayDayOfWeekShort?: string;
       /** Format: date-time */
       BirthDate?: string;
-      /** Format: int32 */
-      Age?: number;
       /** Format: date-time */
       NextBirthDay?: string;
       /** Format: int32 */
@@ -2621,7 +3021,7 @@ export interface components {
      *   "PersonId": 0,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "64720d67-5393-4b40-bf33-ca72617a43a9"
+     *   "Guid": "1e203764-16b1-49f4-9fa5-afc09434cc01"
      * }
      */
     "Rock.Model.PersonAlias": {
@@ -2632,6 +3032,7 @@ export interface components {
       AliasedDateTime?: string;
       /** Format: date-time */
       LastVisitDateTime?: string;
+      InternalMessage?: string;
       Person?: components["schemas"]["Rock.Model.Person"];
       /** Format: int32 */
       Id?: number;
@@ -2655,7 +3056,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "1393c7ce-c6e8-4000-9d24-281f0fe60e8b"
+     *   "Guid": "2d956a39-4eb1-4c28-870a-d71279b4705c"
      * }
      */
     "Rock.Model.PhoneNumber": {
@@ -2711,7 +3112,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a95caaf6-fa54-40dd-9487-c1defadb113e"
+     *   "Guid": "8229ec2d-c03a-4657-a995-09790c9545ba"
      * }
      */
     "Rock.Model.Schedule": {
@@ -2769,10 +3170,11 @@ export interface components {
      * @example {
      *   "IsActive": true,
      *   "SignatureType": 0,
+     *   "IsValidInFuture": false,
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "6b6c82da-0937-4dc8-b6f1-ced92f11d9f0"
+     *   "Guid": "f845b1a8-1625-4029-9119-bd49f14a1e4c"
      * }
      */
     "Rock.Model.SignatureDocumentTemplate": {
@@ -2792,10 +3194,189 @@ export interface components {
       SignatureType?: "Typed" | "Drawn";
       /** Format: int32 */
       CompletionSystemCommunicationId?: number;
+      IsValidInFuture?: boolean;
+      /** Format: int32 */
+      ValidityDurationInDays?: number;
       ProviderEntityType?: components["schemas"]["Rock.Model.EntityType"];
       BinaryFileType?: components["schemas"]["Rock.Model.BinaryFileType"];
       InviteSystemCommunication?: components["schemas"]["Rock.Model.SystemCommunication"];
       CompletionSystemCommunication?: components["schemas"]["Rock.Model.SystemCommunication"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsSystem": false,
+     *   "IsActive": true,
+     *   "SiteType": 0,
+     *   "EnableMobileRedirect": false,
+     *   "RedirectTablets": false,
+     *   "EnablePageViews": true,
+     *   "AllowIndexing": true,
+     *   "IsIndexEnabled": false,
+     *   "RequiresEncryption": false,
+     *   "EnabledForShortening": true,
+     *   "EnableExclusiveRoutes": false,
+     *   "EnablePageViewGeoTracking": false,
+     *   "DisablePredictableIds": false,
+     *   "EnableVisitorTracking": false,
+     *   "EnablePersonalization": false,
+     *   "BotGuardianLevel": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "4e55ca24-99de-46d7-ae45-4d9796dc3152"
+     * }
+     */
+    "Rock.Model.Site": {
+      IsSystem: boolean;
+      Name: string;
+      IsActive?: boolean;
+      /** Format: int32 */
+      ConfigurationMobilePhoneBinaryFileId?: number;
+      /** Format: int32 */
+      ConfigurationMobileTabletBinaryFileId?: number;
+      AdditionalSettings?: string;
+      /** @enum {string} */
+      SiteType?: "Web" | "Mobile" | "Tv";
+      /** Format: int32 */
+      ThumbnailBinaryFileId?: number;
+      Description?: string;
+      Theme?: string;
+      /** Format: int32 */
+      DefaultPageId?: number;
+      /** Format: int32 */
+      DefaultPageRouteId?: number;
+      /** Format: int32 */
+      LoginPageId?: number;
+      /** Format: int32 */
+      LoginPageRouteId?: number;
+      /** Format: int32 */
+      ChangePasswordPageId?: number;
+      /** Format: int32 */
+      ChangePasswordPageRouteId?: number;
+      /** Format: int32 */
+      RegistrationPageId?: number;
+      /** Format: int32 */
+      RegistrationPageRouteId?: number;
+      /** Format: int32 */
+      PageNotFoundPageId?: number;
+      /** Format: int32 */
+      PageNotFoundPageRouteId?: number;
+      /** Format: int32 */
+      CommunicationPageId?: number;
+      /** Format: int32 */
+      CommunicationPageRouteId?: number;
+      ErrorPage?: string;
+      GoogleAnalyticsCode?: string;
+      EnableMobileRedirect?: boolean;
+      /** Format: int32 */
+      MobilePageId?: number;
+      ExternalUrl?: string;
+      AllowedFrameDomains?: string;
+      RedirectTablets?: boolean;
+      EnablePageViews?: boolean;
+      PageHeaderContent?: string;
+      AllowIndexing?: boolean;
+      IsIndexEnabled?: boolean;
+      IndexStartingLocation?: string;
+      RequiresEncryption?: boolean;
+      EnabledForShortening?: boolean;
+      /** Format: int32 */
+      FavIconBinaryFileId?: number;
+      /** Format: int32 */
+      SiteLogoBinaryFileId?: number;
+      /** Format: date-time */
+      LatestVersionDateTime?: string;
+      EnableExclusiveRoutes?: boolean;
+      EnablePageViewGeoTracking?: boolean;
+      DisablePredictableIds?: boolean;
+      EnableVisitorTracking?: boolean;
+      EnablePersonalization?: boolean;
+      /** @enum {string} */
+      BotGuardianLevel?: "Inherit" | "Disable" | "Enable";
+      Layouts?: components["schemas"]["Rock.Model.Layout"][];
+      Blocks?: components["schemas"]["Rock.Model.Block"][];
+      SiteDomains?: components["schemas"]["Rock.Model.SiteDomain"][];
+      DefaultPage?: components["schemas"]["Rock.Model.Page"];
+      DefaultPageRoute?: components["schemas"]["Rock.Model.PageRoute"];
+      LoginPage?: components["schemas"]["Rock.Model.Page"];
+      LoginPageRoute?: components["schemas"]["Rock.Model.PageRoute"];
+      ChangePasswordPageRoute?: components["schemas"]["Rock.Model.PageRoute"];
+      RegistrationPage?: components["schemas"]["Rock.Model.Page"];
+      RegistrationPageRoute?: components["schemas"]["Rock.Model.PageRoute"];
+      PageNotFoundPage?: components["schemas"]["Rock.Model.Page"];
+      PageNotFoundPageRoute?: components["schemas"]["Rock.Model.PageRoute"];
+      CommunicationPage?: components["schemas"]["Rock.Model.Page"];
+      CommunicationPageRoute?: components["schemas"]["Rock.Model.PageRoute"];
+      MobilePage?: components["schemas"]["Rock.Model.Page"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsSystem": false,
+     *   "SiteId": 0,
+     *   "Order": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "735620d6-8444-4c91-a0d9-175d93cee4a3"
+     * }
+     */
+    "Rock.Model.SiteDomain": {
+      IsSystem: boolean;
+      /** Format: int32 */
+      SiteId: number;
+      Domain: string;
+      /** Format: int32 */
+      Order: number;
       /** Format: date-time */
       CreatedDateTime?: string;
       /** Format: date-time */
@@ -2831,7 +3412,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "73e6f3f2-1536-4d87-b463-4a581f007cb1"
+     *   "Guid": "a1ba7329-af5d-4104-88ba-00eda80b5104"
      * }
      */
     "Rock.Model.SystemCommunication": {
@@ -2850,7 +3431,7 @@ export interface components {
       CssInliningEnabled?: boolean;
       SMSMessage?: string;
       /** Format: int32 */
-      SMSFromDefinedValueId?: number;
+      SmsFromSystemPhoneNumberId?: number;
       LavaFieldsJson?: string;
       PushTitle?: string;
       PushMessage?: string;
@@ -2862,7 +3443,7 @@ export interface components {
       PushOpenMessage?: string;
       PushData?: string;
       Category?: components["schemas"]["Rock.Model.Category"];
-      SMSFromDefinedValue?: components["schemas"]["Rock.Model.DefinedValue"];
+      SmsFromSystemPhoneNumber?: components["schemas"]["Rock.Model.SystemPhoneNumber"];
       LavaFields?: {
         [key: string]: string;
       };
@@ -2894,10 +3475,70 @@ export interface components {
     };
     /**
      * @example {
+     *   "IsActive": true,
+     *   "Order": 0,
+     *   "IsSmsEnabled": false,
+     *   "IsSmsForwardingEnabled": false,
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "dd4cb34d-6e05-441d-a129-7db1cf41b081"
+     *   "Guid": "9c1c36a1-457e-45db-8605-a7808108d022"
+     * }
+     */
+    "Rock.Model.SystemPhoneNumber": {
+      Name: string;
+      Description?: string;
+      Number: string;
+      IsActive?: boolean;
+      /** Format: int32 */
+      Order: number;
+      /** Format: int32 */
+      AssignedToPersonAliasId?: number;
+      IsSmsEnabled?: boolean;
+      IsSmsForwardingEnabled?: boolean;
+      /** Format: int32 */
+      SmsReceivedWorkflowTypeId?: number;
+      /** Format: int32 */
+      SmsNotificationGroupId?: number;
+      /** Format: int32 */
+      MobileApplicationSiteId?: number;
+      ProviderIdentifier?: string;
+      AssignedToPersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
+      SmsReceivedWorkflowType?: components["schemas"]["Rock.Model.WorkflowType"];
+      SmsNotificationGroup?: components["schemas"]["Rock.Model.Group"];
+      MobileApplicationSite?: components["schemas"]["Rock.Model.Site"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "fd0553ac-7f60-4a92-b14d-9e9031b3c1bf"
      * }
      */
     "Rock.Model.UserLogin": {
@@ -2922,6 +3563,7 @@ export interface components {
       FailedPasswordAttemptWindowStartDateTime?: string;
       /** Format: date-time */
       LastPasswordExpirationWarningDateTime?: string;
+      ApiKey?: string;
       /** Format: int32 */
       PersonId?: number;
       EntityType?: components["schemas"]["Rock.Model.EntityType"];
@@ -2962,6 +3604,7 @@ export interface components {
      *   "PersonEntryGenderEntryOption": 2,
      *   "PersonEntryEmailEntryOption": 2,
      *   "PersonEntryMobilePhoneEntryOption": 0,
+     *   "PersonEntrySmsOptInEntryOption": 0,
      *   "PersonEntryBirthdateEntryOption": 0,
      *   "PersonEntryAddressEntryOption": 0,
      *   "PersonEntryMaritalStatusEntryOption": 0,
@@ -2974,7 +3617,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "51af12b7-35b3-4220-9cf5-7f9eca52ec18"
+     *   "Guid": "864eed35-35e6-4ffd-a648-e47e521f7bf3"
      * }
      */
     "Rock.Model.WorkflowActionForm": {
@@ -3001,6 +3644,8 @@ export interface components {
       PersonEntryEmailEntryOption?: "Hidden" | "Optional" | "Required";
       /** @enum {string} */
       PersonEntryMobilePhoneEntryOption?: "Hidden" | "Optional" | "Required";
+      /** @enum {string} */
+      PersonEntrySmsOptInEntryOption?: "Hide" | "Show";
       /** @enum {string} */
       PersonEntryBirthdateEntryOption?: "Hidden" | "Optional" | "Required";
       /** @enum {string} */
@@ -3079,7 +3724,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "02e09f10-e656-48b7-a05a-898f6b9379a2"
+     *   "Guid": "d784b97a-16e8-43d9-b3db-7100bf4c2bcd"
      * }
      */
     "Rock.Model.WorkflowActionFormAttribute": {
@@ -3135,7 +3780,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e9ab89af-90d5-4279-bdc8-056a0b137d8c"
+     *   "Guid": "658c86d9-d8dc-4b71-85cb-5fcd1975b1f1"
      * }
      */
     "Rock.Model.WorkflowActionFormSection": {
@@ -3187,7 +3832,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "6ca201e2-17d6-47ed-9f00-8eb4dd785b14"
+     *   "Guid": "1e1dd0c3-f2b2-4520-b4b9-a5b496b921d5"
      * }
      */
     "Rock.Model.WorkflowActionType": {
@@ -3244,7 +3889,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "50965b3b-f29b-4ab8-8361-100163e710fe"
+     *   "Guid": "a3be3f49-c599-4bac-943e-b081f0fd6d39"
      * }
      */
     "Rock.Model.WorkflowActivityType": {
@@ -3291,7 +3936,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "02c9c5db-7ce5-4c80-b3a4-afea26ada3c2"
+     *   "Guid": "29003f5d-6177-45ee-a38d-52eae40425a7"
      * }
      */
     "Rock.Model.WorkflowFormBuilderTemplate": {
@@ -3344,7 +3989,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e3b40b62-fe06-4bfc-aaa5-f64efcf3def8"
+     *   "Guid": "7497a02d-a56f-4f64-9cc0-ee38ce0d7235"
      * }
      */
     "Rock.Model.WorkflowType": {
@@ -3893,6 +4538,8 @@ export interface components {
       Gender?: string;
       /** @description Gets or sets the connection status. */
       ConnectionStatus?: string;
+      /** @description Gets or sets the color of the connection status. */
+      ConnectionStatusColor?: string;
       /** @description Gets or sets the record status. */
       RecordStatus?: string;
       /** @description Gets or sets the email. */
@@ -3901,6 +4548,10 @@ export interface components {
       SpouseName?: string;
       /** @description Gets or sets the nickname of the spouse. */
       SpouseNickName?: string;
+      /** @description Gets or sets the name of the campus. */
+      CampusName?: string;
+      /** @description Gets or sets the campus short code. */
+      CampusShortCode?: string;
       /** @description Gets or sets the address. */
       Address?: string;
       /** @description Gets or sets the phone numbers for this person. */
@@ -3923,7 +4574,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "45f5e9fe-bca8-414b-aa55-9f36f6ea2190"
+     *   "Guid": "05e62164-9a15-45b2-b6ff-319a7e424ef2"
      * }
      */
     "Rock.Model.DefinedType": {
@@ -5906,46 +6557,6 @@ export interface operations {
       };
     };
   };
-  /** Gets the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference for the specified block */
-  GETapi_People_GetBlockUserPreferenceblockIdblockIduserPreferenceKeyuserPreferenceKey: {
-    parameters: {
-      query: {
-        /** @description The block identifier. */
-        blockId: number;
-        /** @description The user preference key. */
-        userPreferenceKey: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": string;
-        };
-      };
-    };
-  };
-  /** Gets the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference for the specified block */
-  GETapi_People_GetBlockUserPreference_blockGuiduserPreferenceKeyuserPreferenceKey: {
-    parameters: {
-      query: {
-        /** @description The user preference key. */
-        userPreferenceKey: string;
-      };
-      path: {
-        /** @description The block identifier. */
-        blockGuid: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": string;
-        };
-      };
-    };
-  };
   GETapi_People_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive: {
     parameters: {
       query?: {
@@ -6307,26 +6918,6 @@ export interface operations {
       };
     };
   };
-  /**
-   * Gets the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference.
-   * Note: If the user preference is for a specific block, use ~/api/People/GetBlockUserPreference instead.
-   */
-  GETapi_People_GetUserPreferenceuserPreferenceKeyuserPreferenceKey: {
-    parameters: {
-      query: {
-        /** @description The user preference key. */
-        userPreferenceKey: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": string;
-        };
-      };
-    };
-  };
   /** Determines if the entity id is in the data view */
   GETapi_People_InDataView_dataViewId_entityId: {
     parameters: {
@@ -6372,6 +6963,38 @@ export interface operations {
       /** @description No Content */
       204: {
         content: {
+        };
+      };
+    };
+  };
+  /**
+   * Unsubscribes a person from all email communications or a specific communication list if one is provided.
+   * @description <para>This endpoint is for email client one-click unsubscribe functionality (<a href="https://datatracker.ietf.org/doc/html/rfc8058">RFC8058</a>).</para>
+   * <para>As of 12/13/2023, <a href="https://datatracker.ietf.org/doc/html/rfc8058#section-3.1">RFC8058 Section 3.1</a> states:</para>
+   * <para>
+   *             The POST request MUST NOT include cookies, HTTP authorization, or any
+   *             other context information. The unsubscribe operation is logically
+   *             unrelated to any previous web activity, and context information could
+   *             inappropriately link the unsubscribe to previous activity.
+   *             </para>
+   * <para>For this reason, this endpoint does not and must not require authentication or authorization other than the encrypted person action identifier.</para>
+   */
+  POSTapi_People_OneClickUnsubscribe_personActionIdentifiercommunicationListIdKeycommunicationListIdKey: {
+    parameters: {
+      query?: {
+        /** @description The communication list identifier key. */
+        communicationListIdKey?: string;
+      };
+      path: {
+        /** @description The person action identifier. Action should be "Unsubscribe". */
+        personActionIdentifier: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
         };
       };
     };
@@ -6453,49 +7076,6 @@ export interface operations {
       };
     };
   };
-  /** Saves the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference for the specified block */
-  POSTapi_People_SetBlockUserPreferenceblockIdblockIduserPreferenceKeyuserPreferenceKeyvaluevalue: {
-    parameters: {
-      query: {
-        /** @description The block identifier. */
-        blockId: number;
-        /** @description The user preference key. */
-        userPreferenceKey: string;
-        /** @description The value. */
-        value: string;
-      };
-    };
-    responses: {
-      /** @description No Content */
-      204: {
-        content: {
-        };
-      };
-    };
-  };
-  /** Saves the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference for the specified block */
-  POSTapi_People_SetBlockUserPreference_blockGuiduserPreferenceKeyuserPreferenceKeyvaluevalue: {
-    parameters: {
-      query: {
-        /** @description The user preference key. */
-        userPreferenceKey: string;
-        /** @description The value. */
-        value: string;
-      };
-      path: {
-        /** @description The block identifier. */
-        blockGuid: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": Record<string, never>;
-        };
-      };
-    };
-  };
   /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
   PUTapi_People_SetContext_id: {
     parameters: {
@@ -6530,23 +7110,27 @@ export interface operations {
       };
     };
   };
-  /**
-   * Saves the currently logged in <see cref="T:Rock.Model.Person">person's</see> user preference.
-   * Note: If the user preference is for a specific block, use ~/api/People/SetBlockUserPreference instead.
-   */
-  POSTapi_People_SetUserPreferenceuserPreferenceKeyuserPreferenceKeyvaluevalue: {
+  /** Updates the person profile photo. */
+  POSTapi_People_UpdatePersonProfilePhotopersonGuidpersonGuidfilenamefilename: {
     parameters: {
       query: {
-        /** @description The user preference key. */
-        userPreferenceKey: string;
-        /** @description The value. */
-        value: string;
+        /** @description The person unique identifier. */
+        personGuid: string;
+        /** @description The filename. */
+        filename: string;
+      };
+    };
+    /** @description The photo bytes. */
+    requestBody: {
+      content: {
+        "application/json": string;
       };
     };
     responses: {
-      /** @description No Content */
-      204: {
+      /** @description OK */
+      200: {
         content: {
+          "application/json": Record<string, never>;
         };
       };
     };

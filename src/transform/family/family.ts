@@ -1,5 +1,5 @@
 import type { FluroFamily } from '../../extract/family'
-import type { RockFamily } from '../../load/family/family'
+import type { RockFamily } from '../../load/family'
 import type { Cache } from '../../load/types'
 
 export function transform(_cache: Cache, value: FluroFamily): RockFamily {
