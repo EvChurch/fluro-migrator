@@ -43,8 +43,6 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
       `Couldn't find connection status value id for contact ${value._id} with definition ${value.definition}`
     )
 
-  if (value.maritalStatus) throw new Error(value.maritalStatus)
-
   return {
     IsSystem: false,
     BirthDay: value?.dobDay,
@@ -66,6 +64,11 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
     FamilyRole:
       value?.householdRole != null && value.householdRole === 'child' ? 4 : 3,
     PhoneNumber: value?.phoneNumbers,
-    FluroRecordStatus: value.status
+    FluroRecordStatus: value.status,
+    MaritalStatusValueId:
+      value.maritalStatus != null
+        ? cache['definedValues/maritalStatus'][value.maritalStatus]?.rockId
+        : undefined,
+    NickName: value.preferredName
   }
 }

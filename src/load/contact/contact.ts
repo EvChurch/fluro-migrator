@@ -61,7 +61,8 @@ export async function load(value: RockContact): Promise<CacheObject> {
     const body = omit(
       {
         ...value,
-        RecordStatusValueId: await getRecordStatus(value.FluroRecordStatus)
+        RecordStatusValueId: await getRecordStatus(value.FluroRecordStatus),
+        Gender: { Unknown: 0, Male: 1, Female: 2 }[value.Gender]
       },
       [
         'FamilyRole',
