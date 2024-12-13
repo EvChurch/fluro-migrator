@@ -20,7 +20,7 @@ export async function load(value: RockCampus): Promise<CacheObject> {
   })
   if (error != null) throw new RockApiError(error)
 
-  if (data != null && data.length > 0 && data[0] != null) {
+  if (data != null && data.length > 0 && data[0].Id != null) {
     // campus exists
     const { error } = await PATCH('/api/Campuses/{id}', {
       params: {
