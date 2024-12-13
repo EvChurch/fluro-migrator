@@ -8,6 +8,7 @@ interface ExtractFromFluroOptions {
     allDefinitions?: boolean
     includeArchived?: boolean
     searchInheritable?: boolean
+    search?: string
     filter?: {
       filters?: {
         comparator?: string

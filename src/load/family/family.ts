@@ -1,7 +1,7 @@
 import f from 'odata-filter-builder'
 
 import type { components } from '../client'
-import { GET, POST, PUT, RockApiError } from '../client'
+import { GET, PATCH, POST, RockApiError } from '../client'
 import type { CacheObject } from '../types'
 
 let GroupTypeId: number
@@ -37,13 +37,16 @@ export async function load(value: RockFamily): Promise<CacheObject> {
   if (error != null) throw new RockApiError(error)
 
   if (data != null && data.length > 0 && data[0].Id != null) {
-    const { error } = await PUT('/api/Groups/{id}', {
+    const { error } = await PATCH('/api/Groups/{id}', {
       params: {
         path: {
           id: data[0].Id
         }
       },
-      body: { ...value, Id: data[0].Id, GroupTypeId }
+      body: { ...value, Id: data[0].Id, GroupTypeId } as unknown as Record<
+        string,
+        never
+      >
     })
     if (error != null) throw new RockApiError(error)
     return { rockId: data[0].Id }

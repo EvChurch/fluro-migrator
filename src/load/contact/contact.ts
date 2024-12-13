@@ -2,7 +2,7 @@ import { omit } from 'lodash'
 import f from 'odata-filter-builder'
 
 import type { components } from '../client'
-import { GET, POST, PUT, RockApiError } from '../client'
+import { GET, PATCH, POST, RockApiError } from '../client'
 import type { CacheObject } from '../types'
 
 import { updatePersonProfilePhoto } from './avatar'
@@ -61,17 +61,25 @@ export async function load(value: RockContact): Promise<CacheObject> {
     const body = omit(
       {
         ...value,
-        Id: data[0].Id,
         RecordStatusValueId: await getRecordStatus(value.FluroRecordStatus)
       },
-      ['FamilyRole', 'PhoneNumber', 'FluroRecordStatus']
+      [
+        'FamilyRole',
+        'PhoneNumber',
+        'FluroRecordStatus',
+        'PrimaryFamilyId',
+        'ForeignKey',
+        'BirthDate'
+      ]
     )
-    const { error } = await PUT('/api/People/{id}', {
+
+    const { error } = await PATCH('/api/People/{id}', {
       params,
-      body
+      body: body as unknown as Record<string, never>
     })
+
     if (error != null)
-      throw new RockApiError(error, { cause: { params, body } })
+      throw new RockApiError(error, { cause: { path: params.path, body } })
     if (value.PhoneNumber.length > 0)
       await loadNumber(
         value.PhoneNumber[0],

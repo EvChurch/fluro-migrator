@@ -11,6 +11,7 @@ const client = axios.create({
 
 async function downloadSchema(): Promise<void> {
   const REST_CONTROLLER_NAMES = [
+    'Campuses',
     'Groups',
     'GroupTypes',
     'GroupTypeRoles',

@@ -4,7 +4,7 @@ import type { FluroContact } from '../../extract/contact'
 import type { RockContact } from '../../load/contact'
 import type { Cache } from '../../load/types'
 
-function transformGender(gender: string): 'Unknown' | 'Male' | 'Female' {
+function transformGender(gender: string): 'Male' | 'Female' | 'Unknown' {
   switch (gender) {
     case 'male':
       return 'Male'
@@ -42,6 +42,8 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
     throw new Error(
       `Couldn't find connection status value id for contact ${value._id} with definition ${value.definition}`
     )
+
+  if (value.maritalStatus) throw new Error(value.maritalStatus)
 
   return {
     IsSystem: false,

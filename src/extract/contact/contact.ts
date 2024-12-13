@@ -6,6 +6,7 @@ export const extract = extractFromFluro<FluroContact>({
   contentType: 'contact',
   filterBody: {
     allDefinitions: true,
-    includeArchived: true
+    includeArchived: true,
+    search: '5c05059148890574c5395ccb' // tatai
   }
 })

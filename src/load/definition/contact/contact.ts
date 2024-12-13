@@ -2,7 +2,7 @@ import { omit } from 'lodash'
 import f from 'odata-filter-builder'
 
 import type { components } from '../../client'
-import { GET, POST, PUT, RockApiError } from '../../client'
+import { GET, PATCH, POST, RockApiError } from '../../client'
 import type { CacheObject } from '../../types'
 
 let DefinedTypeId: number
@@ -52,13 +52,15 @@ export async function load(value: RockDefinitionContact): Promise<CacheObject> {
   if (error != null) throw new RockApiError(error)
 
   if (data != null && data.length > 0 && data[0].Id != null) {
-    const { error } = await PUT('/api/DefinedValues/{id}', {
+    const { error } = await PATCH('/api/DefinedValues/{id}', {
       params: {
         path: {
           id: data[0].Id
         }
       },
-      body: omit({ ...value, Id: data[0].Id, DefinedTypeId }, ['cache'])
+      body: omit({ ...value, Id: data[0].Id, DefinedTypeId }, [
+        'cache'
+      ]) as unknown as Record<string, never>
     })
     if (error != null)
       throw new Error(
