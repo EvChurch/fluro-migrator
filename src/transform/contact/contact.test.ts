@@ -14,7 +14,10 @@ describe('contact', () => {
       emails: { 0: 'example@example.com' },
       definition: 'visitor',
       phoneNumbers: [],
-      status: 'active'
+      status: 'active',
+      preferredName: 'JS',
+      maritalStatus: 'single',
+      householdRole: 'child'
     } as unknown as FluroContact
     const rockContact: RockContact = {
       BirthMonth: undefined,
@@ -25,7 +28,6 @@ describe('contact', () => {
       DeceasedDate: undefined,
       Email: 'example@example.com',
       FirstName: 'John',
-      FamilyRole: 3,
       ForeignKey: '1',
       Gender: 'Male',
       IsDeceased: undefined,
@@ -33,7 +35,10 @@ describe('contact', () => {
       LastName: 'Smith',
       PrimaryFamilyId: undefined,
       ConnectionStatusValueId: 1,
-      FluroRecordStatus: 'active'
+      FluroRecordStatus: 'active',
+      GroupRoleId: 4,
+      NickName: 'JS',
+      MaritalStatusValueId: 144
     } as RockContact
     it('should translate a fluro api contact to a rock contact', () => {
       const cache: Cache = {
@@ -43,6 +48,11 @@ describe('contact', () => {
               definitionName: 'visitor'
             },
             rockId: 1
+          }
+        },
+        'definedValues/maritalStatus': {
+          single: {
+            rockId: 144
           }
         }
       }
