@@ -12,10 +12,9 @@ export const extract = extractFromFluro<FluroCampus>({
     filter: {
       filters: [
         {
-          comparator: '!=',
+          comparator: 'notin',
           key: 'title',
-          value: 'Auckland Ev',
-          values: ['Auckland Ev']
+          values: ['Auckland Ev', 'Test Campus']
         }
       ]
     }
