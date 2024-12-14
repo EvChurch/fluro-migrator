@@ -7,6 +7,7 @@ export const extract = extractFromFluro<FluroContact>({
   filterBody: {
     allDefinitions: true,
     includeArchived: true,
-    search: '5c05059148890574c5395ccb' // tatai
+    // search: '5fefe87196930a095efc8e88' // tatai
+    search: '5fefe87196930a095efc8e88' // jeanny
   }
 })

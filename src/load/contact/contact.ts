@@ -10,7 +10,7 @@ import { load as loadNumber } from './phoneNumber'
 import { getRecordStatus } from './recordStatus'
 
 export type RockContact = components['schemas']['Rock.Model.Person'] & {
-  FamilyRole: number
+  GroupRoleId: number
   PhoneNumber: string[]
   FluroRecordStatus: string
 }
@@ -41,7 +41,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
         query: {
           personId: data[0].Id,
           familyId: value.PrimaryFamilyId,
-          groupRoleId: value.FamilyRole ?? 3,
+          groupRoleId: value.GroupRoleId,
           removeFromOtherFamilies: true
         }
       }
@@ -65,7 +65,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
         Gender: { Unknown: 0, Male: 1, Female: 2 }[value.Gender]
       },
       [
-        'FamilyRole',
+        'GroupRoleId',
         'PhoneNumber',
         'FluroRecordStatus',
         'PrimaryFamilyId',
@@ -105,7 +105,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
           familyId: value.PrimaryFamilyId
         },
         query: {
-          groupRoleId: value.FamilyRole ?? 3
+          groupRoleId: value.GroupRoleId
         }
       }
       const body = omit(
@@ -113,7 +113,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
           ...value,
           RecordStatusValueId: await getRecordStatus(value.FluroRecordStatus)
         },
-        ['FamilyRole', 'PhoneNumber', 'FluroRecordStatus']
+        ['GroupRoleId', 'PhoneNumber', 'FluroRecordStatus']
       )
       const { data, error } = await POST(
         '/api/People/AddNewPersonToFamily/{familyId}',
@@ -141,7 +141,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
           ...value,
           RecordStatusValueId: await getRecordStatus(value.FluroRecordStatus)
         },
-        ['FamilyRole', 'PhoneNumber', 'FluroRecordStatus']
+        ['GroupRoleId', 'PhoneNumber', 'FluroRecordStatus']
       )
       const { data, error } = await POST('/api/People', {
         body

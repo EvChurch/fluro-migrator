@@ -17,6 +17,33 @@ export function transform(cache: Cache, value: FluroFamily): RockFamily {
     Name: value.title,
     Order: 0,
     IsPublic: false,
-    CampusId
+    CampusId,
+    Address: transformAddress(value.address),
+    PostalAddress: value.postalAddress
+      ? transformAddress(value.postalAddress)
+      : undefined
+  }
+}
+
+function transformAddress(
+  address: FluroFamily['address']
+): RockFamily['Address'] {
+  return {
+    Street1: address.addressLine1,
+    Street2: address.addressLine2 ?? address.suburb,
+    City: address.state,
+    PostalCode: address.postalCode ?? undefined,
+    Country: transformCountry(address.country ?? 'New Zealand')
+  }
+}
+
+function transformCountry(country: string): string {
+  switch (country) {
+    case 'Australia':
+      return 'AU'
+    case 'New Zealand':
+      return 'NZ'
+    default:
+      throw new Error("Couldn't find country code for " + country)
   }
 }

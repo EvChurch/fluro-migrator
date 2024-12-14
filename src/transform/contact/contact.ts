@@ -1,5 +1,6 @@
 import { find, truncate } from 'lodash'
 
+import { GroupRoleId } from '../../defaults'
 import type { FluroContact } from '../../extract/contact'
 import type { RockContact } from '../../load/contact'
 import type { Cache } from '../../load/types'
@@ -61,8 +62,10 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
       value.family != null
         ? cache['family'][value.family._id]?.rockId
         : undefined,
-    FamilyRole:
-      value?.householdRole != null && value.householdRole === 'child' ? 4 : 3,
+    GroupRoleId:
+      (value.householdRole != null
+        ? GroupRoleId[value.householdRole]
+        : undefined) ?? GroupRoleId._default,
     PhoneNumber: value?.phoneNumbers,
     FluroRecordStatus: value.status,
     MaritalStatusValueId:
