@@ -58,9 +58,10 @@ export async function load(value: RockDefinitionContact): Promise<CacheObject> {
           id: data[0].Id
         }
       },
-      body: omit({ ...value, Id: data[0].Id, DefinedTypeId }, [
-        'cache'
-      ]) as unknown as Record<string, never>
+      body: omit({ ...value, DefinedTypeId }, ['cache']) as unknown as Record<
+        string,
+        never
+      >
     })
     if (error != null)
       throw new Error(

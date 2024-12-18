@@ -16,7 +16,7 @@ export type RockFamily = Omit<
   'GroupTypeId'
 > & {
   ForeignKey: string
-  Address: RockFamilyAddress
+  Address?: RockFamilyAddress
   PostalAddress?: RockFamilyAddress
 }
 
@@ -61,13 +61,14 @@ export async function load(value: RockFamily): Promise<CacheObject> {
     })
     if (error != null) throw new RockApiError(error)
 
-    await loadAddress(
-      value.Address,
-      value.ForeignKey,
-      data[0].Id,
-      0,
-      value.PostalAddress == null
-    )
+    if (value.Address != null)
+      await loadAddress(
+        value.Address,
+        value.ForeignKey,
+        data[0].Id,
+        0,
+        value.PostalAddress == null
+      )
 
     if (value.PostalAddress != null)
       await loadAddress(
@@ -88,13 +89,14 @@ export async function load(value: RockFamily): Promise<CacheObject> {
     })
     if (error != null) throw new RockApiError(error)
 
-    await loadAddress(
-      value.Address,
-      value.ForeignKey,
-      data as unknown as number,
-      0,
-      value.PostalAddress == null
-    )
+    if (value.Address != null)
+      await loadAddress(
+        value.Address,
+        value.ForeignKey,
+        data as unknown as number,
+        0,
+        value.PostalAddress == null
+      )
 
     if (value.PostalAddress != null)
       await loadAddress(

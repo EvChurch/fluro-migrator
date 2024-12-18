@@ -39,18 +39,19 @@ export async function load(
 
   //if it doesnt exist then add the number
   if (phoneNumbers == null || phoneNumbers?.length === 0) {
+    const value = {
+      PersonId: personId,
+      CountryCode: '+64',
+      Number: phoneNumber.substring(0, 19),
+      NumberTypeValueId,
+      ForeignKey: fluroId,
+      FullNumber: `64${phoneNumber}`.substring(0, 22),
+      IsSystem: false,
+      IsMessagingEnabled: false
+    }
     const { error } = await POST('/api/PhoneNumbers', {
-      body: {
-        PersonId: personId,
-        CountryCode: '+64',
-        Number: phoneNumber,
-        NumberTypeValueId,
-        ForeignKey: fluroId,
-        FullNumber: '64' + phoneNumber,
-        IsSystem: false,
-        IsMessagingEnabled: false
-      }
+      body: value
     })
-    if (error != null) throw new RockApiError(error)
+    if (error != null) throw new RockApiError(error, { cause: { value } })
   }
 }
