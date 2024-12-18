@@ -1,2 +1,1 @@
-export type { FluroContact } from './types'
-export { extract } from './contact'
+export { extract, type FluroContact } from './contact'

@@ -6,40 +6,58 @@ import { transform } from '.'
 
 describe('contact', () => {
   describe('translate', () => {
-    const fluroContact = {
+    const fluroContact: FluroContact = {
       _id: '1',
       firstName: 'John',
       lastName: 'Smith',
       gender: 'male',
-      emails: { 0: 'example@example.com' },
+      emails: ['example@example.com'],
       definition: 'visitor',
       phoneNumbers: [],
       status: 'active',
       preferredName: 'JS',
       maritalStatus: 'single',
-      householdRole: 'child'
-    } as unknown as FluroContact
+      householdRole: 'child',
+      deceased: false,
+      deceasedDate: null,
+      details: {
+        evPathwayDetails: {
+          data: {
+            '1stVisit': '2021-01-01',
+            '2ndVisit': '2021-01-02',
+            memberapprovaldate: '2021-01-03'
+          }
+        }
+      }
+    }
     const rockContact: RockContact = {
       BirthMonth: undefined,
       BirthYear: undefined,
       BirthDate: undefined,
       BirthDay: undefined,
-      PhoneNumber: [],
       DeceasedDate: undefined,
       Email: 'example@example.com',
       FirstName: 'John',
       ForeignKey: '1',
       Gender: 'Male',
-      IsDeceased: undefined,
+      IsDeceased: false,
       IsSystem: false,
       LastName: 'Smith',
       PrimaryFamilyId: undefined,
       ConnectionStatusValueId: 1,
-      FluroRecordStatus: 'active',
-      GroupRoleId: 4,
       NickName: 'JS',
-      MaritalStatusValueId: 144
-    } as RockContact
+      MaritalStatusValueId: 144,
+      data: {
+        PhoneNumber: [],
+        FluroRecordStatus: 'active',
+        GroupRoleId: 4,
+        AttributeValues: {
+          FirstVisit: '2021-01-01',
+          SecondVisit: '2021-01-02',
+          MembershipDate: '2021-01-03'
+        }
+      }
+    }
     it('should translate a fluro api contact to a rock contact', () => {
       const cache: Cache = {
         'definition/contact': {

@@ -10,12 +10,68 @@ import { load as loadNumber } from './phoneNumber'
 import { getRecordStatus } from './recordStatus'
 
 export type RockContact = components['schemas']['Rock.Model.Person'] & {
-  GroupRoleId: number
-  PhoneNumber: string[]
-  FluroRecordStatus: string
+  ForeignKey: string
+  data: {
+    GroupRoleId: number
+    PhoneNumber: string[]
+    FluroRecordStatus: string
+    AttributeValues: {
+      [key: string]: string | undefined
+    }
+  }
 }
 
 export async function load(value: RockContact): Promise<CacheObject> {
+  const cacheObject = await loadContact(value)
+
+  const params = {
+    query: {
+      loadAttributes: 'simple' as const
+    },
+    path: {
+      id: cacheObject.rockId
+    }
+  }
+
+  const { data, error } = await GET('/api/People/{id}', { params })
+  if (error != null) throw new RockApiError(error, { cause: { params } })
+  if (data == null) throw new Error('Person not found')
+
+  await updatePersonProfilePhoto(data, value)
+
+  if (value.data.PhoneNumber.length > 0)
+    await loadNumber(
+      value.data.PhoneNumber[0],
+      cacheObject.rockId,
+      value.ForeignKey
+    )
+
+  for (const attributeKey of Object.keys(value.data.AttributeValues)) {
+    const attributeValue = value.data.AttributeValues[attributeKey]
+
+    if (attributeValue == null) continue
+
+    if (data.AttributeValues?.[attributeKey].Value != attributeValue) {
+      const params = {
+        path: {
+          id: cacheObject.rockId
+        },
+        query: {
+          attributeKey,
+          attributeValue
+        }
+      }
+      const { error } = await POST('/api/People/AttributeValue/{id}', {
+        params
+      })
+      if (error != null) throw new RockApiError(error, { cause: { params } })
+    }
+  }
+
+  return cacheObject
+}
+
+async function loadContact(value: RockContact): Promise<CacheObject> {
   const params = {
     query: {
       $filter: f().eq('ForeignKey', value.ForeignKey).toString(),
@@ -29,9 +85,6 @@ export async function load(value: RockContact): Promise<CacheObject> {
     // person exists
     let log = 'person exists'
 
-    // must appear first as guid changes when person record is adjusted
-    await updatePersonProfilePhoto(data[0], value)
-
     // add existing person to family if primary family id exists
     if (
       value.PrimaryFamilyId != null &&
@@ -41,7 +94,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
         query: {
           personId: data[0].Id,
           familyId: value.PrimaryFamilyId,
-          groupRoleId: value.GroupRoleId,
+          groupRoleId: value.data.GroupRoleId,
           removeFromOtherFamilies: true
         }
       }
@@ -58,20 +111,17 @@ export async function load(value: RockContact): Promise<CacheObject> {
         id: data[0].Id
       }
     }
-    const body = omit(
+    const body: Omit<RockContact, 'Gender' | 'data' | 'ForeignKey'> & {
+      Gender: number
+    } = omit(
       {
         ...value,
-        RecordStatusValueId: await getRecordStatus(value.FluroRecordStatus),
+        RecordStatusValueId: await getRecordStatus(
+          value.data.FluroRecordStatus
+        ),
         Gender: { Unknown: 0, Male: 1, Female: 2 }[value.Gender]
       },
-      [
-        'GroupRoleId',
-        'PhoneNumber',
-        'FluroRecordStatus',
-        'PrimaryFamilyId',
-        'ForeignKey',
-        'BirthDate'
-      ]
+      ['data', 'PrimaryFamilyId', 'ForeignKey', 'BirthDate']
     )
 
     const { error } = await PATCH('/api/People/{id}', {
@@ -79,15 +129,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
       body: body as unknown as Record<string, never>
     })
 
-    if (error != null)
-      throw new RockApiError(error, { cause: { path: params.path, body } })
-    if (value.PhoneNumber.length > 0)
-      await loadNumber(
-        value.PhoneNumber[0],
-        data[0].Id,
-        // ForeignKey will never be undefined
-        value.ForeignKey as string
-      )
+    if (error != null) throw new RockApiError(error, { cause: { body } })
 
     return {
       rockId: data[0].Id,
@@ -98,22 +140,24 @@ export async function load(value: RockContact): Promise<CacheObject> {
   } else {
     // person does not exist
 
+    // add new person to family if primary family id exists
     if (value.PrimaryFamilyId != null) {
-      // add new person to family if primary family id exists
       const params = {
         path: {
           familyId: value.PrimaryFamilyId
         },
         query: {
-          groupRoleId: value.GroupRoleId
+          groupRoleId: value.data.GroupRoleId
         }
       }
       const body = omit(
         {
           ...value,
-          RecordStatusValueId: await getRecordStatus(value.FluroRecordStatus)
+          RecordStatusValueId: await getRecordStatus(
+            value.data.FluroRecordStatus
+          )
         },
-        ['GroupRoleId', 'PhoneNumber', 'FluroRecordStatus']
+        ['data']
       )
       const { data, error } = await POST(
         '/api/People/AddNewPersonToFamily/{familyId}',
@@ -121,13 +165,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
       )
       if (error != null)
         throw new RockApiError(error, { cause: { params, body } })
-      if (value.PhoneNumber.length > 0)
-        await loadNumber(
-          value.PhoneNumber[0],
-          data as unknown as number,
-          // ForeignKey will never be undefined
-          value.ForeignKey as string
-        )
+
       return {
         rockId: data as unknown as number,
         data: {
@@ -139,23 +177,17 @@ export async function load(value: RockContact): Promise<CacheObject> {
       const body = omit(
         {
           ...value,
-          RecordStatusValueId: await getRecordStatus(value.FluroRecordStatus)
+          RecordStatusValueId: await getRecordStatus(
+            value.data.FluroRecordStatus
+          )
         },
-        ['GroupRoleId', 'PhoneNumber', 'FluroRecordStatus']
+        ['data']
       )
       const { data, error } = await POST('/api/People', {
         body
       })
-      if (error != null) {
-        throw new RockApiError(error, { cause: { body } })
-      }
-      if (value.PhoneNumber.length > 0)
-        await loadNumber(
-          value.PhoneNumber[0],
-          data as unknown as number,
-          // ForeignKey will never be undefined
-          value.ForeignKey as string
-        )
+      if (error != null) throw new RockApiError(error, { cause: { body } })
+
       return {
         rockId: data as unknown as number,
         data: {

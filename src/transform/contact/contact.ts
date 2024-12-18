@@ -51,7 +51,7 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
     BirthYear: value.dobYear,
     BirthDate: value?.dob,
     IsDeceased: value.deceased,
-    DeceasedDate: value.deceasedDate,
+    DeceasedDate: value.deceasedDate ?? undefined,
     Email: value?.emails?.[0],
     FirstName: truncate(value.firstName, { length: 50 }),
     LastName: value.lastName,
@@ -62,16 +62,24 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
       value.family != null
         ? cache['family'][value.family._id]?.rockId
         : undefined,
-    GroupRoleId:
-      (value.householdRole != null
-        ? GroupRoleId[value.householdRole]
-        : undefined) ?? GroupRoleId._default,
-    PhoneNumber: value?.phoneNumbers,
-    FluroRecordStatus: value.status,
     MaritalStatusValueId:
       value.maritalStatus != null
         ? cache['definedValues/maritalStatus'][value.maritalStatus]?.rockId
         : undefined,
-    NickName: value.preferredName
+    NickName: value.preferredName,
+    data: {
+      GroupRoleId:
+        (value.householdRole != null
+          ? GroupRoleId[value.householdRole]
+          : undefined) ?? GroupRoleId._default,
+      PhoneNumber: value?.phoneNumbers,
+      FluroRecordStatus: value.status,
+      AttributeValues: {
+        FirstVisit: value.details?.evPathwayDetails?.data?.['1stVisit'],
+        SecondVisit: value.details?.evPathwayDetails?.data?.['2ndVisit'],
+        MembershipDate:
+          value.details?.evPathwayDetails?.data?.memberapprovaldate
+      }
+    }
   }
 }
