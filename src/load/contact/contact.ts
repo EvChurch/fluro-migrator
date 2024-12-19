@@ -16,7 +16,7 @@ export type RockContact = components['schemas']['Rock.Model.Person'] & {
     PhoneNumber: string[]
     FluroRecordStatus: string
     AttributeValues: {
-      [key: string]: string | undefined
+      [key: string]: string | null | undefined
     }
   }
 }

@@ -29,21 +29,21 @@ const schema = z.object({
             .object({
               evPathway: z
                 .array(
-                  z.union([
-                    z.literal('Explaining Christianity'),
-                    z.literal('Newish Connect'),
-                    z.literal('Member')
+                  z.enum([
+                    'Explaining Christianity',
+                    'Newish Connect',
+                    'Member'
                   ])
                 )
                 .optional(),
               newishPathway: z
                 .array(
-                  z.union([
-                    z.literal('Ministry'),
-                    z.literal('Maturity'),
-                    z.literal('Membership'),
-                    z.literal('Mission'),
-                    z.literal('Magnification')
+                  z.enum([
+                    'Ministry',
+                    'Maturity',
+                    'Membership',
+                    'Mission',
+                    'Magnification'
                   ])
                 )
                 .optional(),
@@ -99,6 +99,29 @@ const schema = z.object({
             })
             .optional()
         })
+        .optional(),
+      hsTrainingDetails: z
+        .object({
+          data: z
+            .object({
+              basicHsTraining: z.string().datetime().nullish(),
+              firstAidTrainingExpiryDate: z.string().datetime().nullish(),
+              hsRiskManagementandAssessmentTraining: z
+                .string()
+                .datetime()
+                .nullish(),
+              safeMinistryLeadersTraining: z.string().datetime().nullish(),
+              policeVettingCompletionDate: z.string().datetime().nullish(),
+              responsetoPoliceVettingRequest: z
+                .enum([
+                  'Not asked',
+                  'Rejected to undergo Police Vetting',
+                  'Accepted to undergo Police Vetting'
+                ])
+                .optional()
+            })
+            .optional()
+        })
         .optional()
     })
     .optional()
@@ -135,7 +158,8 @@ export const extract = extractFromFluro<FluroContact>({
       'preferredName',
       'definition',
       'details.evPathwayDetails.items',
-      'details.childDetails.items'
+      'details.childDetails.items',
+      'details.hsTrainingDetails.items'
     ]
   },
   schema

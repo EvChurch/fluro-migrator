@@ -94,7 +94,20 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
             ?.istheparentguardianhappyforAucklandEvtotakeandusephotosandorvideosoftheirchildforofficialchurchuse,
         MailPermission:
           value.details?.childDetails?.data
-            ?.istheparentguardianhappyfortheirchildsleadertosendmailtotheirchildegbirthdaycardsgetwellsoonspecialinvitationsetcAllmailwillbeaddressedcareofparents
+            ?.istheparentguardianhappyfortheirchildsleadertosendmailtotheirchildegbirthdaycardsgetwellsoonspecialinvitationsetcAllmailwillbeaddressedcareofparents,
+        BasicHealthAndSafetyTrainingDate:
+          value.details?.hsTrainingDetails?.data?.basicHsTraining,
+        FirstAidTrainingCertificateExpiryDate:
+          value.details?.hsTrainingDetails?.data?.firstAidTrainingExpiryDate,
+        HealthAndSafetyRiskManagementAndAssessmentTrainingDate:
+          value.details?.hsTrainingDetails?.data
+            ?.hsRiskManagementandAssessmentTraining,
+        SafeMinistryLeadersTrainingDate:
+          value.details?.hsTrainingDetails?.data?.safeMinistryLeadersTraining,
+        PoliceVettingCompletionDate:
+          value.details?.hsTrainingDetails?.data?.policeVettingCompletionDate,
+        PoliceVettingRequest:
+          value.details?.hsTrainingDetails?.data?.responsetoPoliceVettingRequest
       }
     }
   }

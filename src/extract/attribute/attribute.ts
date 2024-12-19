@@ -152,6 +152,154 @@ const attributes: FluroAttribute[] = [
     IsMultiValue: false,
     IsRequired: false,
     AllowSearch: false
+  },
+  {
+    _id: 'BasicHealthAndSafetyTrainingDate',
+    AbbreviatedName: 'Basic H&S Training Date',
+    FieldTypeId: fieldTypes.Date,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Basic H&S Training Date',
+    Description:
+      'The date the person completed basic health and safety training',
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 161,
+        Name: 'Safety & Security',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 0,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+  {
+    _id: 'FirstAidTrainingCertificateExpiryDate',
+    AbbreviatedName: 'First Aid Training Certificate Expiry Date',
+    FieldTypeId: fieldTypes.Date,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'First Aid Training Certificate Expiry Date',
+    Description: "The date the person's first aid training certificate expires",
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 161,
+        Name: 'Safety & Security',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 1,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+  {
+    _id: 'HealthAndSafetyRiskManagementAndAssessmentTrainingDate',
+    AbbreviatedName: 'H&S Risk Management & Assessment Training Date',
+    FieldTypeId: fieldTypes.Date,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'H&S Risk Management & Assessment Training Date',
+    Description:
+      'The date the person completed H&S risk management & assessment training',
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 161,
+        Name: 'Safety & Security',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 2,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+  {
+    _id: 'SafeMinistryLeadersTrainingDate',
+    AbbreviatedName: 'Safe Ministry Leaders Training Date',
+    FieldTypeId: fieldTypes.Date,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Safe Ministry Leaders Training Date',
+    Description: 'The date the person completed safe ministry leaders training',
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 161,
+        Name: 'Safety & Security',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 3,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+  {
+    _id: 'PoliceVettingCompletionDate',
+    AbbreviatedName: 'Police Vetting Completion Date',
+    FieldTypeId: fieldTypes.Date,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Police Vetting Completion Date',
+    Description: 'The date the person completed the police vetting process',
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 161,
+        Name: 'Safety & Security',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 5,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+  {
+    _id: 'PoliceVettingRequest',
+    AbbreviatedName: 'Police Vetting Request',
+    FieldTypeId: fieldTypes.SingleSelect,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Police Vetting Request',
+    Description: 'The state of the police vetting request',
+    AttributeQualifiers: [
+      {
+        IsSystem: false,
+        Key: 'values',
+        Value:
+          'Not asked,Rejected to undergo Police Vetting,Accepted to undergo Police Vetting'
+      } as components['schemas']['Rock.Model.AttributeQualifier']
+    ],
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 161,
+        Name: 'Safety & Security',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 6,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
   }
 ]
 

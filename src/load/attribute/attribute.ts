@@ -24,7 +24,7 @@ export async function load(value: RockAttribute): Promise<CacheObject> {
 
   if (id != null) {
     // attribute exists
-    const body = omit(value, 'Categories')
+    const body = omit(value, 'Categories', 'AttributeQualifiers')
     const { error } = await PATCH(`/api/Attributes/{id}`, {
       params: { path: { id } },
       body: body as unknown as Record<string, never>
