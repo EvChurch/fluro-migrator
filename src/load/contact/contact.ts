@@ -2,7 +2,7 @@ import { omit } from 'lodash'
 import f from 'odata-filter-builder'
 
 import type { components } from '../client'
-import { GET, PATCH, POST, RockApiError } from '../client'
+import { DELETE, GET, PATCH, POST, RockApiError } from '../client'
 import type { CacheObject } from '../types'
 
 import { updatePersonProfilePhoto } from './avatar'
@@ -49,25 +49,43 @@ export async function load(value: RockContact): Promise<CacheObject> {
   for (const attributeKey of Object.keys(value.data.AttributeValues)) {
     const attributeValue = value.data.AttributeValues[attributeKey]
 
-    if (attributeValue == null) continue
-
     if (data.AttributeValues?.[attributeKey].Value != attributeValue) {
-      const params = {
-        path: {
-          id: cacheObject.rockId
-        },
-        query: {
-          attributeKey,
-          attributeValue: attributeValue ?? ''
+      if (attributeValue == null || attributeValue == '') {
+        // delete attribute value
+        const params = {
+          path: {
+            id: cacheObject.rockId
+          },
+          query: {
+            attributeKey
+          }
         }
-      }
-      const { error } = await POST('/api/People/AttributeValue/{id}', {
-        params
-      })
-      if (error != null)
-        throw new RockApiError(error, {
-          cause: { path: params.path, query: params.query }
+        const { error } = await DELETE('/api/People/AttributeValue/{id}', {
+          params
         })
+        if (error != null)
+          throw new RockApiError(error, {
+            cause: { path: params.path, query: params.query }
+          })
+      } else {
+        // update attribute value
+        const params = {
+          path: {
+            id: cacheObject.rockId
+          },
+          query: {
+            attributeKey,
+            attributeValue: attributeValue
+          }
+        }
+        const { error } = await POST('/api/People/AttributeValue/{id}', {
+          params
+        })
+        if (error != null)
+          throw new RockApiError(error, {
+            cause: { path: params.path, query: params.query }
+          })
+      }
     }
   }
 

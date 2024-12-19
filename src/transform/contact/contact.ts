@@ -79,6 +79,8 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
         SecondVisit: value.details?.evPathwayDetails?.data?.['2ndVisit'],
         MembershipDate:
           value.details?.evPathwayDetails?.data?.memberapprovaldate,
+        MembershipRemovalDate:
+          value.details?.evPathwayDetails?.data?.memberremovaldate ?? undefined,
         EmergencyContactName:
           value.details?.childDetails?.data
             ?.emergencyContactNameifparentguardiancannotbereached,

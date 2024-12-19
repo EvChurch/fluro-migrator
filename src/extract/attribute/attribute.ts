@@ -128,6 +128,30 @@ const attributes: FluroAttribute[] = [
     IsMultiValue: false,
     IsRequired: false,
     AllowSearch: false
+  },
+  {
+    _id: 'MembershipRemovalDate',
+    AbbreviatedName: 'Membership Removal Date',
+    FieldTypeId: fieldTypes.Date,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Membership Removal Date',
+    Description:
+      "The date the person's membership was removed from the register",
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 16,
+        Name: 'Membership',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 0,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
   }
 ]
 
