@@ -78,7 +78,14 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
         FirstVisit: value.details?.evPathwayDetails?.data?.['1stVisit'],
         SecondVisit: value.details?.evPathwayDetails?.data?.['2ndVisit'],
         MembershipDate:
-          value.details?.evPathwayDetails?.data?.memberapprovaldate
+          value.details?.evPathwayDetails?.data?.memberapprovaldate,
+        EmergencyContactName:
+          value.details?.childDetails?.data
+            ?.emergencyContactNameifparentguardiancannotbereached,
+        EmergencyContactNumber:
+          value.details?.childDetails?.data?.emergencyContactNumber,
+        EmergencyContactRelationship:
+          value.details?.childDetails?.data?.emergencyContactRelationship
       }
     }
   }

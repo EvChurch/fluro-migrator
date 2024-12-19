@@ -58,7 +58,20 @@ const schema = z.object({
               minNewish: z.string().datetime().optional(),
               newishStartDate: z.string().datetime().optional(),
               newishCompletionDate: z.string().datetime().optional(),
-              memberremovaldate: z.string().datetime().optional()
+              memberremovaldate: z.string().datetime().nullable().optional()
+            })
+            .optional()
+        })
+        .optional(),
+      childDetails: z
+        .object({
+          data: z
+            .object({
+              emergencyContactNameifparentguardiancannotbereached: z
+                .string()
+                .optional(),
+              emergencyContactRelationship: z.string().optional(),
+              emergencyContactNumber: z.string().optional()
             })
             .optional()
         })
@@ -97,7 +110,8 @@ export const extract = extractFromFluro<FluroContact>({
       'maritalStatus',
       'preferredName',
       'definition',
-      'details.evPathwayDetails.items'
+      'details.evPathwayDetails.items',
+      'details.childDetails.items'
     ]
   },
   schema

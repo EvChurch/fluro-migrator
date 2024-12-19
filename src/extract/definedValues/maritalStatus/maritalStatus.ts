@@ -34,16 +34,18 @@ export async function extract(): Promise<
     next: async (): Promise<{
       value: { collection: FluroMaritalStatus[]; max: number }
       done: boolean
-      // eslint-disable-next-line @typescript-eslint/require-await
     }> => {
       if (repeat === 0) {
-        return { value: { collection: [], max: values.length }, done: true }
+        return await Promise.resolve({
+          value: { collection: [], max: values.length },
+          done: true
+        })
       } else {
         repeat -= 1
-        return {
+        return await Promise.resolve({
           value: { collection: values, max: values.length },
           done: false
-        }
+        })
       }
     }
   }
