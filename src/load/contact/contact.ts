@@ -89,7 +89,13 @@ export async function load(value: RockContact): Promise<CacheObject> {
     }
   }
 
-  return cacheObject
+  return {
+    ...cacheObject,
+    data: {
+      ...cacheObject.data,
+      PrimaryAliasId: data.PrimaryAliasId
+    }
+  }
 }
 
 async function loadContact(value: RockContact): Promise<CacheObject> {
