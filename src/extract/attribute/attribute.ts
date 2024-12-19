@@ -80,6 +80,54 @@ const attributes: FluroAttribute[] = [
     IsMultiValue: false,
     IsRequired: false,
     AllowSearch: false
+  },
+  {
+    _id: 'MediaPermission',
+    AbbreviatedName: 'Media Permission',
+    FieldTypeId: fieldTypes.Boolean,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Media (Video/Photo) Permission',
+    Description:
+      'Is the parent/guardian happy for Ev Church to take and use photos and/or videos of their child for official church use?',
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 54,
+        Name: 'Childhood Information',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 4,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+  {
+    _id: 'MailPermission',
+    AbbreviatedName: 'Mail Permission',
+    FieldTypeId: fieldTypes.Boolean,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Mail Permission',
+    Description:
+      "Is the parent/guardian happy for their child's leader to send mail to their child (e.g. birthday cards, get well soon, special invitations, etc.). All mail will be addressed care of parents.",
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 54,
+        Name: 'Childhood Information',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 5,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
   }
 ]
 

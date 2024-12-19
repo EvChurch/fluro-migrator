@@ -85,7 +85,14 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
         EmergencyContactNumber:
           value.details?.childDetails?.data?.emergencyContactNumber,
         EmergencyContactRelationship:
-          value.details?.childDetails?.data?.emergencyContactRelationship
+          value.details?.childDetails?.data?.emergencyContactRelationship,
+        LegalNotes: value.details?.childDetails?.data?.nameofthepersons,
+        MediaPermission:
+          value.details?.childDetails?.data
+            ?.istheparentguardianhappyforAucklandEvtotakeandusephotosandorvideosoftheirchildforofficialchurchuse,
+        MailPermission:
+          value.details?.childDetails?.data
+            ?.istheparentguardianhappyfortheirchildsleadertosendmailtotheirchildegbirthdaycardsgetwellsoonspecialinvitationsetcAllmailwillbeaddressedcareofparents
       }
     }
   }

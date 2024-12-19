@@ -70,8 +70,32 @@ const schema = z.object({
               emergencyContactNameifparentguardiancannotbereached: z
                 .string()
                 .optional(),
+              emergencyContactNumber: z.string().optional(),
               emergencyContactRelationship: z.string().optional(),
-              emergencyContactNumber: z.string().optional()
+              istheparentguardianhappyforAucklandEvtotakeandusephotosandorvideosoftheirchildforofficialchurchuse:
+                z
+                  .string()
+                  .optional()
+                  .transform((v) => {
+                    if (v == null) return v
+                    return v === 'Yes' ? 'true' : 'false'
+                  }),
+              istheparentguardianhappyfortheirchildsleadertosendmailtotheirchildegbirthdaycardsgetwellsoonspecialinvitationsetcAllmailwillbeaddressedcareofparents:
+                z
+                  .string()
+                  .optional()
+                  .transform((v) => {
+                    if (v == null) return v
+                    return v === 'Yes' ? 'true' : 'false'
+                  }),
+              isthereanyonewhoislegallyrestrictedfromseeingthechild: z
+                .string()
+                .optional()
+                .transform((v) => {
+                  if (v == null) return v
+                  return v === 'Yes' ? 'true' : 'false'
+                }),
+              nameofthepersons: z.string().optional()
             })
             .optional()
         })

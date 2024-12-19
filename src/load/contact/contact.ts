@@ -58,13 +58,16 @@ export async function load(value: RockContact): Promise<CacheObject> {
         },
         query: {
           attributeKey,
-          attributeValue
+          attributeValue: attributeValue ?? ''
         }
       }
       const { error } = await POST('/api/People/AttributeValue/{id}', {
         params
       })
-      if (error != null) throw new RockApiError(error, { cause: { params } })
+      if (error != null)
+        throw new RockApiError(error, {
+          cause: { path: params.path, query: params.query }
+        })
     }
   }
 
