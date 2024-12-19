@@ -55,6 +55,7 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
     Email: value?.emails?.[0],
     FirstName: truncate(value.firstName, { length: 50 }),
     LastName: value.lastName,
+    MiddleName: value.middleName,
     ForeignKey: value._id,
     Gender: transformGender(value.gender),
     ConnectionStatusValueId,
@@ -120,7 +121,9 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
         TertiaryCurrentlyStudying:
           value.details?.demographicsDetails?.data?.currentStudent,
         TertiaryStudentIdNumber:
-          value.details?.demographicsDetails?.data?.studentIdNumber
+          value.details?.demographicsDetails?.data?.studentIdNumber,
+        EthnicName: value.ethnicName,
+        BirthDateVerified: value.dobVerified
       }
     }
   }

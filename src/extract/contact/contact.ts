@@ -8,6 +8,15 @@ const schema = z.object({
   dobMonth: z.number().optional(),
   dobYear: z.number().optional(),
   dob: z.string().datetime().optional(),
+  dobVerified: z
+    .boolean()
+    .transform((v) => {
+      if (v == null) return v
+      return v ? 'true' : 'false'
+    })
+    .optional(),
+  middleName: z.string().optional(),
+  ethnicName: z.string().optional(),
   deceased: z.boolean(),
   deceasedDate: z.string().nullable(),
   emails: z.array(z.string()),
@@ -211,9 +220,12 @@ export const extract = extractFromFluro<FluroContact>({
   multipleBody: {
     select: [
       '_id',
+      'ethnicName',
+      'middleName',
       'dobDay',
       'dobMonth',
       'dobYear',
+      'dobVerified',
       'dob',
       'deceased',
       'deceasedDate',

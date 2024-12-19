@@ -377,6 +377,53 @@ const attributes: FluroAttribute[] = [
     IsMultiValue: false,
     IsRequired: false,
     AllowSearch: false
+  },
+  {
+    _id: 'EthnicName',
+    AbbreviatedName: 'Ethnic Name',
+    FieldTypeId: fieldTypes.Text,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Ethnic Name',
+    Description: "The person's ethnic name",
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 288,
+        Name: 'Basic',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 0,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+
+  {
+    _id: 'BirthDateVerified',
+    AbbreviatedName: 'Birth Date Verified',
+    FieldTypeId: fieldTypes.Boolean,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Birth Date Verified',
+    Description: 'Has the person verified their birth date?',
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 288,
+        Name: 'Basic',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 1,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
   }
 ]
 
