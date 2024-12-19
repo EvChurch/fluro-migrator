@@ -300,6 +300,83 @@ const attributes: FluroAttribute[] = [
     IsMultiValue: false,
     IsRequired: false,
     AllowSearch: false
+  },
+  {
+    _id: 'TertiaryInstitution',
+    AbbreviatedName: 'Tertiary Institution',
+    FieldTypeId: fieldTypes.SingleSelect,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Tertiary Institution',
+    Description: 'The tertiary institution the person is attending or attended',
+    AttributeQualifiers: [
+      {
+        IsSystem: false,
+        Key: 'values',
+        Value:
+          'University of Auckland,AUT North Campus,AUT South Campus,AUT City Campus,Other'
+      } as components['schemas']['Rock.Model.AttributeQualifier']
+    ],
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 75,
+        Name: 'Education',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 0,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+  {
+    _id: 'TertiaryCurrentlyStudying',
+    AbbreviatedName: 'Currently Studying at a Tertiary Level?',
+    FieldTypeId: fieldTypes.Boolean,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Currently Studying at a Tertiary Level?',
+    Description: 'Is the person currently studying at a tertiary institution?',
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 75,
+        Name: 'Education',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 1,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
+  },
+  {
+    _id: 'TertiaryStudentIdNumber',
+    AbbreviatedName: 'Tertiary Student ID Number',
+    FieldTypeId: fieldTypes.Text,
+    EntityTypeId: entityTypes['Rock.Model.Person'],
+    Name: 'Tertiary Student ID Number',
+    Description: "The person's tertiary student ID number",
+    Categories: [
+      {
+        EntityTypeId: entityTypes['Rock.Model.Attribute'],
+        Order: 0,
+        Id: 75,
+        Name: 'Education',
+        IsSystem: true
+      }
+    ],
+    IsSystem: false,
+    Order: 2,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false
   }
 ]
 

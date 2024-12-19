@@ -122,6 +122,77 @@ const schema = z.object({
             })
             .optional()
         })
+        .optional(),
+      faithInfo: z
+        .object({
+          data: z.object({
+            dateofBaptism: z.string().datetime().nullish(),
+            isaChristian: z.enum(['Yes', 'No', 'Unsure']).optional()
+          })
+        })
+        .optional(),
+      financialDetail: z
+        .object({
+          data: z.object({
+            accountNumber: z.string().nullish()
+          })
+        })
+        .optional(),
+      demographicsDetails: z
+        .object({
+          data: z
+            .object({
+              adultDemographics: z.enum(['UoA', 'AUT', 'Other', '']).optional(),
+              currentStudent: z
+                .boolean()
+                .transform((v) => {
+                  if (v == null) return v
+                  return v ? 'true' : 'false'
+                })
+                .optional(),
+              demographics: z
+                .enum(['Adult', 'Youth', 'Kids', 'Baby', ''])
+                .optional(),
+              studentIdNumber: z.string().optional(),
+              whichcampus: z.enum(['City', 'North ', 'South', '']).optional()
+            })
+            .transform((v) => {
+              if (v == null) return v
+              let tertiaryInstitution:
+                | 'University of Auckland'
+                | 'AUT North Campus'
+                | 'AUT South Campus'
+                | 'AUT City Campus'
+                | 'Other'
+                | undefined
+              switch (v.adultDemographics) {
+                case 'UoA':
+                  tertiaryInstitution = 'University of Auckland'
+                  break
+                case 'AUT':
+                  switch (v.whichcampus) {
+                    case 'North ':
+                      tertiaryInstitution = 'AUT North Campus'
+                      break
+                    case 'South':
+                      tertiaryInstitution = 'AUT South Campus'
+                      break
+                    default:
+                      tertiaryInstitution = 'AUT City Campus'
+                      break
+                  }
+                  break
+                case 'Other':
+                  tertiaryInstitution = 'Other'
+                  break
+              }
+              return {
+                ...v,
+                tertiaryInstitution
+              }
+            })
+            .optional()
+        })
         .optional()
     })
     .optional()
@@ -159,7 +230,10 @@ export const extract = extractFromFluro<FluroContact>({
       'definition',
       'details.evPathwayDetails.items',
       'details.childDetails.items',
-      'details.hsTrainingDetails.items'
+      'details.faithInfo.items',
+      'details.financialDetail.items',
+      'details.hsTrainingDetails.items',
+      'details.demographicsDetails.items'
     ]
   },
   schema

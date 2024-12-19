@@ -107,7 +107,20 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
         PoliceVettingCompletionDate:
           value.details?.hsTrainingDetails?.data?.policeVettingCompletionDate,
         PoliceVettingRequest:
-          value.details?.hsTrainingDetails?.data?.responsetoPoliceVettingRequest
+          value.details?.hsTrainingDetails?.data
+            ?.responsetoPoliceVettingRequest,
+        BaptismDate: value.details?.faithInfo?.data?.dateofBaptism,
+        core_GivingEnvelopeNumber:
+          value.details?.financialDetail?.data?.accountNumber?.replace(
+            /\D/g,
+            ''
+          ),
+        TertiaryInstitution:
+          value.details?.demographicsDetails?.data?.tertiaryInstitution,
+        TertiaryCurrentlyStudying:
+          value.details?.demographicsDetails?.data?.currentStudent,
+        TertiaryStudentIdNumber:
+          value.details?.demographicsDetails?.data?.studentIdNumber
       }
     }
   }
