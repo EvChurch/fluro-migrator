@@ -775,6 +775,52 @@ export interface paths {
     /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
     options: operations["OPTIONSapi_PersonPreviousNames_SetContext_id"];
   };
+  "/api/Steps": {
+    /** Queryable GET endpoint */
+    get: operations["GETapi_Steps"];
+    /** POST endpoint. Use this to add a record */
+    post: operations["POSTapi_Steps"];
+  };
+  "/api/Steps/{id}": {
+    /** GET endpoint to get a single record */
+    get: operations["GETapi_Steps_id"];
+    /** PUT endpoint. Use this to update a record */
+    put: operations["PUTapi_Steps_id"];
+    /** DELETE endpoint. To delete the record */
+    delete: operations["DELETEapi_Steps_id"];
+    /** PATCH endpoint. Use this to update a subset of the properties of the record */
+    patch: operations["PATCHapi_Steps_id"];
+  };
+  "/api/Steps/AttributeValue/{id}": {
+    /** POST an attribute value. Use this to set an attribute value for the record */
+    post: operations["POSTapi_Steps_AttributeValue_idattributeKeyattributeKeyattributeValueattributeValue"];
+    /** DELETE to delete the specified attribute value for the record */
+    delete: operations["DELETEapi_Steps_AttributeValue_idattributeKeyattributeKey"];
+  };
+  "/api/Steps/DataView/{id}": {
+    /** Gets a list of objects represented by the selected data view */
+    get: operations["GETapi_Steps_DataView_id"];
+  };
+  "/api/Steps/FollowedItems": {
+    get: operations["GETapi_Steps_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId"];
+  };
+  "/api/Steps/GetByAttributeValue": {
+    get: operations["GETapi_Steps_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive"];
+  };
+  "/api/Steps/InDataView/{dataViewId}/{entityId}": {
+    /** Determines if the entity id is in the data view */
+    get: operations["GETapi_Steps_InDataView_dataViewId_entityId"];
+  };
+  "/api/Steps/LaunchWorkflow/{id}": {
+    /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
+    post: operations["POSTapi_Steps_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName"];
+  };
+  "/api/Steps/SetContext/{id}": {
+    /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+    put: operations["PUTapi_Steps_SetContext_id"];
+    /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+    options: operations["OPTIONSapi_Steps_SetContext_id"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -808,7 +854,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "b79f2d24-bf8f-4786-a6c2-8db6de2f0a9a"
+     *   "Guid": "b27a6331-cb39-4828-9b08-b85238aa5898"
      * }
      */
     "Rock.Model.Attribute": {
@@ -882,7 +928,7 @@ export interface components {
      *   "AttributeId": 0,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e4c63be3-cc6f-4f90-a0a7-d7431af370ec"
+     *   "Guid": "95011cdf-593d-4c30-ad3f-c610c516c076"
      * }
      */
     "Rock.Model.AttributeQualifier": {
@@ -910,7 +956,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "7a220dc8-2975-4a71-975d-82d410763fa7"
+     *   "Guid": "7012b239-2f07-4bb4-a5aa-4ccd3a48c297"
      * }
      */
     "Rock.Model.Category": {
@@ -967,7 +1013,7 @@ export interface components {
      *   "AttributesSupportShowOnBulk": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "b3050bb3-0c8d-477c-9472-aa64ba569b88"
+     *   "Guid": "ce1a2507-1a49-4af0-b1ab-3de9be7ffff6"
      * }
      */
     "Rock.Model.EntityType": {
@@ -1003,7 +1049,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "637e8b40-1a15-4451-a00c-2a92daa8e66b"
+     *   "Guid": "f048c773-a18f-4695-ab24-0538cd92ad4f"
      * }
      */
     "Rock.Model.FieldType": {
@@ -1126,7 +1172,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5f23d11c-4d28-4f5c-913e-b5f13e6b09f6"
+     *   "Guid": "7e7eb8d8-6711-46ca-b799-d0d1d5d7734e"
      * }
      */
     "Rock.Model.BinaryFile": {
@@ -1194,7 +1240,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e7b5ea8d-3c7a-4362-ba31-447fd5caaa63"
+     *   "Guid": "659de592-5dd3-43a6-918c-dfeeab7a3a6e"
      * }
      */
     "Rock.Model.BinaryFileType": {
@@ -1257,7 +1303,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5b8483d7-7b6d-4a6f-8aa5-9764c6754af6"
+     *   "Guid": "94a4813d-ddab-4665-8b8d-5166de63b66d"
      * }
      */
     "Rock.Model.Block": {
@@ -1316,7 +1362,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "98a76e50-11d7-4a71-9c62-438633f06994"
+     *   "Guid": "fa9657ba-8ef7-4d0c-960c-fca26b3eb1eb"
      * }
      */
     "Rock.Model.BlockType": {
@@ -1360,7 +1406,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "c67a9bc2-00e1-4111-80d4-8a5f8636db01"
+     *   "Guid": "6edb3bc3-a845-47c1-9da7-0ee5f18f16bd"
      * }
      */
     "Rock.Model.Campus": {
@@ -1432,7 +1478,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "7d263784-8722-4097-a473-0e47caa2da79"
+     *   "Guid": "1d5ea5fd-c5e3-4fbf-ba5f-91b55d329a18"
      * }
      */
     "Rock.Model.CampusSchedule": {
@@ -1479,7 +1525,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "722853b1-1448-48d4-8c24-d25539aefcb2"
+     *   "Guid": "268866f9-43d2-4d42-be0a-114858a3763e"
      * }
      */
     "Rock.Model.CampusTopic": {
@@ -1523,7 +1569,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "69471433-6421-4804-a1b5-430b65def9c9"
+     *   "Guid": "94fed85c-7d3c-4e09-832f-89a8c804b8fc"
      * }
      */
     "Rock.Model.DataView": {
@@ -1597,7 +1643,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "7dd60742-d409-41e5-8993-a532fb1d627a"
+     *   "Guid": "50b9e2c7-aac9-41da-952f-75a860b596aa"
      * }
      */
     "Rock.Model.DataViewFilter": {
@@ -1651,7 +1697,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "cab07a14-b964-4dea-b8df-180352197160"
+     *   "Guid": "79cd496b-73c3-42a3-810f-b8ffbbc0d68e"
      * }
      */
     "Rock.Model.DefinedValue": {
@@ -1703,7 +1749,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5d21b970-bac0-4faf-8952-6be5aae9c782"
+     *   "Guid": "af7471e4-34b1-4bce-a15c-ed69a90f255a"
      * }
      */
     "Rock.Model.Device": {
@@ -1763,7 +1809,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "1f384074-db98-40f1-8de3-706e233e63c7"
+     *   "Guid": "190da6ad-beac-4e20-a8b6-4040e43f7976"
      * }
      */
     "Rock.Model.Document": {
@@ -1813,7 +1859,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "3ced8157-1f13-43c7-bdbf-a973054ce355"
+     *   "Guid": "5fe34c98-61e4-4508-a6e8-58d5684ad2aa"
      * }
      */
     "Rock.Model.DocumentType": {
@@ -1882,7 +1928,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "b30fbb8e-de53-49ab-9c80-34f7a1408652"
+     *   "Guid": "c2dbabb6-34db-4c0e-88df-38079119abb4"
      * }
      */
     "Rock.Model.Group": {
@@ -2006,7 +2052,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a0af35c6-ae79-4141-bd83-c1671e61081d"
+     *   "Guid": "cdcd4043-151b-47cd-866b-cfd6aedee19d"
      * }
      */
     "Rock.Model.GroupLocation": {
@@ -2086,7 +2132,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "23f96261-ede2-42bc-a5d6-8088bfef16a9"
+     *   "Guid": "3e2c3c85-e84b-4cf0-a207-b517bb2df608"
      * }
      */
     "Rock.Model.GroupMember": {
@@ -2163,7 +2209,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "47170dd5-bc3c-482c-be08-5fcfe3760693"
+     *   "Guid": "a55f186a-2792-4c4c-a663-a1154ca53ad0"
      * }
      */
     "Rock.Model.GroupMemberAssignment": {
@@ -2214,7 +2260,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "7c26fbb1-c0d9-4733-b70d-5719e36a481d"
+     *   "Guid": "ca7db51c-7c7a-41fc-9898-5ed619297606"
      * }
      */
     "Rock.Model.GroupMemberRequirement": {
@@ -2278,7 +2324,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "d22b02b2-0fcc-4e44-a573-3bdd1417bae7"
+     *   "Guid": "20585bb2-8521-4325-a939-437d6a534583"
      * }
      */
     "Rock.Model.GroupMemberScheduleTemplate": {
@@ -2324,7 +2370,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "f2d3b595-c567-4763-8360-5686cca7215f"
+     *   "Guid": "8b7a7812-d63f-448d-829b-58eb527dbc13"
      * }
      */
     "Rock.Model.GroupRequirement": {
@@ -2384,7 +2430,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "88c85faa-6dcc-4527-8207-2600b008ef48"
+     *   "Guid": "80f5cb57-608c-4ac8-b786-e63cef30575d"
      * }
      */
     "Rock.Model.GroupRequirementType": {
@@ -2459,7 +2505,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "3765e26e-7695-4ec7-998e-dadccd5704e2"
+     *   "Guid": "29ec0a5f-a571-4ee8-a42a-8176828f046b"
      * }
      */
     "Rock.Model.GroupSync": {
@@ -2566,7 +2612,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "b2f67492-50db-42ef-9915-9e7dc5fcb94e"
+     *   "Guid": "42401942-af54-42d0-b520-413db34f9fa9"
      * }
      */
     "Rock.Model.GroupType": {
@@ -2717,7 +2763,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "dd7a892a-e2d6-4aca-be6e-3ed7134783ab"
+     *   "Guid": "99a19ec4-dad1-4b09-9bd6-80fedf83c8be"
      * }
      */
     "Rock.Model.GroupTypeRole": {
@@ -2772,7 +2818,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "be3f998f-a9b0-4c76-bbe3-e90a2dcc83d9"
+     *   "Guid": "c595c959-7c87-4594-8ac0-1e2684e33dcc"
      * }
      */
     "Rock.Model.Layout": {
@@ -2820,7 +2866,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "4575abfb-6ddf-46c6-9c1a-d06a5f30af60"
+     *   "Guid": "44aab439-4f31-4151-8b28-76b26a41c2a4"
      * }
      */
     "Rock.Model.Location": {
@@ -2929,7 +2975,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "9a0c0a5b-0b19-47ad-a7bc-218e265162c8"
+     *   "Guid": "3a17e75c-2218-4546-8e33-4100fef01976"
      * }
      */
     "Rock.Model.Page": {
@@ -3013,7 +3059,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "4f71bb40-a86c-4923-8b08-6fd5993351bc"
+     *   "Guid": "7830ed16-80d0-4601-9bcc-8b1737e3acd3"
      * }
      */
     "Rock.Model.PageContext": {
@@ -3056,7 +3102,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "615fe993-addd-422b-b8ed-182c812fbf3b"
+     *   "Guid": "1bca2e67-b733-4836-aca6-91554897d406"
      * }
      */
     "Rock.Model.PageRoute": {
@@ -3116,7 +3162,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ad4db3fc-313c-4310-9693-2c0c5eb4c581"
+     *   "Guid": "e872f726-92b8-49e5-8139-541b97bc38e8"
      * }
      */
     "Rock.Model.Person": {
@@ -3279,7 +3325,7 @@ export interface components {
      *   "PersonId": 0,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "00d0d22b-351c-4662-a915-24f6d28d8136"
+     *   "Guid": "23d33357-2670-4297-aa3c-dd794a2cf8ca"
      * }
      */
     "Rock.Model.PersonAlias": {
@@ -3314,7 +3360,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "249fe42d-ee0a-4437-8952-abf5937b1082"
+     *   "Guid": "453a49f4-6228-4a84-83a8-fe5b4639e6db"
      * }
      */
     "Rock.Model.PhoneNumber": {
@@ -3370,7 +3416,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "19eeeb93-9d0b-4429-b8ef-06f14409b419"
+     *   "Guid": "233103ae-237f-4155-835a-18868b40c832"
      * }
      */
     "Rock.Model.Schedule": {
@@ -3432,7 +3478,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "1471877b-4f2e-4981-9759-8915be1e752e"
+     *   "Guid": "131de4b1-9c1e-4fb9-8c9a-64e019ca283e"
      * }
      */
     "Rock.Model.SignatureDocumentTemplate": {
@@ -3506,7 +3552,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "235f5b61-6095-477e-b7f4-da59907270f5"
+     *   "Guid": "cb221cb7-3d9d-49b6-a860-aa4abada4cd4"
      * }
      */
     "Rock.Model.Site": {
@@ -3625,7 +3671,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "581879f2-5770-414c-8579-c4512bd14553"
+     *   "Guid": "e3f2837d-675e-46b6-b1ca-c754ecf4b36d"
      * }
      */
     "Rock.Model.SiteDomain": {
@@ -3670,7 +3716,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "217d3d42-137f-44fe-987e-c5e2b973cb03"
+     *   "Guid": "0b781d18-ada4-432e-896b-251d26579ce9"
      * }
      */
     "Rock.Model.SystemCommunication": {
@@ -3740,7 +3786,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "6bbe23cd-cc17-48ba-836e-10f1b79bb57a"
+     *   "Guid": "168a5d2e-b7ea-4996-8a6b-15a81a8abea4"
      * }
      */
     "Rock.Model.SystemPhoneNumber": {
@@ -3796,7 +3842,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ef09d376-24a8-4811-b976-386934ee713d"
+     *   "Guid": "c00c0666-cd7e-4a99-b185-abeb7b91438d"
      * }
      */
     "Rock.Model.UserLogin": {
@@ -3875,7 +3921,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "40a8efd0-d806-4252-a748-a921a58717c6"
+     *   "Guid": "61fbb2a5-b803-47fc-a269-74ccb187f4ff"
      * }
      */
     "Rock.Model.WorkflowActionForm": {
@@ -3982,7 +4028,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "1797a6df-8010-4277-8571-6714a92fc17f"
+     *   "Guid": "9517d0b6-32f1-406a-b9fe-c47dd646ab08"
      * }
      */
     "Rock.Model.WorkflowActionFormAttribute": {
@@ -4038,7 +4084,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "130e62d3-a81c-4d60-bdd8-ad845b9e3612"
+     *   "Guid": "b6591b80-721c-497b-a666-9149b4e0f997"
      * }
      */
     "Rock.Model.WorkflowActionFormSection": {
@@ -4090,7 +4136,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "467c7d89-5609-4188-af56-9c73e8398caa"
+     *   "Guid": "de49e618-e283-4c08-af28-0a648767f784"
      * }
      */
     "Rock.Model.WorkflowActionType": {
@@ -4147,7 +4193,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "50bf5ee4-cee2-4d0e-bdda-b76dada120bd"
+     *   "Guid": "29b61632-53ef-4101-b1f4-4f0a598ce2ff"
      * }
      */
     "Rock.Model.WorkflowActivityType": {
@@ -4194,7 +4240,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "bdb3ddbd-0efc-40ae-9076-15be9146ec90"
+     *   "Guid": "4b6421af-f3d8-406b-9b1d-cb6b78598fb5"
      * }
      */
     "Rock.Model.WorkflowFormBuilderTemplate": {
@@ -4247,7 +4293,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "8572348b-39be-4146-8b3a-b76c7621caed"
+     *   "Guid": "a58153e1-b00f-46e9-8b15-91d7ca001def"
      * }
      */
     "Rock.Model.WorkflowType": {
@@ -4334,7 +4380,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "1224b505-c4dc-4ec9-97d7-020f25180b1d"
+     *   "Guid": "66065fc8-fc35-4a83-ad7a-4007f9a1c967"
      * }
      */
     "Rock.Model.DefinedType": {
@@ -4884,13 +4930,905 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "0eaa7274-8415-48c2-bfc9-e18d7f2ee5ee"
+     *   "Guid": "b187c443-c099-4ec4-a2ba-cf02afdc94c0"
      * }
      */
     "Rock.Model.PersonPreviousName": {
       /** Format: int32 */
       PersonAliasId: number;
       LastName?: string;
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "AchieverEntityTypeId": 0,
+     *   "ComponentEntityTypeId": 0,
+     *   "MaxAccomplishmentsAllowed": 1,
+     *   "AllowOverAchievement": false,
+     *   "IsPublic": false,
+     *   "IsActive": false,
+     *   "Prerequisites": [],
+     *   "Dependencies": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "cbf8367b-d012-4e95-bdca-23a2a4710af5"
+     * }
+     */
+    "Rock.Model.AchievementType": {
+      Name: string;
+      Description?: string;
+      ComponentConfigJson?: string;
+      /** Format: int32 */
+      SourceEntityTypeId?: number;
+      /** Format: int32 */
+      AchieverEntityTypeId: number;
+      /** Format: int32 */
+      ComponentEntityTypeId: number;
+      /** Format: int32 */
+      AchievementStartWorkflowTypeId?: number;
+      /** Format: int32 */
+      AchievementSuccessWorkflowTypeId?: number;
+      /** Format: int32 */
+      AchievementFailureWorkflowTypeId?: number;
+      /** Format: int32 */
+      AchievementStepTypeId?: number;
+      /** Format: int32 */
+      AchievementStepStatusId?: number;
+      BadgeLavaTemplate?: string;
+      ResultsLavaTemplate?: string;
+      AchievementIconCssClass?: string;
+      /** Format: int32 */
+      MaxAccomplishmentsAllowed?: number;
+      AllowOverAchievement?: boolean;
+      /** Format: int32 */
+      CategoryId?: number;
+      IsPublic?: boolean;
+      /** Format: int32 */
+      ImageBinaryFileId?: number;
+      CustomSummaryLavaTemplate?: string;
+      HighlightColor?: string;
+      /** Format: int32 */
+      AlternateImageBinaryFileId?: number;
+      IsActive?: boolean;
+      AchievementEntityType?: components["schemas"]["Rock.Model.EntityType"];
+      AchievementStartWorkflowType?: components["schemas"]["Rock.Model.WorkflowType"];
+      AchievementSuccessWorkflowType?: components["schemas"]["Rock.Model.WorkflowType"];
+      AchievementFailureWorkflowType?: components["schemas"]["Rock.Model.WorkflowType"];
+      AchievementStepType?: components["schemas"]["Rock.Model.StepType"];
+      AchievementStepStatus?: components["schemas"]["Rock.Model.StepStatus"];
+      Category?: components["schemas"]["Rock.Model.Category"];
+      ImageBinaryFile?: components["schemas"]["Rock.Model.BinaryFile"];
+      Prerequisites?: components["schemas"]["Rock.Model.AchievementTypePrerequisite"][];
+      Dependencies?: components["schemas"]["Rock.Model.AchievementTypePrerequisite"][];
+      AlternateImageBinaryFile?: components["schemas"]["Rock.Model.BinaryFile"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "AchievementTypeId": 0,
+     *   "PrerequisiteAchievementTypeId": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "903fb819-9d9e-433d-a09d-b4db11841268"
+     * }
+     */
+    "Rock.Model.AchievementTypePrerequisite": {
+      /** Format: int32 */
+      AchievementTypeId: number;
+      /** Format: int32 */
+      PrerequisiteAchievementTypeId: number;
+      AchievementType?: components["schemas"]["Rock.Model.AchievementType"];
+      PrerequisiteAchievementType?: components["schemas"]["Rock.Model.AchievementType"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    "Rock.Model.AnalyticsSourceDate": {
+      /** Format: int32 */
+      DateKey?: number;
+      /** Format: date-time */
+      Date?: string;
+      FullDateDescription?: string;
+      /** Format: int32 */
+      DayOfWeek?: number;
+      DayOfWeekName?: string;
+      DayOfWeekAbbreviated?: string;
+      /** Format: int32 */
+      DayNumberInCalendarMonth?: number;
+      /** Format: int32 */
+      DayNumberInCalendarYear?: number;
+      /** Format: int32 */
+      DayNumberInFiscalMonth?: number;
+      /** Format: int32 */
+      DayNumberInFiscalYear?: number;
+      LastDayInMonthIndictor?: boolean;
+      /** Format: int32 */
+      WeekNumberInMonth?: number;
+      /** Format: date-time */
+      SundayDate?: string;
+      /** Format: int32 */
+      GivingMonth?: number;
+      GivingMonthName?: string;
+      /** Format: int32 */
+      CalendarWeek?: number;
+      /** Format: int32 */
+      CalendarMonth?: number;
+      CalendarMonthName?: string;
+      CalendarMonthNameAbbreviated?: string;
+      CalendarYearMonth?: string;
+      CalendarYearMonthName?: string;
+      CalendarQuarter?: string;
+      CalendarYearQuarter?: string;
+      /** Format: int32 */
+      CalendarYear?: number;
+      /** Format: int32 */
+      FiscalWeek?: number;
+      /** Format: int32 */
+      FiscalWeekNumberInYear?: number;
+      FiscalMonth?: string;
+      FiscalMonthAbbreviated?: string;
+      /** Format: int32 */
+      FiscalMonthNumberInYear?: number;
+      FiscalMonthYear?: string;
+      FiscalQuarter?: string;
+      FiscalYearQuarter?: string;
+      FiscalHalfYear?: string;
+      /** Format: int32 */
+      FiscalYear?: number;
+      HolidayIndicator?: boolean;
+      WeekHolidayIndicator?: boolean;
+      EasterIndicator?: boolean;
+      EasterWeekIndicator?: boolean;
+      ChristmasIndicator?: boolean;
+      ChristmasWeekIndicator?: boolean;
+      /** Format: int32 */
+      WeekOfYear?: number;
+      /** Format: int32 */
+      WeekCounter?: number;
+      LeapYearIndicator?: boolean;
+      /** Format: int32 */
+      SundayDateYear?: number;
+      /** Format: int32 */
+      Age?: number;
+      /** @enum {string} */
+      AgeBracket?: "Unknown" | "ZeroToFive" | "SixToTwelve" | "ThirteenToSeventeen" | "EighteenToTwentyFour" | "TwentyFiveToThirtyFour" | "ThirtyFiveToFortyFour" | "FortyFiveToFiftyFour" | "FiftyFiveToSixtyFour" | "SixtyFiveOrOlder";
+      /** Format: int32 */
+      Count?: number;
+    };
+    /**
+     * @example {
+     *   "TemplateBinaryFileId": 0,
+     *   "MergeTemplateTypeEntityTypeId": 0,
+     *   "CategoryId": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "5620d7b4-6487-4635-9c21-ac243c49f059"
+     * }
+     */
+    "Rock.Model.MergeTemplate": {
+      Name: string;
+      Description?: string;
+      /** Format: int32 */
+      TemplateBinaryFileId?: number;
+      /** Format: int32 */
+      MergeTemplateTypeEntityTypeId?: number;
+      /** Format: int32 */
+      CategoryId?: number;
+      /** Format: int32 */
+      PersonAliasId?: number;
+      Category?: components["schemas"]["Rock.Model.Category"];
+      PersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsComplete": false,
+     *   "StepTypeId": 0,
+     *   "PersonAliasId": 0,
+     *   "Order": 0,
+     *   "StepWorkflows": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "c10dba6d-dc12-4ed8-a74b-e969eac43b6e"
+     * }
+     */
+    "Rock.Model.Step": {
+      IsComplete?: boolean;
+      /** Format: int32 */
+      StepTypeId: number;
+      /** Format: int32 */
+      StepStatusId?: number;
+      /** Format: int32 */
+      PersonAliasId: number;
+      /** Format: int32 */
+      CampusId?: number;
+      /** Format: date-time */
+      CompletedDateTime?: string;
+      /** Format: date-time */
+      StartDateTime?: string;
+      /** Format: date-time */
+      EndDateTime?: string;
+      Note?: string;
+      /** Format: int32 */
+      StepProgramCompletionId?: number;
+      /** Format: int32 */
+      StartDateKey?: number;
+      /** Format: int32 */
+      EndDateKey?: number;
+      /** Format: int32 */
+      CompletedDateKey?: number;
+      /** Format: int32 */
+      Order?: number;
+      StepType?: components["schemas"]["Rock.Model.StepType"];
+      StepStatus?: components["schemas"]["Rock.Model.StepStatus"];
+      PersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
+      Campus?: components["schemas"]["Rock.Model.Campus"];
+      StepProgramCompletion?: components["schemas"]["Rock.Model.StepProgramCompletion"];
+      StepWorkflows?: components["schemas"]["Rock.Model.StepWorkflow"][];
+      StartSourceDate?: components["schemas"]["Rock.Model.AnalyticsSourceDate"];
+      EndSourceDate?: components["schemas"]["Rock.Model.AnalyticsSourceDate"];
+      CompletedSourceDate?: components["schemas"]["Rock.Model.AnalyticsSourceDate"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "DefaultListView": 0,
+     *   "StepTerm": "Step",
+     *   "IsActive": true,
+     *   "Order": 0,
+     *   "StepStatuses": [],
+     *   "StepTypes": [],
+     *   "StepWorkflowTriggers": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "2d556e81-a10e-48df-b812-2d6395efc170"
+     * }
+     */
+    "Rock.Model.StepProgram": {
+      Name: string;
+      Description?: string;
+      IconCssClass?: string;
+      /** @enum {string} */
+      DefaultListView?: "Cards" | "Grid";
+      StepTerm?: string;
+      IsActive?: boolean;
+      /** Format: int32 */
+      Order?: number;
+      Category?: components["schemas"]["Rock.Model.Category"];
+      StepStatuses?: components["schemas"]["Rock.Model.StepStatus"][];
+      StepTypes?: components["schemas"]["Rock.Model.StepType"][];
+      StepWorkflowTriggers?: components["schemas"]["Rock.Model.StepWorkflowTrigger"][];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "StepProgramId": 0,
+     *   "PersonAliasId": 0,
+     *   "StartDateTime": "0001-01-01T00:00:00",
+     *   "StartDateKey": 10101,
+     *   "Steps": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "ad8df5a1-cce9-46a6-a939-b78610744c6a"
+     * }
+     */
+    "Rock.Model.StepProgramCompletion": {
+      /** Format: int32 */
+      StepProgramId: number;
+      /** Format: int32 */
+      PersonAliasId: number;
+      /** Format: int32 */
+      CampusId?: number;
+      /** Format: date-time */
+      StartDateTime?: string;
+      /** Format: date-time */
+      EndDateTime?: string;
+      /** Format: int32 */
+      StartDateKey?: number;
+      /** Format: int32 */
+      EndDateKey?: number;
+      StepProgram?: components["schemas"]["Rock.Model.StepProgram"];
+      PersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
+      Steps?: components["schemas"]["Rock.Model.Step"][];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "StepProgramId": 0,
+     *   "IsCompleteStatus": false,
+     *   "IsActive": true,
+     *   "Order": 0,
+     *   "Steps": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "60a48017-b66c-4431-9c66-4b1d9c3a8d41"
+     * }
+     */
+    "Rock.Model.StepStatus": {
+      Name: string;
+      /** Format: int32 */
+      StepProgramId: number;
+      IsCompleteStatus?: boolean;
+      StatusColor?: string;
+      IsActive?: boolean;
+      /** Format: int32 */
+      Order?: number;
+      StepProgram?: components["schemas"]["Rock.Model.StepProgram"];
+      Steps?: components["schemas"]["Rock.Model.Step"][];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "StepProgramId": 0,
+     *   "AllowMultiple": true,
+     *   "HasEndDate": false,
+     *   "ShowCountOnBadge": true,
+     *   "AllowManualEditing": true,
+     *   "IsDateRequired": false,
+     *   "CardLavaTemplate": "<div class=\"card-top\">\r\n    <h3 class=\"step-name\">{{ StepType.Name }}</h3>\r\n</div>\r\n<div class=\"card-middle\">\r\n    {% if StepType.HighlightColor == '' or IsComplete == false %}\r\n        <i class=\"{{ StepType.IconCssClass }} fa-4x\"></i>\r\n    {% else %}\r\n        <i class=\"{{ StepType.IconCssClass }} fa-4x\" style=\"color: {{ StepType.HighlightColor }};\"></i>\r\n    {% endif %}\r\n</div>\r\n<div class=\"card-bottom\">\r\n    <p class=\"step-status\">\r\n        {% if LatestStepStatus %}\r\n            <span class=\"label\" style=\"background-color: {{ LatestStepStatus.StatusColor }};\">{{ LatestStepStatus.Name }}</span>\r\n        {% endif %}\r\n        {% if ShowCampus and LatestStep and LatestStep.Campus != '' %}\r\n            <span class=\"label label-campus\">{{ LatestStep.Campus.Name }}</span>\r\n        {% endif %}\r\n        {% if LatestStep and LatestStep.CompletedDateTime != '' %}\r\n            <br />\r\n            <small>{{ LatestStep.CompletedDateTime | Date:'M/d/yyyy' }}</small>\r\n        {% endif %}\r\n    </p>\r\n    {% if StepCount > 1 %}\r\n        <span class=\"badge\">{{ StepCount }}</span>\r\n    {% endif %}\r\n</div>\r\n",
+     *   "IsActive": true,
+     *   "Order": 0,
+     *   "Steps": [],
+     *   "StepTypePrerequisites": [],
+     *   "StepTypeDependencies": [],
+     *   "StepWorkflowTriggers": [],
+     *   "AchievementTypes": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "e57c554b-537d-4058-be6f-b6f114863388"
+     * }
+     */
+    "Rock.Model.StepType": {
+      /** Format: int32 */
+      StepProgramId: number;
+      Name: string;
+      Description?: string;
+      IconCssClass?: string;
+      AllowMultiple?: boolean;
+      HasEndDate?: boolean;
+      /** Format: int32 */
+      AudienceDataViewId?: number;
+      ShowCountOnBadge?: boolean;
+      /** Format: int32 */
+      AutoCompleteDataViewId?: number;
+      AllowManualEditing?: boolean;
+      HighlightColor?: string;
+      /** Format: int32 */
+      MergeTemplateId?: number;
+      MergeTemplateDescriptor?: string;
+      IsDateRequired?: boolean;
+      CardLavaTemplate?: string;
+      IsActive?: boolean;
+      /** Format: int32 */
+      Order?: number;
+      StepProgram?: components["schemas"]["Rock.Model.StepProgram"];
+      Steps?: components["schemas"]["Rock.Model.Step"][];
+      StepTypePrerequisites?: components["schemas"]["Rock.Model.StepTypePrerequisite"][];
+      StepTypeDependencies?: components["schemas"]["Rock.Model.StepTypePrerequisite"][];
+      AudienceDataView?: components["schemas"]["Rock.Model.DataView"];
+      AutoCompleteDataView?: components["schemas"]["Rock.Model.DataView"];
+      MergeTemplate?: components["schemas"]["Rock.Model.MergeTemplate"];
+      StepWorkflowTriggers?: components["schemas"]["Rock.Model.StepWorkflowTrigger"][];
+      AchievementTypes?: components["schemas"]["Rock.Model.AchievementType"][];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "StepTypeId": 0,
+     *   "PrerequisiteStepTypeId": 0,
+     *   "Order": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "bd8cbc7d-d40e-4d26-b0f2-9a8785ecaef0"
+     * }
+     */
+    "Rock.Model.StepTypePrerequisite": {
+      /** Format: int32 */
+      StepTypeId: number;
+      /** Format: int32 */
+      PrerequisiteStepTypeId: number;
+      /** Format: int32 */
+      Order?: number;
+      StepType?: components["schemas"]["Rock.Model.StepType"];
+      PrerequisiteStepType?: components["schemas"]["Rock.Model.StepType"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "StepWorkflowTriggerId": 0,
+     *   "WorkflowId": 0,
+     *   "StepId": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "b1e917f8-da1a-4919-bd3a-1c1df379b762"
+     * }
+     */
+    "Rock.Model.StepWorkflow": {
+      /** Format: int32 */
+      StepWorkflowTriggerId: number;
+      /** Format: int32 */
+      WorkflowId: number;
+      /** Format: int32 */
+      StepId: number;
+      StepWorkflowTrigger?: components["schemas"]["Rock.Model.StepWorkflowTrigger"];
+      Step?: components["schemas"]["Rock.Model.Step"];
+      Workflow?: components["schemas"]["Rock.Model.Workflow"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "WorkflowTypeId": 0,
+     *   "TriggerType": 0,
+     *   "IsActive": true,
+     *   "StepWorkflows": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "fed1db4c-4572-4b61-8f7e-6f5d5f54723e"
+     * }
+     */
+    "Rock.Model.StepWorkflowTrigger": {
+      /** Format: int32 */
+      StepProgramId?: number;
+      /** Format: int32 */
+      StepTypeId?: number;
+      /** Format: int32 */
+      WorkflowTypeId: number;
+      /** @enum {string} */
+      TriggerType: "StatusChanged" | "Manual" | "IsComplete";
+      TypeQualifier?: string;
+      WorkflowName?: string;
+      IsActive?: boolean;
+      StepProgram?: components["schemas"]["Rock.Model.StepProgram"];
+      StepType?: components["schemas"]["Rock.Model.StepType"];
+      WorkflowType?: components["schemas"]["Rock.Model.WorkflowType"];
+      StepWorkflows?: components["schemas"]["Rock.Model.StepWorkflow"][];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsActive": false,
+     *   "IsPersisted": false,
+     *   "WorkflowTypeId": 0,
+     *   "WorkflowIdNumber": 0,
+     *   "IsProcessing": false,
+     *   "Activities": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "fefc261f-fecc-4ca8-80b0-88d0e441fd3d"
+     * }
+     */
+    "Rock.Model.Workflow": {
+      IsActive?: boolean;
+      IsPersisted?: boolean;
+      /** Format: int32 */
+      WorkflowTypeId?: number;
+      /** Format: int32 */
+      WorkflowIdNumber?: number;
+      WorkflowId?: string;
+      Name: string;
+      Description?: string;
+      Status: string;
+      IsProcessing?: boolean;
+      /** Format: date-time */
+      ActivatedDateTime?: string;
+      /** Format: date-time */
+      LastProcessedDateTime?: string;
+      /** Format: date-time */
+      CompletedDateTime?: string;
+      /** Format: int32 */
+      InitiatorPersonAliasId?: number;
+      /** Format: int32 */
+      EntityId?: number;
+      /** Format: int32 */
+      EntityTypeId?: number;
+      /** Format: int32 */
+      CampusId?: number;
+      InitiatorPersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
+      Activities?: components["schemas"]["Rock.Model.WorkflowActivity"][];
+      Campus?: components["schemas"]["Rock.Model.Campus"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsActive": true,
+     *   "ActivityId": 0,
+     *   "ActionTypeId": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "4fb9a087-e7b9-4f99-afe1-000b17ff83cd"
+     * }
+     */
+    "Rock.Model.WorkflowAction": {
+      IsActive?: boolean;
+      /** Format: int32 */
+      ActivityId?: number;
+      /** Format: int32 */
+      ActionTypeId?: number;
+      /** Format: date-time */
+      LastProcessedDateTime?: string;
+      /** Format: date-time */
+      CompletedDateTime?: string;
+      FormAction?: string;
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IsActive": false,
+     *   "WorkflowId": 0,
+     *   "ActivityTypeId": 0,
+     *   "Actions": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "1f5a9071-005a-490d-ab59-c2984be145de"
+     * }
+     */
+    "Rock.Model.WorkflowActivity": {
+      IsActive?: boolean;
+      /** Format: int32 */
+      WorkflowId?: number;
+      /** Format: int32 */
+      ActivityTypeId?: number;
+      /** Format: int32 */
+      AssignedPersonAliasId?: number;
+      /** Format: int32 */
+      AssignedGroupId?: number;
+      /** Format: date-time */
+      ActivatedDateTime?: string;
+      /** Format: int32 */
+      ActivatedByActivityId?: number;
+      /** Format: date-time */
+      LastProcessedDateTime?: string;
+      /** Format: date-time */
+      CompletedDateTime?: string;
+      Actions?: components["schemas"]["Rock.Model.WorkflowAction"][];
       /** Format: date-time */
       CreatedDateTime?: string;
       /** Format: date-time */
@@ -10477,6 +11415,364 @@ export interface operations {
   };
   /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
   OPTIONSapi_PersonPreviousNames_SetContext_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Queryable GET endpoint */
+  GETapi_Steps: {
+    parameters: {
+      query?: {
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Step"][];
+        };
+      };
+    };
+  };
+  /** POST endpoint. Use this to add a record */
+  POSTapi_Steps: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.Step"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** GET endpoint to get a single record */
+  GETapi_Steps_id: {
+    parameters: {
+      query?: {
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+      path: {
+        /** @description The Id of the record */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Step"];
+        };
+      };
+    };
+  };
+  /** PUT endpoint. Use this to update a record */
+  PUTapi_Steps_id: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.Step"];
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** DELETE endpoint. To delete the record */
+  DELETEapi_Steps_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** PATCH endpoint. Use this to update a subset of the properties of the record */
+  PATCHapi_Steps_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    /** @description The values. */
+    requestBody: {
+      content: {
+        "application/json": {
+          [key: string]: Record<string, never>;
+        };
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** POST an attribute value. Use this to set an attribute value for the record */
+  POSTapi_Steps_AttributeValue_idattributeKeyattributeKeyattributeValueattributeValue: {
+    parameters: {
+      query: {
+        /** @description The attribute key. */
+        attributeKey: string;
+        /** @description The attribute value. */
+        attributeValue: string;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** DELETE to delete the specified attribute value for the record */
+  DELETEapi_Steps_AttributeValue_idattributeKeyattributeKey: {
+    parameters: {
+      query: {
+        /** @description The attribute key. */
+        attributeKey: string;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Gets a list of objects represented by the selected data view */
+  GETapi_Steps_DataView_id: {
+    parameters: {
+      query?: {
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+      path: {
+        /** @description The id. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Step"][];
+        };
+      };
+    };
+  };
+  GETapi_Steps_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId: {
+    parameters: {
+      query?: {
+        personId?: number;
+        personAliasId?: number;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Step"][];
+        };
+      };
+    };
+  };
+  GETapi_Steps_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive: {
+    parameters: {
+      query?: {
+        attributeId?: number;
+        attributeKey?: string;
+        value?: string;
+        caseSensitive?: boolean;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Step"][];
+        };
+      };
+    };
+  };
+  /** Determines if the entity id is in the data view */
+  GETapi_Steps_InDataView_dataViewId_entityId: {
+    parameters: {
+      path: {
+        /** @description The data view identifier. */
+        dataViewId: number;
+        /** @description The entity identifier. */
+        entityId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": boolean;
+        };
+      };
+    };
+  };
+  /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
+  POSTapi_Steps_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName: {
+    parameters: {
+      query: {
+        /** @description The workflow type identifier. */
+        workflowTypeId: number;
+        /** @description Name of the workflow. */
+        workflowName: string;
+      };
+      path: {
+        /** @description The Id of the entity to pass to workflow, if entity cannot be loaded workflow will still be launched but without passing an entity */
+        id: number;
+      };
+    };
+    /** @description Optional list of workflow values to set. */
+    requestBody: {
+      content: {
+        "application/json": {
+          [key: string]: string;
+        };
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+  PUTapi_Steps_SetContext_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+  OPTIONSapi_Steps_SetContext_id: {
     parameters: {
       path: {
         /** @description The identifier. */

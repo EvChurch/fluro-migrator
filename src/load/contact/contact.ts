@@ -7,6 +7,7 @@ import type { CacheObject } from '../types'
 
 import { load as loadAttribute } from './attribute'
 import { load as loadAvatar } from './avatar'
+import { load as loadNewishStep } from './newishStep'
 import { load as loadPersonPreviousName } from './personPreviousName'
 import { load as loadNumber } from './phoneNumber'
 import { getRecordStatus } from './recordStatus'
@@ -18,6 +19,17 @@ export type RockContact = components['schemas']['Rock.Model.Person'] & {
     PhoneNumber: string[]
     FluroRecordStatus: string
     PersonPreviousName: string | undefined
+    NewishStep:
+      | {
+          StepStatusId: number
+          CompletedDateTime: string | undefined
+          StartDateTime: string | undefined
+          EndDateTime: string | undefined
+          AttributeValues: {
+            [key: string]: string | null | undefined
+          }
+        }
+      | undefined
     AttributeValues: {
       [key: string]: string | null | undefined
     }
@@ -44,6 +56,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
   await loadNumber(data, value)
   await loadAttribute(data, value)
   await loadPersonPreviousName(data, value)
+  await loadNewishStep(data, value)
 
   return cacheObject
 }

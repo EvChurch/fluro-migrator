@@ -1,4 +1,4 @@
-import { find, truncate } from 'lodash'
+import { compact, find, truncate } from 'lodash'
 
 import { GroupRoleId } from '../../defaults'
 import type { FluroContact } from '../../extract/contact'
@@ -15,6 +15,66 @@ function transformGender(gender: string): 'Male' | 'Female' | 'Unknown' {
     case 'unknown':
       return 'Unknown'
   }
+}
+
+function transformNewishStep(
+  data: NonNullable<
+    NonNullable<FluroContact['details']>['evPathwayDetails']
+  >['data']
+): RockContact['data']['NewishStep'] {
+  if (data == null) return undefined
+
+  const newishStep = {
+    StartDateTime:
+      compact([
+        data.newishStartDate,
+        data.magNewish,
+        data.misNewish,
+        data.memNewish,
+        data.matNewish,
+        data.minNewish
+      ]).sort()[0] ??
+      (data.newishPathway != null && data.newishPathway?.length !== 0
+        ? '2020-01-01T00:00:00'
+        : undefined),
+    EndDateTime:
+      data.newishCompletionDate ??
+      (data.newishPathway?.length === 5 ? '2020-01-01T00:00:00' : undefined),
+    AttributeValues: {
+      Magnification:
+        data.magNewish ??
+        (data.newishPathway?.includes('Magnification')
+          ? '2020-01-01T00:00:00'
+          : undefined),
+      Mission:
+        data.misNewish ??
+        (data.newishPathway?.includes('Mission')
+          ? '2020-01-01T00:00:00'
+          : undefined),
+      Membership:
+        data.memNewish ??
+        (data.newishPathway?.includes('Membership')
+          ? '2020-01-01T00:00:00'
+          : undefined),
+      Maturity:
+        data.matNewish ??
+        (data.newishPathway?.includes('Maturity')
+          ? '2020-01-01T00:00:00'
+          : undefined),
+      Ministry:
+        data.minNewish ??
+        (data.newishPathway?.includes('Ministry')
+          ? '2020-01-01T00:00:00'
+          : undefined)
+    }
+  }
+
+  if (newishStep.StartDateTime != null)
+    return {
+      ...newishStep,
+      CompletedDateTime: newishStep.EndDateTime,
+      StepStatusId: newishStep.EndDateTime == null ? 1 : 2
+    }
 }
 
 /**
@@ -76,6 +136,7 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
       PhoneNumber: value?.phoneNumbers,
       FluroRecordStatus: value.status,
       PersonPreviousName: value.maidenName,
+      NewishStep: transformNewishStep(value.details?.evPathwayDetails?.data),
       AttributeValues: {
         FirstVisit: value.details?.evPathwayDetails?.data?.['1stVisit'],
         SecondVisit: value.details?.evPathwayDetails?.data?.['2ndVisit'],

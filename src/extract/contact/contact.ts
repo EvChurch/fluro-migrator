@@ -61,13 +61,13 @@ const schema = z.object({
               '1stVisit': z.string().datetime().optional(),
               '2ndVisit': z.string().datetime().optional(),
               memberapprovaldate: z.string().datetime().optional(),
-              magNewish: z.string().datetime().optional(),
-              misNewish: z.string().datetime().optional(),
-              memNewish: z.string().datetime().optional(),
-              matNewish: z.string().datetime().optional(),
-              minNewish: z.string().datetime().optional(),
-              newishStartDate: z.string().datetime().optional(),
-              newishCompletionDate: z.string().datetime().optional(),
+              magNewish: z.string().datetime().nullish(),
+              misNewish: z.string().datetime().nullish(),
+              memNewish: z.string().datetime().nullish(),
+              matNewish: z.string().datetime().nullish(),
+              minNewish: z.string().datetime().nullish(),
+              newishStartDate: z.string().datetime().nullish(),
+              newishCompletionDate: z.string().datetime().nullish(),
               memberremovaldate: z.string().datetime().nullable().optional()
             })
             .optional()
@@ -214,8 +214,8 @@ export const extract = extractFromFluro<FluroContact>({
   contentType: 'contact',
   filterBody: {
     allDefinitions: true,
-    includeArchived: true,
-    search: '5c05059148890574c5395ccb' // tatai
+    includeArchived: true
+    // search: '5c05059148890574c5395ccb' // tatai
     // search: '5fefe87196930a095efc8e88' // jeanny
   },
   multipleBody: {

@@ -52,6 +52,7 @@ describe('contact', () => {
         FluroRecordStatus: 'active',
         GroupRoleId: 4,
         PersonPreviousName: undefined,
+        NewishStep: undefined,
         AttributeValues: {
           FirstVisit: '2021-01-01',
           SecondVisit: '2021-01-02',

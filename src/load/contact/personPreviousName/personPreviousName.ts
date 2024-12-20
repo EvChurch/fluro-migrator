@@ -27,6 +27,7 @@ export async function load(
     throw new RockApiError(error, { cause: { query: params.query } })
 
   if (data?.length === 0) {
+    // create new person previous name
     const body = {
       PersonAliasId: person.PrimaryAliasId,
       LastName: value.data.PersonPreviousName
