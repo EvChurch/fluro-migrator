@@ -4,7 +4,7 @@ import path from 'path'
 import { client } from '../../../extract/client'
 import type { RockContact } from '../contact'
 
-export async function updatePersonProfilePhoto(
+export async function load(
   data: { [key: string]: unknown; Guid?: string; PhotoId?: number },
   value: RockContact
 ): Promise<void> {

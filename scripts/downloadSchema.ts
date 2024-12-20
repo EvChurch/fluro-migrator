@@ -21,7 +21,8 @@ async function downloadSchema(): Promise<void> {
     'GroupLocations',
     'Locations',
     'People',
-    'PhoneNumbers'
+    'PhoneNumbers',
+    'PersonPreviousNames'
   ]
   // const REST_CONTROLLER_NAMES = (await client.get(
   //   '/RestControllers/RestControllerNames?includeObsolete=false'

@@ -2,10 +2,12 @@ import { omit } from 'lodash'
 import f from 'odata-filter-builder'
 
 import type { components } from '../client'
-import { DELETE, GET, PATCH, POST, RockApiError } from '../client'
+import { GET, PATCH, POST, RockApiError } from '../client'
 import type { CacheObject } from '../types'
 
-import { updatePersonProfilePhoto } from './avatar'
+import { load as loadAttribute } from './attribute'
+import { load as loadAvatar } from './avatar'
+import { load as loadPersonPreviousName } from './personPreviousName'
 import { load as loadNumber } from './phoneNumber'
 import { getRecordStatus } from './recordStatus'
 
@@ -15,6 +17,7 @@ export type RockContact = components['schemas']['Rock.Model.Person'] & {
     GroupRoleId: number
     PhoneNumber: string[]
     FluroRecordStatus: string
+    PersonPreviousName: string | undefined
     AttributeValues: {
       [key: string]: string | null | undefined
     }
@@ -37,65 +40,12 @@ export async function load(value: RockContact): Promise<CacheObject> {
   if (error != null) throw new RockApiError(error, { cause: { params } })
   if (data == null) throw new Error('Person not found')
 
-  await updatePersonProfilePhoto(data, value)
+  await loadAvatar(data, value)
+  await loadNumber(data, value)
+  await loadAttribute(data, value)
+  await loadPersonPreviousName(data, value)
 
-  if (value.data.PhoneNumber.length > 0)
-    await loadNumber(
-      value.data.PhoneNumber[0],
-      cacheObject.rockId,
-      value.ForeignKey
-    )
-
-  for (const attributeKey of Object.keys(value.data.AttributeValues)) {
-    const attributeValue = value.data.AttributeValues[attributeKey]
-
-    if (data.AttributeValues?.[attributeKey].Value != attributeValue) {
-      if (attributeValue == null || attributeValue == '') {
-        // delete attribute value
-        const params = {
-          path: {
-            id: cacheObject.rockId
-          },
-          query: {
-            attributeKey
-          }
-        }
-        const { error } = await DELETE('/api/People/AttributeValue/{id}', {
-          params
-        })
-        if (error != null)
-          throw new RockApiError(error, {
-            cause: { path: params.path, query: params.query }
-          })
-      } else {
-        // update attribute value
-        const params = {
-          path: {
-            id: cacheObject.rockId
-          },
-          query: {
-            attributeKey,
-            attributeValue: attributeValue
-          }
-        }
-        const { error } = await POST('/api/People/AttributeValue/{id}', {
-          params
-        })
-        if (error != null)
-          throw new RockApiError(error, {
-            cause: { path: params.path, query: params.query }
-          })
-      }
-    }
-  }
-
-  return {
-    ...cacheObject,
-    data: {
-      ...cacheObject.data,
-      PrimaryAliasId: data.PrimaryAliasId
-    }
-  }
+  return cacheObject
 }
 
 async function loadContact(value: RockContact): Promise<CacheObject> {

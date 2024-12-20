@@ -1,1 +1,1 @@
-export { updatePersonProfilePhoto } from './avatar'
+export { load } from './avatar'

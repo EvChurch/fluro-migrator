@@ -1,14 +1,23 @@
 import f from 'odata-filter-builder'
 
+import type { components } from '../../client'
 import { GET, POST, RockApiError } from '../../client'
+import type { RockContact } from '../contact'
 
 let NumberTypeValueId: number
 
 export async function load(
-  phoneNumber: string,
-  personId: number,
-  fluroId: string
+  data: components['schemas']['Rock.Model.Person'],
+  value: RockContact
 ): Promise<void> {
+  if (data.Id == null) return
+
+  const phoneNumber = value.data.PhoneNumber[0]
+  const fluroId = value.ForeignKey
+  const personId = data.Id
+
+  if (phoneNumber == null) return
+
   // get number type value id - add number in as "mobile" by default
   if (NumberTypeValueId === undefined) {
     const { data, error } = await GET('/api/DefinedValues', {
@@ -27,7 +36,7 @@ export async function load(
     NumberTypeValueId = data?.[0].Id
   }
   // check if current number already exists
-  const { data: phoneNumbers, error } = await GET('/api/PhoneNumbers', {
+  const { data: phoneNumberData, error } = await GET('/api/PhoneNumbers', {
     params: {
       query: {
         $filter: f().eq('Number', `${phoneNumber}`).toString(),
@@ -38,7 +47,7 @@ export async function load(
   if (error != null) throw new RockApiError(error)
 
   //if it doesnt exist then add the number
-  if (phoneNumbers == null || phoneNumbers?.length === 0) {
+  if (phoneNumberData == null || phoneNumberData?.length === 0) {
     const value = {
       PersonId: personId,
       CountryCode: '+64',

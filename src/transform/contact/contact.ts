@@ -75,6 +75,7 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
           : undefined) ?? GroupRoleId._default,
       PhoneNumber: value?.phoneNumbers,
       FluroRecordStatus: value.status,
+      PersonPreviousName: value.maidenName,
       AttributeValues: {
         FirstVisit: value.details?.evPathwayDetails?.data?.['1stVisit'],
         SecondVisit: value.details?.evPathwayDetails?.data?.['2ndVisit'],
