@@ -14,7 +14,7 @@ export async function load(
     query: {
       $filter: f()
         .eq('PersonAliasId', person.PrimaryAliasId)
-        .eq('LastName', value.data.PersonPreviousName)
+        .eq('LastName', value.data.PersonPreviousName.replace(/'/g, "''"))
         .toString(),
       $select: 'Id'
     }

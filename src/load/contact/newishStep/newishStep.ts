@@ -37,7 +37,8 @@ async function loadStep(
   person: components['schemas']['Rock.Model.Person'],
   value: RockContact
 ): Promise<CacheObject | undefined> {
-  if (person.PrimaryAliasId == null) return
+  if (person.PrimaryAliasId == null || value.data.NewishStep == null) return
+
   const params = {
     query: {
       $filter: f()
@@ -60,14 +61,15 @@ async function loadStep(
       PersonAliasId: person.PrimaryAliasId,
       StepTypeId: 2,
       CampusId: person.PrimaryCampusId,
-      ...omit(value.data.NewishStep ?? {}, 'AttributeValues')
+      ...omit(value.data.NewishStep, 'AttributeValues')
     }
 
     const { data, error } = await POST('/api/Steps', {
       body
     })
 
-    if (error != null) throw new RockApiError(error, { cause: { body } })
+    if (error != null)
+      throw new RockApiError(error, { cause: { body, id: person.Id } })
 
     return {
       rockId: data as unknown as number
@@ -80,7 +82,7 @@ async function loadStep(
       PersonAliasId: person.PrimaryAliasId,
       StepTypeId: 2,
       CampusId: person.PrimaryCampusId,
-      ...omit(value.data.NewishStep ?? {}, 'AttributeValues')
+      ...omit(value.data.NewishStep, 'AttributeValues')
     }
 
     const { error } = await PATCH('/api/Steps/{id}', {
@@ -88,7 +90,8 @@ async function loadStep(
       body: body as unknown as Record<string, never>
     })
 
-    if (error != null) throw new RockApiError(error, { cause: { body } })
+    if (error != null)
+      throw new RockApiError(error, { cause: { body, id: person.Id } })
 
     return {
       rockId: Id

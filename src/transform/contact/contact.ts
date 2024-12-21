@@ -24,47 +24,95 @@ function transformNewishStep(
 ): RockContact['data']['NewishStep'] {
   if (data == null) return undefined
 
+  const StartDateTime =
+    // choose the earliest date between start date and all step dates and completion date
+    compact([
+      data.newishStartDate?.substring(0, 19),
+      data.newishCompletionDate?.substring(0, 19),
+      data.magNewish?.substring(0, 19),
+      data.misNewish?.substring(0, 19),
+      data.memNewish?.substring(0, 19),
+      data.matNewish?.substring(0, 19),
+      data.minNewish?.substring(0, 19)
+    ]).sort()[0] ??
+    // all step dates don't exist and start date doesn't exist but pathway exists
+    // choose the earliest date
+    (data.newishPathway != null && data.newishPathway?.length !== 0
+      ? '1970-01-01T00:00:00'
+      : undefined)
+
+  const EndDateTime =
+    // completion date exists
+    // choose the latest date between start date and completion date
+    (data.newishCompletionDate != null
+      ? compact([StartDateTime, data.newishCompletionDate?.substring(0, 19)])
+          .sort()
+          .at(-1)
+      : undefined) ??
+    // completion date doesn't exist and all step dates exist
+    // choose the latest date between start date and all step dates
+    (compact([
+      data.magNewish,
+      data.misNewish,
+      data.memNewish,
+      data.matNewish,
+      data.minNewish
+    ]).length === 5
+      ? compact([
+          StartDateTime,
+          data.magNewish?.substring(0, 19),
+          data.misNewish?.substring(0, 19),
+          data.memNewish?.substring(0, 19),
+          data.matNewish?.substring(0, 19),
+          data.minNewish?.substring(0, 19)
+        ])
+          .sort()
+          .at(-1)
+      : undefined) ??
+    // completion date doesn't exist and some step dates don't exist but pathway exists
+    // choose the latest date between start date and any step dates
+    (data.newishPathway?.length === 5
+      ? compact([
+          '1970-01-01T00:00:00',
+          StartDateTime,
+          data.magNewish?.substring(0, 19),
+          data.misNewish?.substring(0, 19),
+          data.memNewish?.substring(0, 19),
+          data.matNewish?.substring(0, 19),
+          data.minNewish?.substring(0, 19)
+        ])
+          .sort()
+          .at(-1)
+      : undefined)
+
   const newishStep = {
-    StartDateTime:
-      compact([
-        data.newishStartDate,
-        data.magNewish,
-        data.misNewish,
-        data.memNewish,
-        data.matNewish,
-        data.minNewish
-      ]).sort()[0] ??
-      (data.newishPathway != null && data.newishPathway?.length !== 0
-        ? '2020-01-01T00:00:00'
-        : undefined),
-    EndDateTime:
-      data.newishCompletionDate ??
-      (data.newishPathway?.length === 5 ? '2020-01-01T00:00:00' : undefined),
+    StartDateTime,
+    EndDateTime,
     AttributeValues: {
       Magnification:
         data.magNewish ??
         (data.newishPathway?.includes('Magnification')
-          ? '2020-01-01T00:00:00'
+          ? StartDateTime ?? '1970-01-01T00:00:00'
           : undefined),
       Mission:
         data.misNewish ??
         (data.newishPathway?.includes('Mission')
-          ? '2020-01-01T00:00:00'
+          ? StartDateTime ?? '1970-01-01T00:00:00'
           : undefined),
       Membership:
         data.memNewish ??
         (data.newishPathway?.includes('Membership')
-          ? '2020-01-01T00:00:00'
+          ? StartDateTime ?? '1970-01-01T00:00:00'
           : undefined),
       Maturity:
         data.matNewish ??
         (data.newishPathway?.includes('Maturity')
-          ? '2020-01-01T00:00:00'
+          ? StartDateTime ?? '1970-01-01T00:00:00'
           : undefined),
       Ministry:
         data.minNewish ??
         (data.newishPathway?.includes('Ministry')
-          ? '2020-01-01T00:00:00'
+          ? StartDateTime ?? '1970-01-01T00:00:00'
           : undefined)
     }
   }

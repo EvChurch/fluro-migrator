@@ -58,9 +58,9 @@ const schema = z.object({
                 )
                 .optional(),
               signed2030VisionCanvas: z.string().optional(),
-              '1stVisit': z.string().datetime().optional(),
-              '2ndVisit': z.string().datetime().optional(),
-              memberapprovaldate: z.string().datetime().optional(),
+              '1stVisit': z.string().datetime().nullish(),
+              '2ndVisit': z.string().datetime().nullish(),
+              memberapprovaldate: z.string().datetime().nullish(),
               magNewish: z.string().datetime().nullish(),
               misNewish: z.string().datetime().nullish(),
               memNewish: z.string().datetime().nullish(),
@@ -135,10 +135,12 @@ const schema = z.object({
         .optional(),
       faithInfo: z
         .object({
-          data: z.object({
-            dateofBaptism: z.string().datetime().nullish(),
-            isaChristian: z.enum(['Yes', 'No', 'Unsure']).optional()
-          })
+          data: z
+            .object({
+              dateofBaptism: z.string().datetime().nullish(),
+              isaChristian: z.enum(['Yes', 'No', 'Unsure', '']).optional()
+            })
+            .optional()
         })
         .optional(),
       financialDetail: z
@@ -152,7 +154,12 @@ const schema = z.object({
         .object({
           data: z
             .object({
-              adultDemographics: z.enum(['UoA', 'AUT', 'Other', '']).optional(),
+              adultDemographics: z
+                .union([
+                  z.enum(['UoA', 'AUT', 'Other', '']),
+                  z.array(z.enum(['UoA', 'AUT', 'Other', '']))
+                ])
+                .optional(),
               currentStudent: z
                 .boolean()
                 .transform((v) => {
@@ -161,7 +168,7 @@ const schema = z.object({
                 })
                 .optional(),
               demographics: z
-                .enum(['Adult', 'Youth', 'Kids', 'Baby', ''])
+                .enum(['Adults', 'Adult', 'Youth', 'Kids', 'Baby', ''])
                 .optional(),
               studentIdNumber: z.string().optional(),
               whichcampus: z.enum(['City', 'North ', 'South', '']).optional()
@@ -175,7 +182,10 @@ const schema = z.object({
                 | 'AUT City Campus'
                 | 'Other'
                 | undefined
-              switch (v.adultDemographics) {
+              const adultDemographics = Array.isArray(v.adultDemographics)
+                ? v.adultDemographics[0]
+                : v.adultDemographics
+              switch (adultDemographics) {
                 case 'UoA':
                   tertiaryInstitution = 'University of Auckland'
                   break
