@@ -185,6 +185,9 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
       FluroRecordStatus: value.status,
       PersonPreviousName: value.maidenName,
       NewishStep: transformNewishStep(value.details?.evPathwayDetails?.data),
+      TagIds: value.tags
+        .map((tag) => cache['tag'][tag._id]?.rockId)
+        .filter(Boolean),
       AttributeValues: {
         FirstVisit: value.details?.evPathwayDetails?.data?.['1stVisit'],
         SecondVisit: value.details?.evPathwayDetails?.data?.['2ndVisit'],

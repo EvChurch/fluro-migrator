@@ -215,7 +215,8 @@ const schema = z.object({
         })
         .optional()
     })
-    .optional()
+    .optional(),
+  tags: z.array(z.object({ _id: z.string() }))
 })
 
 export type FluroContact = z.infer<typeof schema>
@@ -223,10 +224,10 @@ export type FluroContact = z.infer<typeof schema>
 export const extract = extractFromFluro<FluroContact>({
   contentType: 'contact',
   filterBody: {
+    // search: '5c05059148890574c5395ccb', // tatai
+    // search: '5fefe87196930a095efc8e88', // jeanny
     allDefinitions: true,
     includeArchived: true
-    // search: '5c05059148890574c5395ccb' // tatai
-    // search: '5fefe87196930a095efc8e88' // jeanny
   },
   multipleBody: {
     select: [
@@ -257,7 +258,8 @@ export const extract = extractFromFluro<FluroContact>({
       'details.faithInfo.items',
       'details.financialDetail.items',
       'details.hsTrainingDetails.items',
-      'details.demographicsDetails.items'
+      'details.demographicsDetails.items',
+      'tags'
     ]
   },
   schema

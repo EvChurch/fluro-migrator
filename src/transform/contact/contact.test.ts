@@ -28,7 +28,15 @@ describe('contact', () => {
             memberapprovaldate: '2021-01-03'
           }
         }
-      }
+      },
+      tags: [
+        {
+          _id: 'fluroTagId'
+        },
+        {
+          _id: 'missingFluroTagId'
+        }
+      ]
     }
     const rockContact: RockContact = {
       BirthMonth: undefined,
@@ -53,6 +61,7 @@ describe('contact', () => {
         GroupRoleId: 4,
         PersonPreviousName: undefined,
         NewishStep: undefined,
+        TagIds: [1],
         AttributeValues: {
           FirstVisit: '2021-01-01',
           SecondVisit: '2021-01-02',
@@ -73,6 +82,11 @@ describe('contact', () => {
         'definedValues/maritalStatus': {
           single: {
             rockId: 144
+          }
+        },
+        tag: {
+          fluroTagId: {
+            rockId: 1
           }
         }
       }

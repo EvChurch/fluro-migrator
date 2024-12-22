@@ -11,6 +11,7 @@ import { load as loadNewishStep } from './newishStep'
 import { load as loadPersonPreviousName } from './personPreviousName'
 import { load as loadNumber } from './phoneNumber'
 import { getRecordStatus } from './recordStatus'
+import { load as loadTag } from './tag'
 
 export type RockContact = components['schemas']['Rock.Model.Person'] & {
   ForeignKey: string
@@ -33,6 +34,7 @@ export type RockContact = components['schemas']['Rock.Model.Person'] & {
     AttributeValues: {
       [key: string]: string | null | undefined
     }
+    TagIds: number[]
   }
 }
 
@@ -57,6 +59,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
   await loadAttribute(data, value)
   await loadPersonPreviousName(data, value)
   await loadNewishStep(data, value)
+  await loadTag(data, value)
 
   return cacheObject
 }

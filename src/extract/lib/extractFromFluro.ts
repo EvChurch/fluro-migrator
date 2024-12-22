@@ -58,16 +58,12 @@ export function extractFromFluro<T>({
           return { value: { collection: [], max }, done: true }
         } else {
           if (schema != null) {
-            try {
-              return {
-                value: {
-                  collection: z.array(schema).parse(req.data) as T[],
-                  max
-                },
-                done: false
-              }
-            } catch (error) {
-              throw error
+            return {
+              value: {
+                collection: z.array(schema).parse(req.data) as T[],
+                max
+              },
+              done: false
             }
           }
           return { value: { collection: req.data, max }, done: false }
