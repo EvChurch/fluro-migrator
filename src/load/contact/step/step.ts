@@ -3,15 +3,16 @@ import f from 'odata-filter-builder'
 
 import { GET, PATCH, POST, RockApiError, type components } from '../../client'
 import type { CacheObject } from '../../types'
-import type { RockContact } from '../contact'
+import type { Step } from '../contact'
 
 import { load as loadAttribute } from './attribute'
 
 export async function load(
   person: components['schemas']['Rock.Model.Person'],
-  value: RockContact
+  value: Step | undefined,
+  StepTypeId: number
 ): Promise<void> {
-  const cacheObject = await loadStep(person, value)
+  const cacheObject = await loadStep(person, value, StepTypeId)
 
   if (cacheObject == null) return
 
@@ -30,20 +31,21 @@ export async function load(
 
   if (error != null) throw new RockApiError(error, { cause: { ...params } })
 
-  await loadAttribute(value.data.BaptismStep?.AttributeValues ?? {}, data)
+  await loadAttribute(value?.AttributeValues ?? {}, data)
 }
 
 async function loadStep(
   person: components['schemas']['Rock.Model.Person'],
-  value: RockContact
+  value: Step | undefined,
+  StepTypeId: number
 ): Promise<CacheObject | undefined> {
-  if (person.PrimaryAliasId == null || value.data.BaptismStep == null) return
+  if (person.PrimaryAliasId == null || value == null) return
 
   const params = {
     query: {
       $filter: f()
         .eq('PersonAliasId', person.PrimaryAliasId)
-        .eq('StepTypeId', 1)
+        .eq('StepTypeId', StepTypeId)
         .toString()
     }
   }
@@ -59,9 +61,9 @@ async function loadStep(
     // create new step
     const body = {
       PersonAliasId: person.PrimaryAliasId,
-      StepTypeId: 1,
+      StepTypeId,
       CampusId: person.PrimaryCampusId,
-      ...omit(value.data.BaptismStep, 'AttributeValues')
+      ...omit(value, 'AttributeValues')
     }
 
     const { data, error } = await POST('/api/Steps', {
@@ -80,9 +82,9 @@ async function loadStep(
 
     const body = {
       PersonAliasId: person.PrimaryAliasId,
-      StepTypeId: 2,
+      StepTypeId,
       CampusId: person.PrimaryCampusId,
-      ...omit(value.data.BaptismStep, 'AttributeValues')
+      ...omit(value, 'AttributeValues')
     }
 
     const { error } = await PATCH('/api/Steps/{id}', {

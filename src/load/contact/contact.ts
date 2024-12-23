@@ -7,14 +7,13 @@ import type { CacheObject } from '../types'
 
 import { load as loadAttribute } from './attribute'
 import { load as loadAvatar } from './avatar'
-import { load as loadBaptismStep } from './baptismStep'
-import { load as loadNewishStep } from './newishStep'
 import { load as loadPersonPreviousName } from './personPreviousName'
 import { load as loadNumber } from './phoneNumber'
 import { getRecordStatus } from './recordStatus'
+import { load as loadStep } from './step'
 import { load as loadTag } from './tag'
 
-type Step =
+export type Step =
   | {
       StepStatusId: number
       CompletedDateTime: string | undefined
@@ -62,8 +61,8 @@ export async function load(value: RockContact): Promise<CacheObject> {
   await loadNumber(data, value)
   await loadAttribute(data, value)
   await loadPersonPreviousName(data, value)
-  await loadNewishStep(data, value)
-  await loadBaptismStep(data, value)
+  await loadStep(data, value.data.BaptismStep, 1)
+  await loadStep(data, value.data.NewishStep, 2)
   await loadTag(data, value)
 
   return cacheObject
