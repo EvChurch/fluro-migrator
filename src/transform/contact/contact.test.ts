@@ -61,6 +61,7 @@ describe('contact', () => {
         GroupRoleId: 4,
         PersonPreviousName: undefined,
         NewishStep: undefined,
+        BaptismStep: undefined,
         TagIds: [1],
         AttributeValues: {
           FirstVisit: '2021-01-01',

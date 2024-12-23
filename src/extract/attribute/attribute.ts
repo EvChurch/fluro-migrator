@@ -401,7 +401,6 @@ const attributes: FluroAttribute[] = [
     IsRequired: false,
     AllowSearch: false
   },
-
   {
     _id: 'BirthDateVerified',
     AbbreviatedName: 'Birth Date Verified',
@@ -424,6 +423,30 @@ const attributes: FluroAttribute[] = [
     IsMultiValue: false,
     IsRequired: false,
     AllowSearch: false
+  },
+  {
+    _id: 'BaptismType',
+    AbbreviatedName: 'Baptism Type',
+    FieldTypeId: fieldTypes.SingleSelect,
+    EntityTypeId: entityTypes['Rock.Model.Step'],
+    Name: 'Baptism Type',
+    AttributeQualifiers: [
+      {
+        IsSystem: false,
+        Key: 'values',
+        Value: 'Infant,Adult'
+      } as components['schemas']['Rock.Model.AttributeQualifier']
+    ],
+    Description: 'The type of baptism the person underwent',
+    EntityTypeQualifierColumn: 'StepTypeId',
+    EntityTypeQualifierValue: '1',
+    IsSystem: false,
+    Order: 0,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false,
+    ShowOnBulk: true
   },
   {
     _id: 'Magnification',

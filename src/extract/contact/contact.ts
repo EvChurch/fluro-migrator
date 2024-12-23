@@ -138,6 +138,7 @@ const schema = z.object({
           data: z
             .object({
               dateofBaptism: z.string().datetime().nullish(),
+              typeofBaptism: z.enum(['Infant', 'Adult', '']).optional(),
               isaChristian: z.enum(['Yes', 'No', 'Unsure', '']).optional()
             })
             .optional()

@@ -125,6 +125,25 @@ function transformNewishStep(
     }
 }
 
+function transformBaptismStep(
+  data: NonNullable<NonNullable<FluroContact['details']>['faithInfo']>['data']
+): RockContact['data']['NewishStep'] {
+  if (data == null) return undefined
+
+  if (data.dateofBaptism != null) {
+    const date = new Date(data.dateofBaptism).toLocaleDateString('sv')
+    return {
+      CompletedDateTime: date,
+      StartDateTime: date,
+      EndDateTime: date,
+      StepStatusId: 2,
+      AttributeValues: {
+        BaptismType: data.typeofBaptism == 'Infant' ? 'Infant' : 'Adult'
+      }
+    }
+  }
+}
+
 /**
  * transforms a fluro api contact object to a rock contact object
  */
@@ -185,6 +204,7 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
       FluroRecordStatus: value.status,
       PersonPreviousName: value.maidenName,
       NewishStep: transformNewishStep(value.details?.evPathwayDetails?.data),
+      BaptismStep: transformBaptismStep(value.details?.faithInfo?.data),
       TagIds: value.tags
         .map((tag) => cache['tag'][tag._id]?.rockId)
         .filter(Boolean),
@@ -223,7 +243,6 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
         PoliceVettingRequest:
           value.details?.hsTrainingDetails?.data
             ?.responsetoPoliceVettingRequest,
-        BaptismDate: value.details?.faithInfo?.data?.dateofBaptism,
         core_GivingEnvelopeNumber:
           value.details?.financialDetail?.data?.accountNumber?.replace(
             /\D/g,

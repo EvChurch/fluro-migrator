@@ -7,11 +7,24 @@ import type { CacheObject } from '../types'
 
 import { load as loadAttribute } from './attribute'
 import { load as loadAvatar } from './avatar'
+import { load as loadBaptismStep } from './baptismStep'
 import { load as loadNewishStep } from './newishStep'
 import { load as loadPersonPreviousName } from './personPreviousName'
 import { load as loadNumber } from './phoneNumber'
 import { getRecordStatus } from './recordStatus'
 import { load as loadTag } from './tag'
+
+type Step =
+  | {
+      StepStatusId: number
+      CompletedDateTime: string | undefined
+      StartDateTime: string | undefined
+      EndDateTime: string | undefined
+      AttributeValues: {
+        [key: string]: string | null | undefined
+      }
+    }
+  | undefined
 
 export type RockContact = components['schemas']['Rock.Model.Person'] & {
   ForeignKey: string
@@ -20,17 +33,8 @@ export type RockContact = components['schemas']['Rock.Model.Person'] & {
     PhoneNumber: string[]
     FluroRecordStatus: string
     PersonPreviousName: string | undefined
-    NewishStep:
-      | {
-          StepStatusId: number
-          CompletedDateTime: string | undefined
-          StartDateTime: string | undefined
-          EndDateTime: string | undefined
-          AttributeValues: {
-            [key: string]: string | null | undefined
-          }
-        }
-      | undefined
+    NewishStep: Step
+    BaptismStep: Step
     AttributeValues: {
       [key: string]: string | null | undefined
     }
@@ -59,6 +63,7 @@ export async function load(value: RockContact): Promise<CacheObject> {
   await loadAttribute(data, value)
   await loadPersonPreviousName(data, value)
   await loadNewishStep(data, value)
+  await loadBaptismStep(data, value)
   await loadTag(data, value)
 
   return cacheObject
