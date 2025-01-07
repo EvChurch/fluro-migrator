@@ -6,6 +6,7 @@ import { definitionContactEtl } from './definition/contact/contact'
 // import { definitionTeamEtl } from './definition/team/team'
 import { familyEtl } from './family/family'
 import { tagEtl } from './tag/tag'
+import { totalIndividualEtl } from './totalIndividual/totalIndividual'
 
 export const tuples = [
   tagEtl,
@@ -15,5 +16,6 @@ export const tuples = [
   campusEtl,
   familyEtl,
   maritalStatusEtl,
-  contactEtl
+  contactEtl,
+  totalIndividualEtl
 ]

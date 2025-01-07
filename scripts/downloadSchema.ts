@@ -25,7 +25,9 @@ async function downloadSchema(): Promise<void> {
     'PersonPreviousNames',
     'Steps',
     'Tags',
-    'TaggedItems'
+    'TaggedItems',
+    'MetricValues',
+    'MetricValuePartitions'
   ]
   // const REST_CONTROLLER_NAMES = (await client.get(
   //   '/RestControllers/RestControllerNames?includeObsolete=false'
