@@ -1,2 +1,2 @@
-export type { RockContact } from './contact'
+export type { RockContact, Step } from './contact'
 export { load } from './contact'

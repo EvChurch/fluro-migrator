@@ -449,6 +449,30 @@ const attributes: FluroAttribute[] = [
     ShowOnBulk: true
   },
   {
+    _id: 'CommitmentType',
+    AbbreviatedName: 'Commitment Type',
+    FieldTypeId: fieldTypes.SingleSelect,
+    EntityTypeId: entityTypes['Rock.Model.Step'],
+    Name: 'Commitment Type',
+    AttributeQualifiers: [
+      {
+        IsSystem: false,
+        Key: 'values',
+        Value: 'Dechurched,Unchurched'
+      } as components['schemas']['Rock.Model.AttributeQualifier']
+    ],
+    Description: 'The type of commitment the person made',
+    EntityTypeQualifierColumn: 'StepTypeId',
+    EntityTypeQualifierValue: '5',
+    IsSystem: false,
+    Order: 0,
+    IsGridColumn: false,
+    IsMultiValue: false,
+    IsRequired: false,
+    AllowSearch: false,
+    ShowOnBulk: true
+  },
+  {
     _id: 'Magnification',
     AbbreviatedName: 'Magnification Completion Date',
     FieldTypeId: fieldTypes.Date,

@@ -139,7 +139,9 @@ const schema = z.object({
             .object({
               dateofBaptism: z.string().datetime().nullish(),
               typeofBaptism: z.enum(['Infant', 'Adult', '']).optional(),
-              isaChristian: z.enum(['Yes', 'No', 'Unsure', '']).optional()
+              isaChristian: z.enum(['Yes', 'No', 'Unsure', '']).optional(),
+              newCommitmentDate: z.string().datetime().nullish(),
+              newCType: z.enum(['Unchurched', 'Dechurched', '']).optional()
             })
             .optional()
         })
@@ -227,6 +229,7 @@ export const extract = extractFromFluro<FluroContact>({
   filterBody: {
     // search: '5c05059148890574c5395ccb', // tatai
     // search: '5fefe87196930a095efc8e88', // jeanny
+    // search: '6608981a4816700037d6a6a0', // jackie
     allDefinitions: true,
     includeArchived: true
   },

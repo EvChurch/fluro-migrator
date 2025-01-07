@@ -2,7 +2,7 @@ import { compact, find, truncate } from 'lodash'
 
 import { GroupRoleId } from '../../defaults'
 import type { FluroContact } from '../../extract/contact'
-import type { RockContact } from '../../load/contact'
+import type { RockContact, Step } from '../../load/contact'
 import type { Cache } from '../../load/types'
 
 function transformGender(gender: string): 'Male' | 'Female' | 'Unknown' {
@@ -21,7 +21,7 @@ function transformNewishStep(
   data: NonNullable<
     NonNullable<FluroContact['details']>['evPathwayDetails']
   >['data']
-): RockContact['data']['NewishStep'] {
+): Step {
   if (data == null) return undefined
 
   const StartDateTime =
@@ -127,7 +127,7 @@ function transformNewishStep(
 
 function transformBaptismStep(
   data: NonNullable<NonNullable<FluroContact['details']>['faithInfo']>['data']
-): RockContact['data']['NewishStep'] {
+): Step {
   if (data == null) return undefined
 
   if (data.dateofBaptism != null) {
@@ -139,6 +139,26 @@ function transformBaptismStep(
       StepStatusId: 2,
       AttributeValues: {
         BaptismType: data.typeofBaptism == 'Infant' ? 'Infant' : 'Adult'
+      }
+    }
+  }
+}
+
+function transformCommitmentStep(
+  data: NonNullable<NonNullable<FluroContact['details']>['faithInfo']>['data']
+): Step {
+  if (data == null) return undefined
+
+  if (data.newCommitmentDate != null) {
+    const date = new Date(data.newCommitmentDate).toLocaleDateString('sv')
+    return {
+      CompletedDateTime: date,
+      StartDateTime: date,
+      EndDateTime: date,
+      StepStatusId: 2,
+      AttributeValues: {
+        CommitmentType:
+          data.newCType == 'Dechurched' ? 'Dechurched' : 'Unchurched'
       }
     }
   }
@@ -203,8 +223,20 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
       PhoneNumber: value?.phoneNumbers,
       FluroRecordStatus: value.status,
       PersonPreviousName: value.maidenName,
-      NewishStep: transformNewishStep(value.details?.evPathwayDetails?.data),
-      BaptismStep: transformBaptismStep(value.details?.faithInfo?.data),
+      steps: [
+        {
+          step: transformBaptismStep(value.details?.faithInfo?.data),
+          StepTypeId: 1
+        },
+        {
+          step: transformNewishStep(value.details?.evPathwayDetails?.data),
+          StepTypeId: 2
+        },
+        {
+          step: transformCommitmentStep(value.details?.faithInfo?.data),
+          StepTypeId: 5
+        }
+      ],
       TagIds: value.tags
         .map((tag) => cache['tag'][tag._id]?.rockId)
         .filter(Boolean),

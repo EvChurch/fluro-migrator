@@ -32,8 +32,10 @@ export type RockContact = components['schemas']['Rock.Model.Person'] & {
     PhoneNumber: string[]
     FluroRecordStatus: string
     PersonPreviousName: string | undefined
-    NewishStep: Step
-    BaptismStep: Step
+    steps: {
+      step: Step
+      StepTypeId: number
+    }[]
     AttributeValues: {
       [key: string]: string | null | undefined
     }
@@ -61,8 +63,9 @@ export async function load(value: RockContact): Promise<CacheObject> {
   await loadNumber(data, value)
   await loadAttribute(data, value)
   await loadPersonPreviousName(data, value)
-  await loadStep(data, value.data.BaptismStep, 1)
-  await loadStep(data, value.data.NewishStep, 2)
+  for (const { step, StepTypeId } of value.data.steps) {
+    await loadStep(data, step, StepTypeId)
+  }
   await loadTag(data, value)
 
   return cacheObject
