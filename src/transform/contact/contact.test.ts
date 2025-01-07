@@ -46,6 +46,7 @@ describe('contact', () => {
       DeceasedDate: undefined,
       Email: 'example@example.com',
       FirstName: 'John',
+      MiddleName: undefined,
       ForeignKey: '1',
       Gender: 'Male',
       IsDeceased: false,
@@ -60,7 +61,11 @@ describe('contact', () => {
         FluroRecordStatus: 'active',
         GroupRoleId: 4,
         PersonPreviousName: undefined,
-        steps: [],
+        steps: [
+          { StepTypeId: 1, step: undefined },
+          { StepTypeId: 2, step: undefined },
+          { StepTypeId: 5, step: undefined }
+        ],
         TagIds: [1],
         AttributeValues: {
           FirstVisit: '2021-01-01',
