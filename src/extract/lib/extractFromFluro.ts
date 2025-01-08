@@ -1,8 +1,22 @@
+import { get } from 'lodash'
 import { type ZodSchema, z } from 'zod'
 
 import { client } from '../client'
 import type { ExtractIterator } from '../types'
 import { PAGE_SIZE } from '../types'
+
+interface Filter {
+  comparator?: string
+  dataType?: 'reference'
+  key?: string
+  value?: string
+  values?: string[] | { _id: string; title: string }[]
+}
+
+interface Operator {
+  operator?: 'and'
+  filters?: (Operator | Filter)[]
+}
 
 interface ExtractFromFluroOptions {
   contentType: string
@@ -11,14 +25,7 @@ interface ExtractFromFluroOptions {
     includeArchived?: boolean
     searchInheritable?: boolean
     search?: string
-    filter?: {
-      filters?: {
-        comparator?: string
-        key?: string
-        value?: string
-        values?: string[]
-      }[]
-    }
+    filter?: Operator
   }
   multipleBody?: {
     appendAssignments?: boolean
@@ -58,12 +65,21 @@ export function extractFromFluro<T>({
           return { value: { collection: [], max }, done: true }
         } else {
           if (schema != null) {
-            return {
-              value: {
-                collection: z.array(schema).parse(req.data) as T[],
-                max
-              },
-              done: false
+            try {
+              return {
+                value: {
+                  collection: z.array(schema).parse(req.data) as T[],
+                  max
+                },
+                done: false
+              }
+            } catch (e) {
+              if (e instanceof z.ZodError) {
+                e.errors.forEach((err) => {
+                  console.log(get(req.data, err.path))
+                })
+              }
+              throw e
             }
           }
           return { value: { collection: req.data, max }, done: false }

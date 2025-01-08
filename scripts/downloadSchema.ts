@@ -27,7 +27,9 @@ async function downloadSchema(): Promise<void> {
     'Tags',
     'TaggedItems',
     'MetricValues',
-    'MetricValuePartitions'
+    'MetricValuePartitions',
+    'Attendances',
+    'AttendanceOccurrences'
   ]
   // const REST_CONTROLLER_NAMES = (await client.get(
   //   '/RestControllers/RestControllerNames?includeObsolete=false'
@@ -39,7 +41,6 @@ async function downloadSchema(): Promise<void> {
         definitions: { [path: string]: unknown }
         paths: { [path: string]: unknown }
       }>(`/doc/v1?controllerName=${name}`)
-      console.log(name, data)
       return { definitions: data.definitions, paths: data.paths }
     })
   )

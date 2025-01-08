@@ -13,6 +13,7 @@ import { tuples } from './tuples'
 interface CommandLineArguments {
   exclude?: string[]
   include?: string[]
+  remove?: string[]
   help?: boolean
 }
 
@@ -31,6 +32,14 @@ const args = parse<CommandLineArguments>(
       multiple: true,
       alias: 'i',
       description: 'runs only the named ETL process'
+    },
+    remove: {
+      type: String,
+      optional: true,
+      multiple: true,
+      alias: 'D',
+      description:
+        'remove Rock entities with ForeignKey (if included will not run any ETL process)'
     },
     help: {
       type: Boolean,
@@ -57,8 +66,17 @@ async function main(): Promise<void> {
   try {
     const cache: Cache = await loadCache()
 
-    for (const [name, extract, transform, load] of tuples) {
+    for (const [name, extract, transform, load, remove] of tuples) {
       if (cache[name] == null) cache[name] = {}
+      // remove entities
+
+      if (args.remove != null && args.remove.length > 0) {
+        if (args.remove.includes(name) && remove != null) {
+          await remove()
+        }
+        continue
+      }
+
       // skip if excluded
       if (args.exclude?.includes(name)) continue
 
@@ -66,7 +84,7 @@ async function main(): Promise<void> {
       if (args.include?.includes(name) === false) continue
 
       // create extract iterator
-      const iterator = await extract()
+      const iterator = await extract(cache)
 
       // transform and load data
       let result = await iterator.next()
@@ -89,9 +107,12 @@ async function main(): Promise<void> {
               progress.increment()
               return { [value._id]: cache[name][value._id] }
             } else {
-              const cacheObject = await load(
-                transform(cache, value as never) as never
-              )
+              const rockObject = transform(cache, value as never) as never
+              if (rockObject == null) {
+                progress.increment()
+                return {}
+              }
+              const cacheObject = await load(rockObject)
               progress.increment()
               return { [value._id]: cacheObject }
             }

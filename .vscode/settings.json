@@ -1,7 +1,7 @@
 {
-  "folder-path-color.folders": [
-    { "path": "src/extract", "color": "blue" },
-    { "path": "src/load", "color": "magenta" },
-    { "path": "src/transform", "color": "cyan" }
-  ]
+  // "folder-path-color.folders": [
+  //   { "path": "src/extract", "color": "blue" },
+  //   { "path": "src/load", "color": "magenta" },
+  //   { "path": "src/transform", "color": "cyan" }
+  // ]
 }

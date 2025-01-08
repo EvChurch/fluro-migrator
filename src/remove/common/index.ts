@@ -1,0 +1,1 @@
+export { removeData } from './common'

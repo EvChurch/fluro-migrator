@@ -1030,6 +1030,170 @@ export interface paths {
     /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
     options: operations["OPTIONSapi_MetricValuePartitions_SetContext_id"];
   };
+  "/api/Attendances": {
+    /** Queryable GET endpoint */
+    get: operations["GETapi_Attendances"];
+    /** POST endpoint. Use this to add a record */
+    post: operations["POSTapi_Attendances"];
+  };
+  "/api/Attendances/{id}": {
+    /** GET endpoint to get a single record */
+    get: operations["GETapi_Attendances_id"];
+    /** PUT endpoint. Use this to update a record */
+    put: operations["PUTapi_Attendances_id"];
+    /** DELETE endpoint. To delete the record */
+    delete: operations["DELETEapi_Attendances_id"];
+    /** PATCH endpoint. Use this to update a subset of the properties of the record */
+    patch: operations["PATCHapi_Attendances_id"];
+  };
+  "/api/Attendances/AddAttendance": {
+    /** Adds an attendance. If the AttendanceOccurrence record does not exist it is created. If the Attendance record already exists then it is updated. */
+    put: operations["PUTapi_Attendances_AddAttendancegroupIdgroupIdlocationIdlocationIdscheduleIdscheduleIdoccurrenceDateoccurrenceDatepersonIdpersonIdpersonAliasIdpersonAliasId"];
+  };
+  "/api/Attendances/AttributeValue/{id}": {
+    /** POST an attribute value. Use this to set an attribute value for the record */
+    post: operations["POSTapi_Attendances_AttributeValue_idattributeKeyattributeKeyattributeValueattributeValue"];
+    /** DELETE to delete the specified attribute value for the record */
+    delete: operations["DELETEapi_Attendances_AttributeValue_idattributeKeyattributeKey"];
+  };
+  "/api/Attendances/CanSchedulePerson": {
+    /** Determines whether this the person can be scheduled for the specified occurrence */
+    get: operations["GETapi_Attendances_CanSchedulePersonpersonIdpersonIdattendanceOccurrenceIdattendanceOccurrenceIdfromAttendanceOccurrenceIdfromAttendanceOccurrenceId"];
+  };
+  "/api/Attendances/DataView/{id}": {
+    /** Gets a list of objects represented by the selected data view */
+    get: operations["GETapi_Attendances_DataView_id"];
+  };
+  "/api/Attendances/FollowedItems": {
+    get: operations["GETapi_Attendances_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId"];
+  };
+  "/api/Attendances/GetAttendingSchedulerResources": {
+    /** Gets a list of scheduled attendances ( people that are scheduled ) for an attendance occurrence */
+    get: operations["GETapi_Attendances_GetAttendingSchedulerResourcesattendanceOccurrenceIdattendanceOccurrenceId"];
+  };
+  "/api/Attendances/GetByAttributeValue": {
+    get: operations["GETapi_Attendances_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive"];
+  };
+  "/api/Attendances/GetChartData": {
+    /** Gets the chart data. */
+    get: operations["GETapi_Attendances_GetChartDatagroupBygroupBygraphBygraphBystartDatestartDateendDateendDategroupIdsgroupIdscampusIdscampusIdsscheduleIdsscheduleIdsdataViewIddataViewId"];
+  };
+  "/api/Attendances/GetSchedulerResource": {
+    /** Gets an individual scheduler resource. */
+    post: operations["POSTapi_Attendances_GetSchedulerResourcepersonIdpersonId"];
+  };
+  "/api/Attendances/GetSchedulerResources": {
+    /** Gets a list of available the scheduler resources (people) based on the options specified in schedulerResourceParameters */
+    post: operations["POSTapi_Attendances_GetSchedulerResources"];
+  };
+  "/api/Attendances/Import": {
+    /**
+     * Import Attendance Records using BulkInsert
+     * @description For best performance, limit to 1000 records at a time.
+     * Either the PersonId or PersonAliasId value can be specified, but at least one is required.
+     */
+    post: operations["POSTapi_Attendances_Import"];
+  };
+  "/api/Attendances/InDataView/{dataViewId}/{entityId}": {
+    /** Determines if the entity id is in the data view */
+    get: operations["GETapi_Attendances_InDataView_dataViewId_entityId"];
+  };
+  "/api/Attendances/LaunchWorkflow/{id}": {
+    /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
+    post: operations["POSTapi_Attendances_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName"];
+  };
+  "/api/Attendances/RegisterRSVPRecipients": {
+    /** Creates attendance records if they don't exist for a designated occurrence and list of person IDs. */
+    post: operations["POSTapi_Attendances_RegisterRSVPRecipientsoccurrenceIdoccurrenceId"];
+  };
+  "/api/Attendances/ScheduledPersonAddConfirmed": {
+    /** Schedules a person to an attendance and immediately marks them as confirmed */
+    put: operations["PUTapi_Attendances_ScheduledPersonAddConfirmedpersonIdpersonIdattendanceOccurrenceIdattendanceOccurrenceId"];
+  };
+  "/api/Attendances/ScheduledPersonAddPending": {
+    /** Schedules a person to an attendance and marks them as pending */
+    put: operations["PUTapi_Attendances_ScheduledPersonAddPendingpersonIdpersonIdattendanceOccurrenceIdattendanceOccurrenceId"];
+  };
+  "/api/Attendances/ScheduledPersonConfirm": {
+    /** Confirms a person for a scheduled attendance */
+    put: operations["PUTapi_Attendances_ScheduledPersonConfirmattendanceIdattendanceId"];
+  };
+  "/api/Attendances/ScheduledPersonDecline": {
+    /** Set person as declined for a scheduled attendance */
+    put: operations["PUTapi_Attendances_ScheduledPersonDeclineattendanceIdattendanceId"];
+  };
+  "/api/Attendances/ScheduledPersonPending": {
+    /** Sets a person's status to pending for the scheduled attendance */
+    put: operations["PUTapi_Attendances_ScheduledPersonPendingattendanceIdattendanceId"];
+  };
+  "/api/Attendances/ScheduledPersonRemove": {
+    /** Updates attendance record to indicate person is not pending, or confirmed, or declined */
+    put: operations["PUTapi_Attendances_ScheduledPersonRemoveattendanceIdattendanceId"];
+  };
+  "/api/Attendances/ScheduledPersonSendConfirmationCommunication": {
+    /** Sends (or Re-sends) a confirmation email to the person in the specified scheduled attendance record */
+    put: operations["PUTapi_Attendances_ScheduledPersonSendConfirmationCommunicationattendanceIdattendanceId"];
+  };
+  "/api/Attendances/SetContext/{id}": {
+    /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+    put: operations["PUTapi_Attendances_SetContext_id"];
+    /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+    options: operations["OPTIONSapi_Attendances_SetContext_id"];
+  };
+  "/api/AttendanceOccurrences": {
+    /** Queryable GET endpoint */
+    get: operations["GETapi_AttendanceOccurrences"];
+    /** POST endpoint. Use this to add a record */
+    post: operations["POSTapi_AttendanceOccurrences"];
+  };
+  "/api/AttendanceOccurrences/{id}": {
+    /** GET endpoint to get a single record */
+    get: operations["GETapi_AttendanceOccurrences_id"];
+    /** PUT endpoint. Use this to update a record */
+    put: operations["PUTapi_AttendanceOccurrences_id"];
+    /** DELETE endpoint. To delete the record */
+    delete: operations["DELETEapi_AttendanceOccurrences_id"];
+    /** PATCH endpoint. Use this to update a subset of the properties of the record */
+    patch: operations["PATCHapi_AttendanceOccurrences_id"];
+  };
+  "/api/AttendanceOccurrences/AttributeValue/{id}": {
+    /** POST an attribute value. Use this to set an attribute value for the record */
+    post: operations["POSTapi_AttendanceOccurrences_AttributeValue_idattributeKeyattributeKeyattributeValueattributeValue"];
+    /** DELETE to delete the specified attribute value for the record */
+    delete: operations["DELETEapi_AttendanceOccurrences_AttributeValue_idattributeKeyattributeKey"];
+  };
+  "/api/AttendanceOccurrences/CreateGroupOccurrence": {
+    /** Creates a new attendance occurrence for a group. */
+    post: operations["POSTapi_AttendanceOccurrences_CreateGroupOccurrencegroupIdgroupIdoccurrenceDateoccurrenceDatescheduleIdscheduleIdlocationIdlocationId"];
+  };
+  "/api/AttendanceOccurrences/DataView/{id}": {
+    /** Gets a list of objects represented by the selected data view */
+    get: operations["GETapi_AttendanceOccurrences_DataView_id"];
+  };
+  "/api/AttendanceOccurrences/FollowedItems": {
+    get: operations["GETapi_AttendanceOccurrences_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId"];
+  };
+  "/api/AttendanceOccurrences/GetByAttributeValue": {
+    get: operations["GETapi_AttendanceOccurrences_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive"];
+  };
+  "/api/AttendanceOccurrences/GetFutureGroupOccurrences": {
+    /** Gets all the occurrences for a group for the selected dates, location and schedule, sorted by occurrence data in ascending order. */
+    get: operations["GETapi_AttendanceOccurrences_GetFutureGroupOccurrencesgroupIdgroupIdtoDateTimetoDateTimelocationIdslocationIdsscheduleIdsscheduleIds"];
+  };
+  "/api/AttendanceOccurrences/InDataView/{dataViewId}/{entityId}": {
+    /** Determines if the entity id is in the data view */
+    get: operations["GETapi_AttendanceOccurrences_InDataView_dataViewId_entityId"];
+  };
+  "/api/AttendanceOccurrences/LaunchWorkflow/{id}": {
+    /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
+    post: operations["POSTapi_AttendanceOccurrences_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName"];
+  };
+  "/api/AttendanceOccurrences/SetContext/{id}": {
+    /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+    put: operations["PUTapi_AttendanceOccurrences_SetContext_id"];
+    /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+    options: operations["OPTIONSapi_AttendanceOccurrences_SetContext_id"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -1064,7 +1228,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "7698e586-5e9c-4a73-b9c1-389da3697ddb"
+     *   "Guid": "47f937a7-297a-42f1-972b-69dc2c62bd16"
      * }
      */
     "Rock.Model.Attribute": {
@@ -1139,7 +1303,7 @@ export interface components {
      *   "AttributeId": 0,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "b349d607-1b4b-409d-a21d-e00890077eaa"
+     *   "Guid": "47f3d6ed-1379-44fe-a597-0d7b03b2ceb2"
      * }
      */
     "Rock.Model.AttributeQualifier": {
@@ -1167,7 +1331,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "1eb4ae36-8682-40d8-8d43-3c0c9494c221"
+     *   "Guid": "c7e4d63a-e3d2-49d9-8223-b8cfd3269b01"
      * }
      */
     "Rock.Model.Category": {
@@ -1225,7 +1389,7 @@ export interface components {
      *   "IsRelatedToInteractionTrackedOnCreate": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "558ac6d8-a753-4ee9-ba29-ad8a3f07ae23"
+     *   "Guid": "a1a87c35-9105-402e-8ff0-c4e1348b71c5"
      * }
      */
     "Rock.Model.EntityType": {
@@ -1262,7 +1426,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "9defa564-1240-4d9b-a18a-72d43feab763"
+     *   "Guid": "4a189d2b-de41-4351-9265-a314641cedf0"
      * }
      */
     "Rock.Model.FieldType": {
@@ -1386,7 +1550,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ef1e9b94-ad16-4df3-ab12-d63fda539e7a"
+     *   "Guid": "1f1de805-9441-4b4b-bef5-f3522dd6cb5f"
      * }
      */
     "Rock.Model.BinaryFile": {
@@ -1455,7 +1619,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "d52ee6ab-cdc8-4efe-99a6-45bb8ef0e75d"
+     *   "Guid": "03ca9c59-8400-475f-914f-d0102a73d3b2"
      * }
      */
     "Rock.Model.BinaryFileType": {
@@ -1519,7 +1683,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "9451960f-30dc-4670-b1eb-5c8c945350e3"
+     *   "Guid": "a708d81a-1fc1-4bcc-a525-2a07b9cc358f"
      * }
      */
     "Rock.Model.Block": {
@@ -1578,7 +1742,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "86d369be-2bc8-414e-97e1-ee9febc91e64"
+     *   "Guid": "162e4dbc-bf56-4ed8-8a55-5302942c8b7c"
      * }
      */
     "Rock.Model.BlockType": {
@@ -1622,7 +1786,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a622c108-7fcd-47fb-9ce1-1fffacfcb970"
+     *   "Guid": "0ba578c9-d799-4ad2-bba5-8465573f15d7"
      * }
      */
     "Rock.Model.Campus": {
@@ -1694,7 +1858,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "4cce1a63-5ca8-4fcf-895d-b586981accd8"
+     *   "Guid": "974bd450-7c36-4ebd-a572-5cf9d2f294f1"
      * }
      */
     "Rock.Model.CampusSchedule": {
@@ -1741,7 +1905,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "8a1dc6d1-e47c-4030-adb1-54416df052ee"
+     *   "Guid": "bc0df50e-c32e-4347-9062-3074fce01070"
      * }
      */
     "Rock.Model.CampusTopic": {
@@ -1785,7 +1949,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "0e51cf90-028a-49ef-86a7-c09fbda3beff"
+     *   "Guid": "57b4acce-b563-4e42-98e1-fbb9e31580ec"
      * }
      */
     "Rock.Model.DataView": {
@@ -1859,7 +2023,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "899e1086-1347-41e5-b75d-70269e0b4697"
+     *   "Guid": "c7ddd02b-e8bc-438c-ab5f-acd1c5f0c2ca"
      * }
      */
     "Rock.Model.DataViewFilter": {
@@ -1913,7 +2077,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "9a357572-fd2a-40ab-967c-ff3c0e13c602"
+     *   "Guid": "8e119215-c9ec-4a45-8cfb-625aed99e66f"
      * }
      */
     "Rock.Model.DefinedValue": {
@@ -1965,7 +2129,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a846870e-ff40-4317-a528-58938efd31dc"
+     *   "Guid": "8f16a87b-3de6-42ec-9a46-c9ae6b9f56d7"
      * }
      */
     "Rock.Model.Device": {
@@ -2025,7 +2189,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "f5bcfa29-0b35-4318-8397-6470e906f632"
+     *   "Guid": "f66c6540-aea7-46b4-ad7d-1bce42276b06"
      * }
      */
     "Rock.Model.Document": {
@@ -2075,7 +2239,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5b1e1c5d-be43-4541-afab-0019e04ee0ee"
+     *   "Guid": "57b99e9a-2bae-4e98-8076-e413d664a654"
      * }
      */
     "Rock.Model.DocumentType": {
@@ -2145,7 +2309,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "d1dd2104-7b91-4b26-beb2-8dfe22e881bf"
+     *   "Guid": "7ffffa74-24d5-4471-80dd-a118c37e6129"
      * }
      */
     "Rock.Model.Group": {
@@ -2272,7 +2436,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "3aead1c3-7427-4c4c-a32d-d4245882d4ee"
+     *   "Guid": "3f0cac78-2cbb-44eb-a3e8-c5f98843764c"
      * }
      */
     "Rock.Model.GroupLocation": {
@@ -2352,7 +2516,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "b6a96f3f-69f1-4978-92af-066afe3a7c9c"
+     *   "Guid": "92674fda-5274-426a-8d6a-9c0a2b522e6c"
      * }
      */
     "Rock.Model.GroupMember": {
@@ -2429,7 +2593,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "589c67bd-69fe-4242-9b07-2c9b74487709"
+     *   "Guid": "a6e71b23-1038-4ce3-96cc-77043a1adce1"
      * }
      */
     "Rock.Model.GroupMemberAssignment": {
@@ -2480,7 +2644,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5621eb6d-5b4d-42a7-a237-f388033952b7"
+     *   "Guid": "9548545f-14c2-422c-98f7-38cc727ada1b"
      * }
      */
     "Rock.Model.GroupMemberRequirement": {
@@ -2544,7 +2708,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "39357f6d-4526-4328-abba-51049f0ad962"
+     *   "Guid": "40ecb0a0-1f5f-4986-931f-cce14bab097a"
      * }
      */
     "Rock.Model.GroupMemberScheduleTemplate": {
@@ -2590,7 +2754,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "eb04f25b-6ecc-4d5d-a65a-19b6adce9037"
+     *   "Guid": "651db598-bdde-4b66-b317-fb0a103a477f"
      * }
      */
     "Rock.Model.GroupRequirement": {
@@ -2650,7 +2814,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e121e64c-6b12-4e1a-9dca-b5712434d632"
+     *   "Guid": "8cbf36e8-85b9-49f3-bc4e-a5aa92cc361c"
      * }
      */
     "Rock.Model.GroupRequirementType": {
@@ -2725,7 +2889,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "98e1e2b6-5dcc-4a49-8676-6af32f89ffca"
+     *   "Guid": "fc66219b-598b-4613-adfa-b068f45fe0d4"
      * }
      */
     "Rock.Model.GroupSync": {
@@ -2834,7 +2998,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2d6cb53c-e2a6-43ff-9999-2d6a4e6e6e12"
+     *   "Guid": "d15a07e7-c9d9-4d82-8abe-cd5902770fcc"
      * }
      */
     "Rock.Model.GroupType": {
@@ -2991,7 +3155,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a99bed98-80ce-44a5-93a0-894c592f5d07"
+     *   "Guid": "d69b11af-92f5-46f4-8f9b-2a3659c2829f"
      * }
      */
     "Rock.Model.GroupTypeRole": {
@@ -3047,7 +3211,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "6254fe67-aee4-4e0f-ac0d-fcedd0572610"
+     *   "Guid": "56e2bd66-812a-4bf2-9497-b5844a920ee9"
      * }
      */
     "Rock.Model.Layout": {
@@ -3095,7 +3259,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "83bae557-825e-49ad-8a0f-ac4cbecf2fbf"
+     *   "Guid": "7b732191-7873-480d-ac99-f8c610217d2d"
      * }
      */
     "Rock.Model.Location": {
@@ -3204,7 +3368,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "aa31ba27-568e-4b2c-9884-d12f753b8cad"
+     *   "Guid": "7e5587d9-a4d3-4af5-8e4a-2700135f6608"
      * }
      */
     "Rock.Model.Page": {
@@ -3288,7 +3452,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ea2cfc59-2315-4cdc-921f-77eb3f895d6c"
+     *   "Guid": "f982642f-527a-4314-a029-e40989558c12"
      * }
      */
     "Rock.Model.PageContext": {
@@ -3331,7 +3495,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "60f7b602-ff15-4204-b7d4-92a83399c40a"
+     *   "Guid": "dcb7d50c-9fe6-4087-83d7-5624ab71fb43"
      * }
      */
     "Rock.Model.PageRoute": {
@@ -3391,7 +3555,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2414be7f-82b3-4717-a47f-365c02c929fd"
+     *   "Guid": "efef1ce6-c616-4684-b778-177e7d1ada2d"
      * }
      */
     "Rock.Model.Person": {
@@ -3554,7 +3718,7 @@ export interface components {
      *   "PersonId": 0,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a05a0e7d-2cb9-499e-8497-c321d88462a8"
+     *   "Guid": "29d41bf0-bc1b-4346-9a3f-d8784352d6ba"
      * }
      */
     "Rock.Model.PersonAlias": {
@@ -3590,7 +3754,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "efe727a4-0843-40be-bbc8-4ca9625d7462"
+     *   "Guid": "9170f70d-1f5c-4371-b9fa-a189ac1733d5"
      * }
      */
     "Rock.Model.PhoneNumber": {
@@ -3649,7 +3813,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "4c750dba-b3d9-44c2-a1ff-b921090aa641"
+     *   "Guid": "43b13028-8691-4b68-9c2b-31272f6602ec"
      * }
      */
     "Rock.Model.Schedule": {
@@ -3711,7 +3875,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "241049a0-9134-4c39-874f-83adf622823d"
+     *   "Guid": "2f423693-39c8-4ba6-9d44-5b19f263ff48"
      * }
      */
     "Rock.Model.SignatureDocumentTemplate": {
@@ -3785,7 +3949,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "b8fa7532-9b1d-4f97-bede-bc899172c618"
+     *   "Guid": "6aac89d7-cc55-413a-af8f-3e3e11a9514c"
      * }
      */
     "Rock.Model.Site": {
@@ -3904,7 +4068,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "ef28f7dd-91ae-4e2c-b892-c69f5236b582"
+     *   "Guid": "aab56c16-d673-4ae8-a97c-978cf4fb061f"
      * }
      */
     "Rock.Model.SiteDomain": {
@@ -3949,7 +4113,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "01f691a8-2a1a-4471-a809-ac8e92a22e91"
+     *   "Guid": "a4840fce-85c9-402a-a2c2-32480d32c7d3"
      * }
      */
     "Rock.Model.SystemCommunication": {
@@ -4020,7 +4184,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "15a78a54-0208-47cc-9ae1-b50148d9a773"
+     *   "Guid": "146fb388-0b1e-4e23-8411-d6a5ab8bc27d"
      * }
      */
     "Rock.Model.SystemPhoneNumber": {
@@ -4076,7 +4240,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "2d93e2f2-771f-47e3-81bd-f4edc17fa23a"
+     *   "Guid": "7dd7a3e8-7f6b-40aa-9484-79876c83b909"
      * }
      */
     "Rock.Model.UserLogin": {
@@ -4155,7 +4319,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "c3e4d49b-6172-4466-8277-483835e5ce8c"
+     *   "Guid": "b8aa2663-c30c-433b-9ff9-f9fd1b2a59c2"
      * }
      */
     "Rock.Model.WorkflowActionForm": {
@@ -4263,7 +4427,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "294178e5-8c7e-4eed-b1b1-001b8634c3ba"
+     *   "Guid": "a499684c-f241-4888-884d-79efefeb08c9"
      * }
      */
     "Rock.Model.WorkflowActionFormAttribute": {
@@ -4319,7 +4483,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5fa3228e-fa0e-4e08-b850-e79186fba5ec"
+     *   "Guid": "67f6ca4d-4dfc-403e-8326-7b2e8b054873"
      * }
      */
     "Rock.Model.WorkflowActionFormSection": {
@@ -4372,7 +4536,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "1399a694-9444-4c24-a160-7b79d3134308"
+     *   "Guid": "3a98a138-b6d3-4648-b909-d94ff88f6042"
      * }
      */
     "Rock.Model.WorkflowActionType": {
@@ -4430,7 +4594,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "f68a948d-2f48-41af-8429-0ef3e021a1d8"
+     *   "Guid": "1961bd5d-6466-4a98-bcf8-00f709d75e9f"
      * }
      */
     "Rock.Model.WorkflowActivityType": {
@@ -4477,7 +4641,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "aee77c62-12c1-444b-b299-87d59d57c82d"
+     *   "Guid": "27e46100-4472-4241-9621-79007734c2c9"
      * }
      */
     "Rock.Model.WorkflowFormBuilderTemplate": {
@@ -4530,7 +4694,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "691fd47e-248f-4b6e-9afe-76d1205678d0"
+     *   "Guid": "655b3ce3-ac8b-40ba-be33-08e8c8b2acaa"
      * }
      */
     "Rock.Model.WorkflowType": {
@@ -4617,7 +4781,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "4805baba-77ad-46e3-b164-c73e6624588b"
+     *   "Guid": "bc8667f0-3073-42e4-b453-41aa2e799877"
      * }
      */
     "Rock.Model.DefinedType": {
@@ -5167,7 +5331,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5febb5c7-7a05-40ce-bbcc-91a318b9458a"
+     *   "Guid": "78b1df10-afb6-4e10-aee9-955f19b244e5"
      * }
      */
     "Rock.Model.PersonPreviousName": {
@@ -5213,7 +5377,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "011549a4-4c58-4ccd-aaa5-f3523ff82a29"
+     *   "Guid": "00fcd923-4761-4d27-8fa6-aa0dcf661285"
      * }
      */
     "Rock.Model.AchievementType": {
@@ -5296,7 +5460,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "26e42816-2bb8-420f-81ca-5803f8bf2e49"
+     *   "Guid": "2271cf47-8bdd-4c6a-87fa-d6b960b2f492"
      * }
      */
     "Rock.Model.AchievementTypePrerequisite": {
@@ -5412,7 +5576,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5ba93d01-9bc1-4a2e-bef3-b1905cd4e502"
+     *   "Guid": "d4c7d3ac-fdc0-4b71-bf84-3bf4922883c8"
      * }
      */
     "Rock.Model.MergeTemplate": {
@@ -5464,7 +5628,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "a0313464-968c-47ad-97f9-cff5e5cd6b32"
+     *   "Guid": "73c34a95-8f7f-4f0a-a29e-d3afb976ecef"
      * }
      */
     "Rock.Model.Step": {
@@ -5541,7 +5705,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "97c7fa3a-203f-48ac-8cc9-7eb401ddd035"
+     *   "Guid": "ebe92a89-5fc2-43d1-abc8-f8e82bce9c22"
      * }
      */
     "Rock.Model.StepProgram": {
@@ -5594,7 +5758,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "e5886d29-a899-4abd-9b32-97e282b00dc9"
+     *   "Guid": "80a18f26-1bc3-440e-a41a-a69b9fed941a"
      * }
      */
     "Rock.Model.StepProgramCompletion": {
@@ -5651,7 +5815,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "fff8ec9a-f6fd-4fab-94c9-12aa1ceb8d01"
+     *   "Guid": "4e9a3ef4-51c4-4524-82a1-3f480a5187ad"
      * }
      */
     "Rock.Model.StepStatus": {
@@ -5710,7 +5874,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "d52457e7-594a-4a88-98c9-8deee3cc9c99"
+     *   "Guid": "c1ff9f6d-66dc-4fc0-bfde-458973f63f2d"
      * }
      */
     "Rock.Model.StepType": {
@@ -5779,7 +5943,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "03a4547a-12a2-47f3-a98f-121055361e05"
+     *   "Guid": "1bedc216-464d-49d9-9f7e-fb4ff48d097a"
      * }
      */
     "Rock.Model.StepTypePrerequisite": {
@@ -5825,7 +5989,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "177d740c-8a35-4384-8850-7160c305f281"
+     *   "Guid": "4c2a5510-7456-49e7-ac23-929fb53ba95f"
      * }
      */
     "Rock.Model.StepWorkflow": {
@@ -5873,7 +6037,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "0b4ded0f-8439-45af-b88b-9d5d782d73dd"
+     *   "Guid": "ca2bb5ca-4381-4be8-99a0-35f2436f5c84"
      * }
      */
     "Rock.Model.StepWorkflowTrigger": {
@@ -5929,7 +6093,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "990879ef-bd01-4dc3-b076-1e3812f6084c"
+     *   "Guid": "3e037c16-01f7-49fa-9388-ec13dbee4326"
      * }
      */
     "Rock.Model.Workflow": {
@@ -5995,7 +6159,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "bc3df11d-6777-443e-a0a2-e09dcba8b587"
+     *   "Guid": "0b3cdb41-4f78-4e11-a1b5-e98e19f6b5bf"
      * }
      */
     "Rock.Model.WorkflowAction": {
@@ -6044,7 +6208,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "5bbcb7c5-3f93-45df-9b7f-ab821d4022e7"
+     *   "Guid": "69b9d06e-67b0-47fe-9218-5d6e5227462c"
      * }
      */
     "Rock.Model.WorkflowActivity": {
@@ -6101,7 +6265,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "0feb1f62-3abc-4e40-a486-1aafcd108e55"
+     *   "Guid": "9c9f74e0-3156-4422-86f3-e90ee95c8345"
      * }
      */
     "Rock.Model.Tag": {
@@ -6159,7 +6323,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "d1bfe612-53b2-4d33-964e-77931a8d7d94"
+     *   "Guid": "6759f741-86b0-4253-9b44-862be239fbef"
      * }
      */
     "Rock.Model.TaggedItem": {
@@ -6210,7 +6374,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "b3b3256d-1d03-43c0-8b2d-c1ab1ecda8b9"
+     *   "Guid": "04462a13-3aa6-401c-b78f-6574f059044e"
      * }
      */
     "Rock.Model.MetricValue": {
@@ -6263,7 +6427,7 @@ export interface components {
      *   "ModifiedAuditValuesAlreadyUpdated": false,
      *   "Id": 0,
      *   "IdKey": "",
-     *   "Guid": "d9394cfe-c410-43c3-9fb9-6a9fd95135ef"
+     *   "Guid": "ecd5550e-3514-4b14-ba0e-d38e0cafde81"
      * }
      */
     "Rock.Model.MetricValuePartition": {
@@ -6322,6 +6486,393 @@ export interface components {
        * @description Gets or sets the end date time stamp.
        */
       EndDateTimeStamp?: number;
+    };
+    "Rock.BulkImport.AttendanceImport": {
+      /** Format: int32 */
+      GroupId?: number;
+      /** Format: int32 */
+      LocationId?: number;
+      /** Format: int32 */
+      ScheduleId?: number;
+      /** Format: date-time */
+      OccurrenceDate?: string;
+      /** Format: date-time */
+      StartDateTime?: string;
+      /** Format: int32 */
+      PersonId?: number;
+      /** Format: int32 */
+      PersonAliasId?: number;
+    };
+    "Rock.BulkImport.AttendancesImport": {
+      Attendances?: components["schemas"]["Rock.BulkImport.AttendanceImport"][];
+    };
+    "Rock.Chart.IChartData": {
+      /** Format: int64 */
+      DateTimeStamp?: number;
+      /** Format: double */
+      YValue?: number;
+      SeriesName?: string;
+      MetricValuePartitionEntityIds?: string;
+    };
+    /**
+     * @example {
+     *   "OccurrenceId": 0,
+     *   "StartDateTime": "0001-01-01T00:00:00",
+     *   "RSVP": 3,
+     *   "DidAttend": true,
+     *   "CheckInStatus": 0,
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "30035a0a-1cbf-40cd-a66d-e06e313c3e7e"
+     * }
+     */
+    "Rock.Model.Attendance": {
+      /** Format: int32 */
+      OccurrenceId?: number;
+      /** Format: int32 */
+      PersonAliasId?: number;
+      /** Format: int32 */
+      CampusId?: number;
+      /** Format: int32 */
+      DeviceId?: number;
+      /** Format: int32 */
+      SearchTypeValueId?: number;
+      SearchValue?: string;
+      /** Format: int32 */
+      CheckedInByPersonAliasId?: number;
+      /** Format: int32 */
+      SearchResultGroupId?: number;
+      /** Format: int32 */
+      AttendanceCodeId?: number;
+      /** Format: int32 */
+      QualifierValueId?: number;
+      /** Format: date-time */
+      StartDateTime?: string;
+      /** Format: date-time */
+      EndDateTime?: string;
+      /** @enum {string} */
+      RSVP?: "No" | "Yes" | "Maybe" | "Unknown";
+      DidAttend?: boolean;
+      Processed?: boolean;
+      IsFirstTime?: boolean;
+      Note?: string;
+      ScheduledToAttend?: boolean;
+      RequestedToAttend?: boolean;
+      ScheduleConfirmationSent?: boolean;
+      ScheduleReminderSent?: boolean;
+      /** Format: date-time */
+      RSVPDateTime?: string;
+      /** Format: int32 */
+      DeclineReasonValueId?: number;
+      /** Format: int32 */
+      ScheduledByPersonAliasId?: number;
+      /** Format: int32 */
+      AttendanceCheckInSessionId?: number;
+      /** Format: date-time */
+      PresentDateTime?: string;
+      /** Format: int32 */
+      PresentByPersonAliasId?: number;
+      /** Format: int32 */
+      CheckedOutByPersonAliasId?: number;
+      /** @enum {string} */
+      CheckInStatus?: "Unknown" | "Pending" | "NotPresent" | "Present" | "CheckedOut";
+      /** Format: int32 */
+      SourceValueId?: number;
+      Device?: components["schemas"]["Rock.Model.Device"];
+      SearchTypeValue?: components["schemas"]["Rock.Model.DefinedValue"];
+      AttendanceCode?: components["schemas"]["Rock.Model.AttendanceCode"];
+      Qualifier?: components["schemas"]["Rock.Model.DefinedValue"];
+      DeclineReasonValue?: components["schemas"]["Rock.Model.DefinedValue"];
+      ScheduledByPersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
+      PresentByPersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
+      CheckedOutByPersonAlias?: components["schemas"]["Rock.Model.PersonAlias"];
+      SourceValue?: components["schemas"]["Rock.Model.DefinedValue"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "IssueDateTime": "0001-01-01T00:00:00",
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "ac3e012e-c278-474f-8961-5a099e8d4dae"
+     * }
+     */
+    "Rock.Model.AttendanceCode": {
+      /** Format: date-time */
+      IssueDateTime?: string;
+      Code?: string;
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    "Rock.Model.SchedulerResource": {
+      /** Format: int32 */
+      PersonId?: number;
+      ConfirmationStatus?: string;
+      /** Format: int32 */
+      GroupMemberId?: number;
+      PersonNickName?: string;
+      PersonLastName?: string;
+      PersonName?: string;
+      PersonPhotoUrl?: string;
+      /** Format: date-time */
+      LastAttendanceDateTime?: string;
+      LastAttendanceDateTimeFormatted?: string;
+      Note?: string;
+      HasConflict?: boolean;
+      ConflictNote?: string;
+      HasBlackoutConflict?: boolean;
+      HasPartialBlackoutConflict?: boolean;
+      /** Format: int32 */
+      DisplayedDaysCount?: number;
+      /** Format: int32 */
+      DisplayedTimeSlotCount?: number;
+      BlackoutDates?: string[];
+      HasGroupRequirementsConflict?: boolean;
+      HasSchedulingConflict?: boolean;
+      SchedulingConflicts?: components["schemas"]["Rock.Model.SchedulerResourceScheduled"][];
+      IsAlreadyScheduledForGroup?: boolean;
+      GroupRole?: components["schemas"]["Rock.Web.Cache.GroupTypeRoleCache"];
+      GroupRoleName?: string;
+      ResourcePreferenceList?: components["schemas"]["Rock.Model.SchedulerResourcePreference"][];
+      ResourceScheduledList?: components["schemas"]["Rock.Model.SchedulerResourceScheduled"][];
+    };
+    "Rock.Model.SchedulerResourceAttend": {
+      /** Format: int32 */
+      AttendanceId?: number;
+      /** Format: date-time */
+      OccurrenceDate?: string;
+      MatchesPreference?: string;
+      HasBlackoutConflict?: boolean;
+      DeclinedReason?: string;
+      /** Format: int32 */
+      PersonId?: number;
+      ConfirmationStatus?: string;
+      /** Format: int32 */
+      GroupMemberId?: number;
+      PersonNickName?: string;
+      PersonLastName?: string;
+      PersonName?: string;
+      PersonPhotoUrl?: string;
+      /** Format: date-time */
+      LastAttendanceDateTime?: string;
+      LastAttendanceDateTimeFormatted?: string;
+      Note?: string;
+      HasConflict?: boolean;
+      ConflictNote?: string;
+      HasPartialBlackoutConflict?: boolean;
+      /** Format: int32 */
+      DisplayedDaysCount?: number;
+      /** Format: int32 */
+      DisplayedTimeSlotCount?: number;
+      BlackoutDates?: string[];
+      HasGroupRequirementsConflict?: boolean;
+      HasSchedulingConflict?: boolean;
+      SchedulingConflicts?: components["schemas"]["Rock.Model.SchedulerResourceScheduled"][];
+      IsAlreadyScheduledForGroup?: boolean;
+      GroupRole?: components["schemas"]["Rock.Web.Cache.GroupTypeRoleCache"];
+      GroupRoleName?: string;
+      ResourcePreferenceList?: components["schemas"]["Rock.Model.SchedulerResourcePreference"][];
+      ResourceScheduledList?: components["schemas"]["Rock.Model.SchedulerResourceScheduled"][];
+    };
+    "Rock.Model.SchedulerResourceParameters": {
+      /** Format: int32 */
+      AttendanceOccurrenceGroupId?: number;
+      AttendanceOccurrenceScheduleIds?: number[];
+      AttendanceOccurrenceLocationIds?: number[];
+      /** Format: date-time */
+      AttendanceOccurrenceSundayDate?: string;
+      /** Format: int32 */
+      ResourceGroupId?: number;
+      /** Format: uuid */
+      ResourceGroupGuid?: string;
+      /** Format: int32 */
+      LimitToPersonId?: number;
+      /** @enum {string} */
+      GroupMemberFilterType?: "ShowMatchingPreference" | "ShowAllGroupMembers";
+      /** @enum {string} */
+      ResourceListSourceType?: "GroupMembers" | "GroupMatchingPreference" | "AlternateGroup" | "ParentGroup" | "DataView" | "GroupMatchingAssignment";
+      /** Format: int32 */
+      ResourceDataViewId?: number;
+      /** Format: uuid */
+      ResourceDataViewGuid?: string;
+      ResourceAdditionalPersonIds?: number[];
+    };
+    "Rock.Model.SchedulerResourcePreference": {
+      /** Format: int32 */
+      GroupId?: number;
+      GroupName?: string;
+      /** Format: int32 */
+      ScheduleId?: number;
+      ScheduleName?: string;
+      /** Format: int32 */
+      LocationId?: number;
+      LocationName?: string;
+      /** Format: date-time */
+      OccurrenceDate?: string;
+    };
+    "Rock.Model.SchedulerResourceScheduled": {
+      /** Format: int32 */
+      GroupId?: number;
+      GroupName?: string;
+      /** Format: int32 */
+      ScheduleId?: number;
+      ScheduleName?: string;
+      /** Format: int32 */
+      LocationId?: number;
+      LocationName?: string;
+      /** Format: date-time */
+      OccurrenceDate?: string;
+    };
+    "Rock.Web.Cache.GroupTypeRoleCache": {
+      AttributeIds?: number[];
+      IsSystem?: boolean;
+      /** Format: int32 */
+      GroupTypeId?: number;
+      Name?: string;
+      Description?: string;
+      /** Format: int32 */
+      Order?: number;
+      /** Format: int32 */
+      MaxCount?: number;
+      /** Format: int32 */
+      MinCount?: number;
+      IsLeader?: boolean;
+      CanView?: boolean;
+      CanEdit?: boolean;
+      CanManageMembers?: boolean;
+      IsExcludedFromPeerNetwork?: boolean;
+      IsCheckInAllowed?: boolean;
+      /** Format: int32 */
+      TypeId?: number;
+      TypeName?: string;
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      SupportedActions?: {
+        [key: string]: string;
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      IdKey?: string;
+      /** Format: int32 */
+      Id?: number;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /**
+     * @example {
+     *   "OccurrenceDate": "0001-01-01T00:00:00",
+     *   "SundayDate": "0001-01-07T00:00:00",
+     *   "ShowDeclineReasons": false,
+     *   "OccurrenceDateKey": 10101,
+     *   "Attendees": [],
+     *   "ModifiedAuditValuesAlreadyUpdated": false,
+     *   "Id": 0,
+     *   "IdKey": "",
+     *   "Guid": "e5daec22-d86c-4963-81c4-d8f3bbc3d589"
+     * }
+     */
+    "Rock.Model.AttendanceOccurrence": {
+      /** Format: int32 */
+      GroupId?: number;
+      /** Format: int32 */
+      LocationId?: number;
+      /** Format: int32 */
+      ScheduleId?: number;
+      /** Format: date-time */
+      OccurrenceDate?: string;
+      DidNotOccur?: boolean;
+      /** Format: date-time */
+      SundayDate?: string;
+      Notes?: string;
+      /** Format: int32 */
+      AnonymousAttendanceCount?: number;
+      AcceptConfirmationMessage?: string;
+      DeclineConfirmationMessage?: string;
+      ShowDeclineReasons?: boolean;
+      DeclineReasonValueIds?: string;
+      /** Format: int32 */
+      StepTypeId?: number;
+      Name?: string;
+      /** Format: int32 */
+      OccurrenceDateKey?: number;
+      /** Format: int32 */
+      AttendanceTypeValueId?: number;
+      /** Format: date-time */
+      AttendanceReminderLastSentDateTime?: string;
+      Attendees?: components["schemas"]["Rock.Model.Attendance"][];
+      StepType?: components["schemas"]["Rock.Model.StepType"];
+      OccurrenceSourceDate?: components["schemas"]["Rock.Model.AnalyticsSourceDate"];
+      /** Format: date-time */
+      CreatedDateTime?: string;
+      /** Format: date-time */
+      ModifiedDateTime?: string;
+      /** Format: int32 */
+      CreatedByPersonAliasId?: number;
+      /** Format: int32 */
+      ModifiedByPersonAliasId?: number;
+      ModifiedAuditValuesAlreadyUpdated?: boolean;
+      Attributes?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeCache"];
+      };
+      AttributeValues?: {
+        [key: string]: components["schemas"]["Rock.Web.Cache.AttributeValueCache"];
+      };
+      /** Format: int32 */
+      Id?: number;
+      IdKey?: string;
+      /** Format: uuid */
+      Guid?: string;
+      /** Format: int32 */
+      ForeignId?: number;
+      /** Format: uuid */
+      ForeignGuid?: string;
+      ForeignKey?: string;
+    };
+    /** @description Object used by GetFutureGroupOccurrences to return a formatted title along with the AttendanceOccurrence record. */
+    "Rock.Rest.Controllers.AttendanceOccurrencesController.GroupOccurrenceResponse": {
+      Occurrence?: components["schemas"]["Rock.Model.AttendanceOccurrence"];
+      DisplayTitle?: string;
     };
   };
   responses: never;
@@ -13876,6 +14427,1048 @@ export interface operations {
   };
   /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
   OPTIONSapi_MetricValuePartitions_SetContext_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Queryable GET endpoint */
+  GETapi_Attendances: {
+    parameters: {
+      query?: {
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Attendance"][];
+        };
+      };
+    };
+  };
+  /** POST endpoint. Use this to add a record */
+  POSTapi_Attendances: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.Attendance"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** GET endpoint to get a single record */
+  GETapi_Attendances_id: {
+    parameters: {
+      query?: {
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+      path: {
+        /** @description The Id of the record */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Attendance"];
+        };
+      };
+    };
+  };
+  /** PUT endpoint. Use this to update a record */
+  PUTapi_Attendances_id: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.Attendance"];
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** DELETE endpoint. To delete the record */
+  DELETEapi_Attendances_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** PATCH endpoint. Use this to update a subset of the properties of the record */
+  PATCHapi_Attendances_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    /** @description The values. */
+    requestBody: {
+      content: {
+        "application/json": {
+          [key: string]: Record<string, never>;
+        };
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Adds an attendance. If the AttendanceOccurrence record does not exist it is created. If the Attendance record already exists then it is updated. */
+  PUTapi_Attendances_AddAttendancegroupIdgroupIdlocationIdlocationIdscheduleIdscheduleIdoccurrenceDateoccurrenceDatepersonIdpersonIdpersonAliasIdpersonAliasId: {
+    parameters: {
+      query: {
+        /** @description The group identifier. */
+        groupId: number;
+        /** @description The location identifier. */
+        locationId: number;
+        /** @description The schedule identifier. */
+        scheduleId: number;
+        /** @description The occurrence date. */
+        occurrenceDate: string;
+        /** @description The person identifier. If provided it is used to get the primary PersonAliasId and takes precedence over "personAliasId" */
+        personId?: number;
+        /** @description The person alias identifier. Is not used if a "personId" is provided. */
+        personAliasId?: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Attendance"];
+        };
+      };
+    };
+  };
+  /** POST an attribute value. Use this to set an attribute value for the record */
+  POSTapi_Attendances_AttributeValue_idattributeKeyattributeKeyattributeValueattributeValue: {
+    parameters: {
+      query: {
+        /** @description The attribute key. */
+        attributeKey: string;
+        /** @description The attribute value. */
+        attributeValue: string;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** DELETE to delete the specified attribute value for the record */
+  DELETEapi_Attendances_AttributeValue_idattributeKeyattributeKey: {
+    parameters: {
+      query: {
+        /** @description The attribute key. */
+        attributeKey: string;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Determines whether this the person can be scheduled for the specified occurrence */
+  GETapi_Attendances_CanSchedulePersonpersonIdpersonIdattendanceOccurrenceIdattendanceOccurrenceIdfromAttendanceOccurrenceIdfromAttendanceOccurrenceId: {
+    parameters: {
+      query: {
+        /** @description The person identifier. */
+        personId: number;
+        /** @description The attendance occurrence identifier. */
+        attendanceOccurrenceId: number;
+        /** @description From attendance occurrence identifier. */
+        fromAttendanceOccurrenceId?: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Gets a list of objects represented by the selected data view */
+  GETapi_Attendances_DataView_id: {
+    parameters: {
+      query?: {
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+      path: {
+        /** @description The id. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Attendance"][];
+        };
+      };
+    };
+  };
+  GETapi_Attendances_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId: {
+    parameters: {
+      query?: {
+        personId?: number;
+        personAliasId?: number;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Attendance"][];
+        };
+      };
+    };
+  };
+  /** Gets a list of scheduled attendances ( people that are scheduled ) for an attendance occurrence */
+  GETapi_Attendances_GetAttendingSchedulerResourcesattendanceOccurrenceIdattendanceOccurrenceId: {
+    parameters: {
+      query: {
+        /** @description The attendance occurrence identifier. */
+        attendanceOccurrenceId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.SchedulerResourceAttend"][];
+        };
+      };
+    };
+  };
+  GETapi_Attendances_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive: {
+    parameters: {
+      query?: {
+        attributeId?: number;
+        attributeKey?: string;
+        value?: string;
+        caseSensitive?: boolean;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Attendance"][];
+        };
+      };
+    };
+  };
+  /** Gets the chart data. */
+  GETapi_Attendances_GetChartDatagroupBygroupBygraphBygraphBystartDatestartDateendDateendDategroupIdsgroupIdscampusIdscampusIdsscheduleIdsscheduleIdsdataViewIddataViewId: {
+    parameters: {
+      query?: {
+        groupBy?: "Week" | "Month" | "Year";
+        graphBy?: "Total" | "Group" | "Campus" | "Schedule" | "Location";
+        startDate?: string;
+        endDate?: string;
+        groupIds?: string;
+        campusIds?: string;
+        scheduleIds?: string;
+        dataViewId?: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Chart.IChartData"][];
+        };
+      };
+    };
+  };
+  /** Gets an individual scheduler resource. */
+  POSTapi_Attendances_GetSchedulerResourcepersonIdpersonId: {
+    parameters: {
+      query: {
+        /** @description The person identifier. */
+        personId: number;
+      };
+    };
+    /** @description The scheduler resource parameters. */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.SchedulerResourceParameters"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.SchedulerResource"];
+        };
+      };
+    };
+  };
+  /** Gets a list of available the scheduler resources (people) based on the options specified in schedulerResourceParameters */
+  POSTapi_Attendances_GetSchedulerResources: {
+    /** @description The scheduler resource parameters. */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.SchedulerResourceParameters"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.SchedulerResource"][];
+        };
+      };
+    };
+  };
+  /**
+   * Import Attendance Records using BulkInsert
+   * @description For best performance, limit to 1000 records at a time.
+   * Either the PersonId or PersonAliasId value can be specified, but at least one is required.
+   */
+  POSTapi_Attendances_Import: {
+    /** @description The Attendances to bulk import. */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.BulkImport.AttendancesImport"];
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Determines if the entity id is in the data view */
+  GETapi_Attendances_InDataView_dataViewId_entityId: {
+    parameters: {
+      path: {
+        /** @description The data view identifier. */
+        dataViewId: number;
+        /** @description The entity identifier. */
+        entityId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": boolean;
+        };
+      };
+    };
+  };
+  /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
+  POSTapi_Attendances_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName: {
+    parameters: {
+      query: {
+        /** @description The workflow type identifier. */
+        workflowTypeId: number;
+        /** @description Name of the workflow. */
+        workflowName: string;
+      };
+      path: {
+        /** @description The Id of the entity to pass to workflow, if entity cannot be loaded workflow will still be launched but without passing an entity */
+        id: number;
+      };
+    };
+    /** @description Optional list of workflow values to set. */
+    requestBody: {
+      content: {
+        "application/json": {
+          [key: string]: string;
+        };
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Creates attendance records if they don't exist for a designated occurrence and list of person IDs. */
+  POSTapi_Attendances_RegisterRSVPRecipientsoccurrenceIdoccurrenceId: {
+    parameters: {
+      query: {
+        /** @description The ID of the AttendanceOccurrence record. */
+        occurrenceId: number;
+      };
+    };
+    /** @description A list of Person IDs. */
+    requestBody: {
+      content: {
+        "application/json": string[];
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Schedules a person to an attendance and immediately marks them as confirmed */
+  PUTapi_Attendances_ScheduledPersonAddConfirmedpersonIdpersonIdattendanceOccurrenceIdattendanceOccurrenceId: {
+    parameters: {
+      query: {
+        /** @description The person identifier. */
+        personId: number;
+        /** @description The attendance occurrence identifier. */
+        attendanceOccurrenceId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Attendance"];
+        };
+      };
+    };
+  };
+  /** Schedules a person to an attendance and marks them as pending */
+  PUTapi_Attendances_ScheduledPersonAddPendingpersonIdpersonIdattendanceOccurrenceIdattendanceOccurrenceId: {
+    parameters: {
+      query: {
+        /** @description The person identifier. */
+        personId: number;
+        /** @description The attendance occurrence identifier. */
+        attendanceOccurrenceId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.Attendance"];
+        };
+      };
+    };
+  };
+  /** Confirms a person for a scheduled attendance */
+  PUTapi_Attendances_ScheduledPersonConfirmattendanceIdattendanceId: {
+    parameters: {
+      query: {
+        /** @description The attendance identifier. */
+        attendanceId: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Set person as declined for a scheduled attendance */
+  PUTapi_Attendances_ScheduledPersonDeclineattendanceIdattendanceId: {
+    parameters: {
+      query: {
+        /** @description The attendance identifier. */
+        attendanceId: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Sets a person's status to pending for the scheduled attendance */
+  PUTapi_Attendances_ScheduledPersonPendingattendanceIdattendanceId: {
+    parameters: {
+      query: {
+        /** @description The attendance identifier. */
+        attendanceId: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Updates attendance record to indicate person is not pending, or confirmed, or declined */
+  PUTapi_Attendances_ScheduledPersonRemoveattendanceIdattendanceId: {
+    parameters: {
+      query: {
+        /** @description The attendance identifier. */
+        attendanceId: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Sends (or Re-sends) a confirmation email to the person in the specified scheduled attendance record */
+  PUTapi_Attendances_ScheduledPersonSendConfirmationCommunicationattendanceIdattendanceId: {
+    parameters: {
+      query: {
+        /** @description The attendance identifier. */
+        attendanceId: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+  PUTapi_Attendances_SetContext_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+  OPTIONSapi_Attendances_SetContext_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Queryable GET endpoint */
+  GETapi_AttendanceOccurrences: {
+    parameters: {
+      query?: {
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.AttendanceOccurrence"][];
+        };
+      };
+    };
+  };
+  /** POST endpoint. Use this to add a record */
+  POSTapi_AttendanceOccurrences: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.AttendanceOccurrence"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** GET endpoint to get a single record */
+  GETapi_AttendanceOccurrences_id: {
+    parameters: {
+      query?: {
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+      path: {
+        /** @description The Id of the record */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.AttendanceOccurrence"];
+        };
+      };
+    };
+  };
+  /** PUT endpoint. Use this to update a record */
+  PUTapi_AttendanceOccurrences_id: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Rock.Model.AttendanceOccurrence"];
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** DELETE endpoint. To delete the record */
+  DELETEapi_AttendanceOccurrences_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** PATCH endpoint. Use this to update a subset of the properties of the record */
+  PATCHapi_AttendanceOccurrences_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    /** @description The values. */
+    requestBody: {
+      content: {
+        "application/json": {
+          [key: string]: Record<string, never>;
+        };
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** POST an attribute value. Use this to set an attribute value for the record */
+  POSTapi_AttendanceOccurrences_AttributeValue_idattributeKeyattributeKeyattributeValueattributeValue: {
+    parameters: {
+      query: {
+        /** @description The attribute key. */
+        attributeKey: string;
+        /** @description The attribute value. */
+        attributeValue: string;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** DELETE to delete the specified attribute value for the record */
+  DELETEapi_AttendanceOccurrences_AttributeValue_idattributeKeyattributeKey: {
+    parameters: {
+      query: {
+        /** @description The attribute key. */
+        attributeKey: string;
+      };
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Creates a new attendance occurrence for a group. */
+  POSTapi_AttendanceOccurrences_CreateGroupOccurrencegroupIdgroupIdoccurrenceDateoccurrenceDatescheduleIdscheduleIdlocationIdlocationId: {
+    parameters: {
+      query: {
+        groupId: number;
+        occurrenceDate: string;
+        scheduleId?: number;
+        locationId?: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.AttendanceOccurrence"];
+        };
+      };
+    };
+  };
+  /** Gets a list of objects represented by the selected data view */
+  GETapi_AttendanceOccurrences_DataView_id: {
+    parameters: {
+      query?: {
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+      path: {
+        /** @description The id. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.AttendanceOccurrence"][];
+        };
+      };
+    };
+  };
+  GETapi_AttendanceOccurrences_FollowedItemspersonIdpersonIdpersonAliasIdpersonAliasId: {
+    parameters: {
+      query?: {
+        personId?: number;
+        personAliasId?: number;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.AttendanceOccurrence"][];
+        };
+      };
+    };
+  };
+  GETapi_AttendanceOccurrences_GetByAttributeValueattributeIdattributeIdattributeKeyattributeKeyvaluevaluecaseSensitivecaseSensitive: {
+    parameters: {
+      query?: {
+        attributeId?: number;
+        attributeKey?: string;
+        value?: string;
+        caseSensitive?: boolean;
+        /** @description Expands related entities inline. */
+        $expand?: string;
+        /** @description Filters the results, based on a Boolean condition. */
+        $filter?: string;
+        /** @description Selects which properties to include in the response. */
+        $select?: string;
+        /** @description Sorts the results. */
+        $orderby?: string;
+        /** @description Returns only the first n results. */
+        $top?: number;
+        /** @description Skips the first n results. */
+        $skip?: number;
+        /** @description Specify 'simple' or 'expanded' to load attributes */
+        loadAttributes?: "simple" | "expanded";
+        /** @description Specify a comma-delimited list of attribute keys to limit to specific attributes, */
+        attributeKeys?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Model.AttendanceOccurrence"][];
+        };
+      };
+    };
+  };
+  /** Gets all the occurrences for a group for the selected dates, location and schedule, sorted by occurrence data in ascending order. */
+  GETapi_AttendanceOccurrences_GetFutureGroupOccurrencesgroupIdgroupIdtoDateTimetoDateTimelocationIdslocationIdsscheduleIdsscheduleIds: {
+    parameters: {
+      query: {
+        groupId: number;
+        toDateTime?: string;
+        locationIds?: string;
+        scheduleIds?: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Rock.Rest.Controllers.AttendanceOccurrencesController.GroupOccurrenceResponse"][];
+        };
+      };
+    };
+  };
+  /** Determines if the entity id is in the data view */
+  GETapi_AttendanceOccurrences_InDataView_dataViewId_entityId: {
+    parameters: {
+      path: {
+        /** @description The data view identifier. */
+        dataViewId: number;
+        /** @description The entity identifier. */
+        entityId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": boolean;
+        };
+      };
+    };
+  };
+  /** Launches a workflow. And optionally passes the entity with selected id as the entity for the workflow */
+  POSTapi_AttendanceOccurrences_LaunchWorkflow_idworkflowTypeIdworkflowTypeIdworkflowNameworkflowName: {
+    parameters: {
+      query: {
+        /** @description The workflow type identifier. */
+        workflowTypeId: number;
+        /** @description Name of the workflow. */
+        workflowName: string;
+      };
+      path: {
+        /** @description The Id of the entity to pass to workflow, if entity cannot be loaded workflow will still be launched but without passing an entity */
+        id: number;
+      };
+    };
+    /** @description Optional list of workflow values to set. */
+    requestBody: {
+      content: {
+        "application/json": {
+          [key: string]: string;
+        };
+      };
+    };
+    responses: {
+      /** @description No Content */
+      204: {
+        content: {
+        };
+      };
+    };
+  };
+  /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+  PUTapi_AttendanceOccurrences_SetContext_id: {
+    parameters: {
+      path: {
+        /** @description The identifier. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+    };
+  };
+  /** Sets the Context Cookie to the specified record. Use this to set the Campus Context, Group Context, etc */
+  OPTIONSapi_AttendanceOccurrences_SetContext_id: {
     parameters: {
       path: {
         /** @description The identifier. */

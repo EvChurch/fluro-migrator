@@ -68,7 +68,14 @@ export async function load(value: RockContact): Promise<CacheObject> {
   }
   await loadTag(data, value)
 
-  return cacheObject
+  return {
+    ...cacheObject,
+    data: {
+      ...cacheObject.data,
+      PrimaryAliasId: data.PrimaryAliasId,
+      PrimaryCampusId: data.PrimaryCampusId
+    }
+  }
 }
 
 async function loadContact(value: RockContact): Promise<CacheObject> {

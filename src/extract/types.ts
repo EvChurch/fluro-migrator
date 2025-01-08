@@ -1,5 +1,7 @@
+import type { Cache } from '../load/types'
+
 export interface ExtractFn<T> {
-  (): Promise<AsyncIterator<ExtractIterator<T>>>
+  (cache: Cache): Promise<AsyncIterator<ExtractIterator<T>>>
 }
 
 export interface Realm {

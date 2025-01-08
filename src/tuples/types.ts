@@ -5,6 +5,7 @@ import type { TransformFn } from '../transform/types'
 export type ETLTuple<TInput, TOutput> = [
   name: string,
   extract: ExtractFn<TInput>,
-  transform: TransformFn<TInput, TOutput>,
-  load: LoadFn<TOutput>
+  transform: TransformFn<TInput, TOutput | undefined>,
+  load: LoadFn<TOutput>,
+  remove?: () => Promise<void>
 ]
