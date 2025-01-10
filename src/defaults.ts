@@ -21,3 +21,8 @@ export const ScheduleIdMap = {
 export const GroupIdMap = {
   WeekendService: 28384
 }
+
+export const TagIdMap = {
+  UnsubscribedFromSMS: 61,
+  UnsubscribedFromEmail: 84
+}

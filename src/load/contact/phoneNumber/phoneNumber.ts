@@ -1,7 +1,8 @@
 import f from 'odata-filter-builder'
 
+import { TagIdMap } from '../../../defaults'
 import type { components } from '../../client'
-import { GET, POST, RockApiError } from '../../client'
+import { GET, PATCH, POST, RockApiError } from '../../client'
 import type { RockContact } from '../contact'
 
 let NumberTypeValueId: number
@@ -48,7 +49,7 @@ export async function load(
 
   //if it doesnt exist then add the number
   if (phoneNumberData == null || phoneNumberData?.length === 0) {
-    const value = {
+    const body = {
       PersonId: personId,
       CountryCode: '+64',
       Number: phoneNumber.substring(0, 19),
@@ -56,10 +57,27 @@ export async function load(
       ForeignKey: fluroId,
       FullNumber: `64${phoneNumber}`.substring(0, 22),
       IsSystem: false,
-      IsMessagingEnabled: false
+      IsMessagingEnabled: !value.data.TagIds.includes(
+        TagIdMap.UnsubscribedFromSMS
+      )
     }
     const { error } = await POST('/api/PhoneNumbers', {
-      body: value
+      body
+    })
+    if (error != null) throw new RockApiError(error, { cause: { value } })
+  } else if (phoneNumberData[0].Id != null) {
+    // if it does exist then update phone number to enable messaging
+    const { error } = await PATCH(`/api/PhoneNumbers/{id}`, {
+      params: {
+        path: {
+          id: phoneNumberData[0].Id
+        }
+      },
+      body: {
+        IsMessagingEnabled: !value.data.TagIds.includes(
+          TagIdMap.UnsubscribedFromSMS
+        )
+      } as unknown as Record<string, never>
     })
     if (error != null) throw new RockApiError(error, { cause: { value } })
   }

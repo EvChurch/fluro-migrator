@@ -1,6 +1,6 @@
 import { compact, find, truncate } from 'lodash'
 
-import { GroupRoleId } from '../../defaults'
+import { GroupRoleId, TagIdMap } from '../../defaults'
 import type { FluroContact } from '../../extract/contact'
 import type { RockContact, Step } from '../../load/contact'
 import type { Cache } from '../../load/types'
@@ -191,6 +191,10 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
       `Couldn't find connection status value id for contact ${value._id} with definition ${value.definition}`
     )
 
+  const TagIds = value.tags
+    .map((tag) => cache['tag'][tag._id]?.rockId)
+    .filter(Boolean)
+
   return {
     IsSystem: false,
     BirthDay: value?.dobDay,
@@ -200,6 +204,9 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
     IsDeceased: value.deceased,
     DeceasedDate: value.deceasedDate ?? undefined,
     Email: value?.emails?.[0],
+    EmailPreference: TagIds.includes(TagIdMap.UnsubscribedFromEmail)
+      ? (2 as unknown as 'DoNotEmail')
+      : undefined,
     FirstName: truncate(value.firstName, { length: 50 }),
     LastName: value.lastName,
     MiddleName: value.middleName,
@@ -237,9 +244,7 @@ export function transform(cache: Cache, value: FluroContact): RockContact {
           StepTypeId: 5
         }
       ],
-      TagIds: value.tags
-        .map((tag) => cache['tag'][tag._id]?.rockId)
-        .filter(Boolean),
+      TagIds,
       AttributeValues: {
         FirstVisit: value.details?.evPathwayDetails?.data?.['1stVisit'],
         SecondVisit: value.details?.evPathwayDetails?.data?.['2ndVisit'],
