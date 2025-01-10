@@ -1,11 +1,20 @@
+import colors from 'ansi-colors'
+import type { MultiBar } from 'cli-progress'
+import { omit } from 'lodash'
 import f from 'odata-filter-builder'
 
+import type { RockAttendance } from '../attendance'
+import { load as loadAttendance } from '../attendance'
 import type { components } from '../client'
 import { GET, PATCH, POST, RockApiError } from '../client'
 import type { CacheObject } from '../types'
 
 export type RockAttendanceOccurence =
-  components['schemas']['Rock.Model.AttendanceOccurrence']
+  components['schemas']['Rock.Model.AttendanceOccurrence'] & {
+    data: {
+      Attendances: RockAttendance[]
+    }
+  }
 
 async function loadAttendanceOccurrence(
   value: RockAttendanceOccurence
@@ -28,14 +37,14 @@ async function loadAttendanceOccurrence(
           id: data[0].Id
         }
       },
-      body: value as unknown as Record<string, never>
+      body: omit(value, 'data') as unknown as Record<string, never>
     })
     if (error != null) throw new RockApiError(error, { cause: { value } })
     return { rockId: data[0].Id }
   } else {
     // attendance occurrence does not exist
     const { data, error } = await POST('/api/AttendanceOccurrences', {
-      body: value
+      body: omit(value, 'data')
     })
     if (error != null) throw new RockApiError(error, { cause: { value } })
 
@@ -44,9 +53,29 @@ async function loadAttendanceOccurrence(
 }
 
 export async function load(
-  value: RockAttendanceOccurence
+  value: RockAttendanceOccurence,
+  multibar: MultiBar
 ): Promise<CacheObject> {
   const cacheObject = await loadAttendanceOccurrence(value)
+
+  const progress = multibar.create(
+    value.data.Attendances.length,
+    0,
+    {
+      name: 'service/attendance'
+    },
+    {
+      format: `${colors.blue('{bar}')} {name} | {percentage}% | {value}/{total}`
+    }
+  )
+  for (const attendance of value.data.Attendances) {
+    await loadAttendance({
+      ...attendance,
+      OccurrenceId: cacheObject.rockId
+    })
+    progress.increment()
+  }
+  multibar.remove(progress)
 
   return cacheObject
 }

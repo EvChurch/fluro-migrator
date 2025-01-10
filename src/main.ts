@@ -4,7 +4,7 @@ import fsPromise from 'node:fs/promises'
 import path from 'path'
 
 import colors from 'ansi-colors'
-import { SingleBar } from 'cli-progress'
+import { MultiBar } from 'cli-progress'
 import { parse } from 'ts-command-line-args'
 
 import type { Cache, CacheObject } from './load/types'
@@ -64,6 +64,16 @@ const args = parse<CommandLineArguments>(
 
 async function main(): Promise<void> {
   try {
+    const multibar = new MultiBar({
+      format: `${colors.cyan(
+        '{bar}'
+      )} {name} | {percentage}% | {value}/{total} | duration: {duration_formatted}`,
+      barCompleteChar: '\u2588',
+      barIncompleteChar: '\u2591',
+      hideCursor: true,
+      clearOnComplete: true
+    })
+
     const cache: Cache = await loadCache()
 
     for (const [name, extract, transform, load, remove] of tuples) {
@@ -72,7 +82,7 @@ async function main(): Promise<void> {
 
       if (args.remove != null && args.remove.length > 0) {
         if (args.remove.includes(name) && remove != null) {
-          await remove()
+          await remove(multibar)
         }
         continue
       }
@@ -89,16 +99,12 @@ async function main(): Promise<void> {
       // transform and load data
       let result = await iterator.next()
 
-      const progress = new SingleBar({
-        format: `${colors.cyan(
-          '{bar}'
-        )} ${name} | {percentage}% | {value}/{total} | duration: {duration_formatted}`,
-        barCompleteChar: '\u2588',
-        barIncompleteChar: '\u2591',
-        hideCursor: true
-      })
-
-      progress.start((result.value as { max: number }).max, 0)
+      const progress = multibar.create(
+        (result.value as { max: number }).max,
+        0,
+        { name },
+        { clearOnComplete: true }
+      )
 
       while (!result.done) {
         const tmpCache = await Promise.all(
@@ -112,7 +118,7 @@ async function main(): Promise<void> {
                 progress.increment()
                 return {}
               }
-              const cacheObject = await load(rockObject)
+              const cacheObject = await load(rockObject, multibar)
               progress.increment()
               return { [value._id]: cacheObject }
             }
@@ -128,6 +134,7 @@ async function main(): Promise<void> {
       }
       progress.stop()
     }
+    multibar.stop()
   } catch (error) {
     console.error(error)
     throw error

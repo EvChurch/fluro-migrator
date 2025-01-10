@@ -1,3 +1,5 @@
+import type { MultiBar } from 'cli-progress'
+
 export interface CacheObject {
   rockId: number
   data?: {
@@ -10,5 +12,5 @@ export interface Cache {
   }
 }
 export interface LoadFn<T> {
-  (value: T): Promise<CacheObject>
+  (value: T, multibar: MultiBar): Promise<CacheObject>
 }

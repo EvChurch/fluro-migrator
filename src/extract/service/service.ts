@@ -1,5 +1,6 @@
 import z from 'zod'
 
+import { client } from '../client'
 import { extractFromFluro } from '../lib'
 
 const schema = z
@@ -29,20 +30,21 @@ const schema = z
       .refine((realms) => realms.length === 1)
       .transform((realms) => realms[0]),
     startDate: z.string().datetime(),
-    definition: z.literal('service'),
-    track: z
-      .object({
+    checkins: z.array(
+      z.object({
         _id: z.string(),
-        title: z.string(),
-        definition: z.literal('serviceTime')
+        created: z.string().datetime(),
+        event: z.object({ _id: z.string() }),
+        contact: z.object({ _id: z.string() })
       })
-      .optional()
+    )
   })
   .transform(({ realms, ...rest }) => ({ realm: realms, ...rest }))
 
 export type FluroService = z.infer<typeof schema>
 
 export const extract = extractFromFluro<FluroService>({
+  pageSize: 25,
   contentType: 'service',
   filterBody: {
     allDefinitions: true,
@@ -71,5 +73,26 @@ export const extract = extractFromFluro<FluroService>({
       ]
     }
   },
-  schema
+  schema,
+  preprocess: async (values) => {
+    const parsedValues = z
+      .array(z.object({ _id: z.string() }).passthrough())
+      .parse(values)
+    return await Promise.all(
+      parsedValues.map(async (value) => {
+        const req = await client.get(`/checkin/event/${value._id}`)
+        const checkinSchema = z.array(
+          z.object({
+            _id: z.string(),
+            created: z.string().datetime(),
+            event: z.undefined().transform(() => ({ _id: value._id })),
+            contact: z.object({ _id: z.string() })
+          })
+        )
+        const data = checkinSchema.parse(req.data)
+
+        return { ...value, checkins: data }
+      })
+    )
+  }
 })

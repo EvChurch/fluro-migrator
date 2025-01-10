@@ -32,13 +32,17 @@ interface ExtractFromFluroOptions {
     select?: string[]
   }
   schema?: ZodSchema
+  preprocess?: (values: unknown) => Promise<unknown[]>
+  pageSize?: number
 }
 
 export function extractFromFluro<T>({
   contentType,
   filterBody = {},
   multipleBody = {},
-  schema
+  schema,
+  pageSize = PAGE_SIZE,
+  preprocess
 }: ExtractFromFluroOptions): () => Promise<AsyncIterator<ExtractIterator<T>>> {
   return async function extract(): Promise<AsyncIterator<ExtractIterator<T>>> {
     const filterReq = await client.post<{ _id: string }[]>(
@@ -55,20 +59,21 @@ export function extractFromFluro<T>({
         value: { collection: T[]; max: number }
         done: boolean
       }> => {
-        const ids = allIds.splice(0, PAGE_SIZE)
+        const ids = allIds.splice(0, pageSize)
         const req = await client.post<T[]>(`/content/${contentType}/multiple`, {
           ...multipleBody,
           ids,
-          limit: PAGE_SIZE
+          limit: pageSize
         })
-        if (req.data.length === 0) {
+        const data = preprocess != null ? await preprocess(req.data) : req.data
+        if (data.length === 0) {
           return { value: { collection: [], max }, done: true }
         } else {
           if (schema != null) {
             try {
               return {
                 value: {
-                  collection: z.array(schema).parse(req.data) as T[],
+                  collection: z.array(schema).parse(data) as T[],
                   max
                 },
                 done: false
@@ -76,13 +81,13 @@ export function extractFromFluro<T>({
             } catch (e) {
               if (e instanceof z.ZodError) {
                 e.errors.forEach((err) => {
-                  console.log(get(req.data, err.path))
+                  console.error(get(data, err.path))
                 })
               }
               throw e
             }
           }
-          return { value: { collection: req.data, max }, done: false }
+          return { value: { collection: data as T[], max }, done: false }
         }
       }
     }
